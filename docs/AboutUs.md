@@ -50,10 +50,9 @@ You can reach us at the email `dylan_wee_l_h_01@u.nus.edu`
 
 ### James Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/yhtham7.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/yhtham7)]
 
 * Role: Developer
 * Responsibilities: UI
