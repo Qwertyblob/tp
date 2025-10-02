@@ -43,12 +43,11 @@ You can reach us at the email `dylan_wee_l_h_01@u.nus.edu`
 <img src="images/ais555.png" width="200px">
 
 [[github](http://github.com/ais555)]
-[portfolio]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Tham Yao Hui
 
 <img src="images/yhtham7.png" width="200px">
 
