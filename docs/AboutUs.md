@@ -38,12 +38,12 @@ You can reach us at the email `dylan_wee_l_h_01@u.nus.edu`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Isaac Lee Kye Xen
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ais555.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ais555)]
+[portfolio]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
