@@ -20,14 +20,13 @@ You can reach us at the email `dylan_wee_l_h_01@u.nus.edu`
 * Role: Developer
 * Responsibilities: Features
 
-### Jane Doe
+### Dylan Wee Lee Hon
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/wylandee.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/wylandee)]
 
-* Role: Team Lead
+* Role: Developer
 * Responsibilities: UI
 
 ### Johnny Doe
