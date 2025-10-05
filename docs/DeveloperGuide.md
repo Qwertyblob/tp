@@ -361,11 +361,44 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+##### Environment
 
-*{More to be added}*
+* The application should work on any _mainstream OS_ (Windows, macOS, Linux) as long as it has Java `17` or above installed.
+* The application should run as a _single_ executable JAR file without any installation.
+
+##### Performance
+
+* The system should be able to hold up to 1000 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
+* The application should have a startup time of under 5 seconds.
+
+##### Usability
+
+* The primary input method should be **text-based commands**.
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* The system should not crash when invalid commands are entered.
+* The system should be **fully usable offline**.
+* The GUI should be usable on screen resolutions of 1280x720 and higher, and for screen scales 150%.
+* The GUI should be used primarily for visual feedback and not as the main input method.
+
+##### Maintainability
+
+* The codebase should follow OOP design principles.
+* The system should be developed incrementally with commits that reflect feature milestones.
+
+##### Scalability
+
+* The system should support small to medium tuition centres (around 100-200 students, 10-20 tutors).
+* The system is not intended for large institutions with thousands of records.
+
+##### Data Management
+
+* All data must be stored locally in a **human-editable text file**.
+* The system must not use a DBMS (database management system).
+
+##### File Size
+
+* The final JAR file should not exceed **100MB**.
+* The UG and DG documents should not exceed **15MB each** and remain PDF-friendly.
 
 ### Glossary
 
