@@ -401,6 +401,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Extensions**
+
+* 1a. The list is empty.
+  * 1a1. Rollcall shows a message indicating the list is empty. 
+  
+    Use case ends.
+
 **Use case: UC05 - Search persons or classes**
 
 **MSS**
@@ -409,6 +416,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Rollcall shows a list of all items matching the requested parameters.
 
     Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+    * 1a1. Rollcall shows a message indicating the list is empty (i.e. no matching items).
+
+      Use case ends.
 
 **Use case: UC06 - Delete an item**
 
