@@ -336,8 +336,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ##### Performance
 
-* The system should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-* The system should process commands (e.g. `add`, `delete`, `find`) in under 1 second.
+* The system should be able to hold up to 1000 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
 * The application should have a startup time of under 5 seconds.
 
 ##### Usability
@@ -362,7 +361,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ##### Data Management
 
 * All data must be stored locally in a **human-editable text file**.
-* The system must not use a DBMS.
+* The system must not use a DBMS (database management system).
 
 ##### File Size
 
