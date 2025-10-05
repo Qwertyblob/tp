@@ -428,38 +428,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests a <u>certain list of persons or classes (UC05)</u>.
-3.  User requests to delete a specific item in the list.
-4.  Rollcall requests confirmation.
-5.  User confirms the deletion.
-6.  Rollcall deletes the item.
+1. User requests a <u>certain list of persons or classes (UC05)</u>.
+2. User requests to delete a specific item in the list.
+3. Rollcall requests confirmation.
+4. User confirms the deletion.
+5. Rollcall deletes the item.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
   Use case ends.
 
 
-* 3a. The user gives an item that is not in the list.
+* 2a. The user gives an item that is not in the list.
 
-  * 3a1. Rollcall shows an error message.
+  * 2a1. Rollcall shows an error message.
 
     Use case resumes at step 2.
 
 
-* 3b. User requested a forced deletion.
+* 2b. User requested a forced deletion.
 
-  Use case resumes at step 6.
+  Use case resumes at step 5.
 
 
-* 3c. There are multiple possible matches for the requested item.
-  * 3c1. Rollcall requests clarification.
-  * 3c2. User clarifies the item to be deleted.
+* 2c. There are multiple possible matches for the requested item.
+  * 2c1. Rollcall requests clarification.
+  * 2c2. User clarifies the item to be deleted.
   
-    Use case resumes at step 4.
+    Use case resumes at step 3.
 
 *{More to be added}*
 
