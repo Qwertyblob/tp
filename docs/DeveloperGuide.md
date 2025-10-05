@@ -332,32 +332,156 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Rollcall` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Add an item (a student, tutor or class)**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add the desired item with its necessary information
+2.  Rollcall shows a success message and the new item
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The user does not provide the required information in the proper format.
+    * 1a1. Rollcall shows an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The given information matches an existing item exactly
+    * 1b1. Rollcall shows an error message.
+    
+      Use case resumes at step 1.
+
+**Use case: UC02 - Edit an item (a student, tutor or class)**
+
+**MSS**
+
+1.  User requests to edit the desired item, providing its new information
+2.  Rollcall shows a success message and the edited item
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The user does not provide the required information in the proper format.
+  * 1a1. Rollcall shows an error message.
+
+    Use case resumes at step 1.
+
+* 1b. The given information matches an existing item exactly
+  * 1b1. Rollcall shows an error message.
+
+    Use case resumes at step 1.
+
+**Use case: UC03 - Mark a student's attendance**
+
+**MSS**
+
+1.  User requests to mark a student's attendance
+2.  Rollcall shows a success message
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The user does not provide the required information in the proper format.
+    * 1a1. Rollcall shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC04 - List persons or classes**
+
+**MSS**
+
+1. User requests to list students, tutors, or classes
+2. Rollcall shows a list of all students, tutors or classes respectively
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+  * 1a1. Rollcall shows a message indicating the list is empty. 
+  
+    Use case ends.
+
+**Use case: UC05 - Search persons or classes**
+
+**MSS**
+
+1. User requests to list items with specific parameters.
+2. Rollcall shows a list of all items matching the requested parameters.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+    * 1a1. Rollcall shows a message indicating the list is empty (i.e. no matching items).
+
+      Use case ends.
+
+**Use case: UC06 - Delete an item**
+
+**MSS**
+
+1. User requests a <u>certain list of persons or classes (UC05)</u>.
+2. User requests to delete a specific item in the list.
+3. Rollcall requests confirmation.
+4. User confirms the deletion.
+5. Rollcall deletes the item.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+* 2a. The user gives an item that is not in the list.
 
-      Use case resumes at step 2.
+  * 2a1. Rollcall shows an error message.
 
-*{More to be added}*
+    Use case resumes at step 2.
+
+
+* 2b. User requested a forced deletion.
+
+  Use case resumes at step 5.
+
+
+* 2c. There are multiple possible matches for the requested item.
+  * 2c1. Rollcall requests clarification.
+  * 2c2. User clarifies the item to be deleted.
+  
+    Use case resumes at step 3.
+
+**Use case: UC07 - Enroll a new student into a class**
+
+**MSS**
+
+1. User <u>adds a new student (UC01)</u>.
+2. User requests to enroll the student into a class.
+3. Rollcall shows a success message and a list of current students in the class.
+    
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provided incorrect format.
+  * 2a1. Rollcall shows an error message.
+
+    Use case resumes at step 2.
+
+* 2b. Enrollment is not possible (clashes with existing class/ class is fully enrolled/ student is already enrolled)
+  * 2b1. Rollcall shows an error message.
+
+    Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
