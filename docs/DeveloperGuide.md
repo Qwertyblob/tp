@@ -279,22 +279,54 @@ _{Explain here how the data archiving feature will be implemented}_
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* tuition centre HR admin
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
+* General HR management of the students and staff in the centre
+* Streamline enrollment of student into classes
+* Students and tutors can be filtered by subject/class
+* More intuitive and easier to use than software like excel
+* Lightweight, offline address book which provide the essential HR features without the overhead of fullblown HR software
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                         | I want to …​                                                                            | So that I can…​                                                                                                                            |
+|----------|---------------------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| `* * *`  | hr admin                        | check the classes taught by various staff                                               | better allocate different classes to different tutors                                                                                      |
+| `* * *`  | new user                        | access an overview of the important features quickly                                    | first learn the essential commands quickly instead of being overwhelmed by many features                                                   |
+| `* * *`  | user with many contacts         | create tags and add tags to contacts                                                    | track important additional info                                                                                                            |
+| `* * *`  | user with many contacts         | filter the contact list view according to tags                                          | get an overview of the relevant contacts for any situation (e.g. students with unpaid fees, struggling students, students on thursday etc) |
+| `* * *`  | user with many contacts         | find a specific contact with powerful search feature                                    | easily find one specific person if i need their contact                                                                                    |
+| `* * *`  | hr admin                        | show class details for the day                                                          | quickly check the schedule                                                                                                                 |
+| `* * *`  | hr admin                        | view attendance for each class                                                          | quickly check students attendance                                                                                                          |
+| `* *`    | new user                        | import data from an existing csv / json file                                            | seamlessly transfer data from a previously used software                                                                                   |
+| `* *`    | careless user                   | undo the most recent command                                                            | prevent making a permanent mistake                                                                                                         |
+| `* *`    | user with many contacts         | Choose different list views for contacts (eg name only/ name and class/ all details...) | minimise visual clutter and see only what is required                                                                                      |
+| `* *`    | user with many contacts         | apply tags or update state of many contacts at once                                     | prevent wasting time with repetitive similar commands                                                                                      |
+| `* *`    | hr admin                        | quickly export the data to my boss                                                      | prevent wasting time extracting information one by one                                                                                     |
+| `* *`    | owner                           | encrypt the data with a password                                                        | protect my staff and students' privacy                                                                                                     |
+| `* *`    | more advanced user              | press TAB to autocomplete commands based on data of my most frequent commands           | enter commands faster                                                                                                                      |
+| `* *`    | more advanced user              | quickly select my most recent command                                                   | prevent wasting time typing it out again                                                                                                   |
+| `* *`    | user inheriting a used database | purge the current database                                                              | start from scratch                                                                                                                         |
+| `* *`    | user with many contacts         | sort the contacts based on my preference                                                | view the contact list in a more orderly manner                                                                                             |
+| `* *`    | forgetful user                  | view when a contacts details are last updated                                           | see how up to the date the current details are                                                                                             |
+| `* *`    | sad user                        | view a greeting message everytime i start the program                                   | feel more happy to do work                                                                                                                 |
+| `* *`    | sad user                        | view an exit message which includes the changes made everytime i log out of the program | feel satisfied about by work everyday                                                                                                      |
+| `* *`    | more advanced user              | backup the database frequently at a scheduled time                                      | preserve old data off the app                                                                                                              |
+| `* *`    | more advanced user              | chose what details to be show in the overview                                           | be shown only the important details                                                                                                        |
+| `*`      | less tech savvy user            | understand the simple and intuitive UI                                                  | avoid giving up on using the app                                                                                                           |
+| `*`      | new user                        | have a quick reference to possible suggested commands that appears as i type            | avoid having to remember everything at first                                                                                               |
+| `*`      | more advanced user              | make my own aliases for commands                                                        | tailor the app towards my personal preferences and further improve efficiency                                                              |
+| `*`      | user with limited vision        | i can change the font size/ UI scale                                                    | see better                                                                                                                                 |
+| `*`      | user with limited vision        | I can change the theme for more contrast                                                | see better                                                                                                                                 |
+| `*`      | hr admin                        | archive inactive students and staff                                                     | my active contacts stay uncluttered while the old data is remained                                                                         |
+| `*`      | owner                           | generate statistics with a breakdown of salaries and payments                           | view and plan my finances at a glance                                                                                                      |
+| `*`      | forgetful user                  | view my recent commands                                                                 | remember what I typed or changes i made previously                                                                                         |
+| `*`      | more advanced user              | schedule frequently used commands                                                       | save on repetitive work                                                                                                                    |
+
 
 *{More to be added}*
 
@@ -419,14 +451,83 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+##### Environment
 
-*{More to be added}*
+* The application should work on any _mainstream OS_ (Windows, macOS, Linux) as long as it has Java `17` or above installed.
+* The application should run as a _single_ executable JAR file without any installation.
+
+##### Performance
+
+* The system should be able to hold up to 1000 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
+* The application should have a startup time of under 5 seconds.
+
+##### Usability
+
+* The primary input method should be **text-based commands**.
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* The system should not crash when invalid commands are entered.
+* The system should be **fully usable offline**.
+* The GUI should be usable on screen resolutions of 1280x720 and higher, and for screen scales 150%.
+* The GUI should be used primarily for visual feedback and not as the main input method.
+
+##### Maintainability
+
+* The codebase should follow OOP design principles.
+* The system should be developed incrementally with commits that reflect feature milestones.
+
+##### Scalability
+
+* The system should support small to medium tuition centres (around 100-200 students, 10-20 tutors).
+* The system is not intended for large institutions with thousands of records.
+
+##### Data Management
+
+* All data must be stored locally in a **human-editable text file**.
+* The system must not use a DBMS (database management system).
+
+##### File Size
+
+* The final JAR file should not exceed **100MB**.
+* The UG and DG documents should not exceed **15MB each** and remain PDF-friendly.
 
 ### Glossary
 
+**Role/Actors**
+* **HR Admin**: The staff member responsible for managing tutors, students, classes, and related administrative tasks.
+* **Owner**: The person who owns or manages the system, usually responsible for finances and overall data security.
+* **New User**: A first-time user of the system, who may need onboarding and quick access to essential features.
+* **Advanced User**: A user familiar with the system who leverages customization, automation, and efficiency features.
+* **User with Limited Vision**: A user who requires accessibility features such as font scaling and high-contrast themes.
+
+**Core System Concepts**
+* **Contact**: A person or entity stored in the system, typically including details such as name, class, role, and tags.
+* **Class**: A scheduled session or group taught by a tutor that students are assigned to.
+* **Attendance**: A record of whether students attended a given class.
+* **Database**: The underlying data store containing all contacts, classes, attendance, and related information.
+* **Tag**: A customizable label attached to contacts (e.g., “unpaid fees,” “struggling,” “Thursday class”) for filtering and organization.
+* **List View**: A way of displaying contacts, with different levels of detail (e.g., name only, name + class, full details).
+* **Command**: A typed instruction given by the user to interact with the system.
+* **Alias**: A user-defined shortcut for a command.
+* **Autocomplete**: A feature that suggests or completes commands as the user types.
+* **Recent Commands**: A history of the most recent instructions executed in the system.
+
+**System Features / Functions**
+* **Import**: Bringing in data from external sources (CSV, JSON).
+* **Export**: Sending system data to an external format (e.g., for reports).
+* **Archive**: Moving inactive data (students, staff, or contacts) out of active use without deleting it.
+* **Purge**: Completely removing all data from the system.
+* **Backup**: Creating a copy of the database for recovery or preservation.
+* **Statistics**: Summarized financial or operational reports generated by the system.
+* **Overview**: A summarized view of important system information (e.g., contacts, classes, schedule).
+* **Undo / Redo**: Reverting or reapplying the most recent action.
+* **Schedule (Commands)**: Setting commands to run automatically at specified times.
+
+**User Experience & Accessibility**
+* **UI Scale**: Adjustment of font size and layout for accessibility.
+* **Theme**: A color and contrast scheme for the interface.
+* **Quick Reference / Suggestions**: Inline guidance showing possible commands as the user types.
+
+**Misc**
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 
