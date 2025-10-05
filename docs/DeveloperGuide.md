@@ -461,7 +461,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
     Use case resumes at step 3.
 
-*{More to be added}*
+**Use case: UC07 - Enroll a new student into a class**
+
+**MSS**
+
+1. User <u>adds a new student (UC01)</u>.
+2. User requests to enroll the student into a class.
+3. Rollcall shows a success message and a list of current students in the class.
+    
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provided incorrect format.
+  * 2a1. Rollcall shows an error message.
+
+    Use case resumes at step 2.
+
+* 2b. Enrollment is not possible (clashes with existing class/ class is fully enrolled/ student is already enrolled)
+  * 2b1. Rollcall shows an error message.
+
+    Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
