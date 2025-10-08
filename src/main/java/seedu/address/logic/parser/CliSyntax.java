@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     /* Classes prefix definitions */
+    public static final Prefix PREFIX_CLASS = new Prefix("c/");
     public static final Prefix PREFIX_DAY = new Prefix("d/");
     public static final Prefix PREFIX_TIME = new Prefix("tm/");
     public static final Prefix PREFIX_TUTOR = new Prefix("tt/");

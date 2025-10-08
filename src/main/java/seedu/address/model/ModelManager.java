@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 
 /**
@@ -126,6 +127,36 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasLesson(Lesson aLesson) {
+        return false;
+    }
+
+    @Override
+    public void deleteLesson(Lesson target) {
+
+    }
+
+    @Override
+    public void addLesson(Lesson person) {
+
+    }
+
+    @Override
+    public void setLesson(Lesson target, Lesson editedPerson) {
+
+    }
+
+    @Override
+    public ObservableList<Lesson> getFilteredClassList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+
     }
 
     @Override
