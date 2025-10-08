@@ -158,7 +158,7 @@ public class ParserUtil {
      */
     public static Day parseDay(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().toLowerCase();
         if (!Day.isValidDay(trimmedName)) {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
@@ -188,7 +188,7 @@ public class ParserUtil {
      */
     public static Tutor parseTutor(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().toLowerCase();
         if (!Tutor.isValidTutor(trimmedName)) {
             throw new ParseException(Tutor.MESSAGE_CONSTRAINTS);
         }

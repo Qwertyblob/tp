@@ -17,9 +17,9 @@ public class Time {
     public final String fullTime;
 
     /**
-     * Constructs a {@code Day}.
+     * Constructs a {@code Time}.
      *
-     * @param time A valid name.
+     * @param time A valid time.
      */
     public Time(String time) {
         requireNonNull(time);

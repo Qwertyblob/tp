@@ -6,20 +6,20 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tutor {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tutors should only contain alphabet characters, and it should not be blank";
+            "Tutors should only contain alphanumeric characters, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)$";
+    public static final String VALIDATION_REGEX = "^[a-z]?=.*\\d{8}$";
 
     public final String tutorName;
 
     /**
-     * Constructs a {@code Day}.
+     * Constructs a {@code Tutor}.
      *
-     * @param tutor A valid name.
+     * @param tutor A valid tutor name.
      */
     public Tutor(String tutor) {
         requireNonNull(tutor);
@@ -28,7 +28,7 @@ public class Tutor {
     }
 
     /**
-     * Returns true if a given string is a valid day.
+     * Returns true if a given string is a valid tutor name.
      */
     public static boolean isValidTutor(String test) {
         return test.matches(VALIDATION_REGEX);

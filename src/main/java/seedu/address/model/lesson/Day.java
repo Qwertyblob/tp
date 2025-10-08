@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Day {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Days should only contain alphabet characters, and it should not be blank";
+            "Days should only contain alphabetical characters, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -19,7 +19,7 @@ public class Day {
     /**
      * Constructs a {@code Day}.
      *
-     * @param day A valid name.
+     * @param day A valid day.
      */
     public Day(String day) {
         requireNonNull(day);
