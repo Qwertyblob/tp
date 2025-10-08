@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.*;
@@ -15,9 +14,9 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class AddLessonCommandParser implements Parser<AddLessonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected formatPerson
+     * Parses the given {@code String} of arguments in the context of the AddLessonCommand
+     * and returns an AddLessonCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -26,7 +25,7 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CLASS, PREFIX_DAY, PREFIX_TIME, PREFIX_TUTOR)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);

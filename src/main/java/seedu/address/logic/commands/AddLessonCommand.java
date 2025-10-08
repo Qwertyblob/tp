@@ -15,21 +15,19 @@ public class AddLessonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_CLASS + "CLASS "
+            + PREFIX_DAY + "DAY "
+            + PREFIX_TIME + "TIME "
+            + PREFIX_TUTOR + "TUTOR "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_CLASS + "M2a "
+            + PREFIX_DAY + "Monday "
+            + PREFIX_TIME + "1200 "
+            + PREFIX_TUTOR + "T1234567";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New class added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CLASS = "This class already exists in the address book";
 
     private final Lesson toAdd;
 
@@ -46,7 +44,7 @@ public class AddLessonCommand extends Command {
         requireNonNull(model);
 
         if (model.hasLesson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CLASS);
         }
 
         model.addLesson(toAdd);
