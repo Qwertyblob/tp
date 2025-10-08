@@ -40,8 +40,8 @@ public class AddLessonCommandParserTest {
                 .build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, " " + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
-                new AddLessonCommand(expectedLesson));
+        assertParseSuccess(parser, " " + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200
+                        + TUTOR_DESC_A12345678, new AddLessonCommand(expectedLesson));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class AddLessonCommandParserTest {
                 ClassName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, " preamble" + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " preamble" + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200
+                + TUTOR_DESC_A12345678, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
     }
 }
