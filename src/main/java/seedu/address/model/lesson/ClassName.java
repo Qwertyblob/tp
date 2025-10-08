@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ClassName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Class names should only contain alphanumeric characters in the formatPerson <A1a>, and it should not be blank";
+            "Class names should only contain alphanumeric characters in the format <A1a>, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

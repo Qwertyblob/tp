@@ -1,15 +1,20 @@
 package seedu.address.model.lesson;
 
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.tag.Tag;
 
+
+/**
+ * Represents a Lesson in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Lesson {
 
     // Identity fields

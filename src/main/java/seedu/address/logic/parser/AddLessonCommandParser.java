@@ -1,15 +1,23 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddLessonCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.lesson.*;
-import seedu.address.model.tag.Tag;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTOR;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.commands.AddLessonCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Day;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.Tutor;
+import seedu.address.model.tag.Tag;
 
 public class AddLessonCommandParser implements Parser<AddLessonCommand> {
 
@@ -28,8 +36,8 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
-        ClassName className = ParserUtil.parseClassName(argMultimap.getValue(PREFIX_NAME).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASS, PREFIX_DAY, PREFIX_TIME, PREFIX_TUTOR);
+        ClassName className = ParserUtil.parseClassName(argMultimap.getValue(PREFIX_CLASS).get());
         Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Tutor tutor = ParserUtil.parseTutor(argMultimap.getValue(PREFIX_TUTOR).get());

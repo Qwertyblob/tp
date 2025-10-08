@@ -3,6 +3,10 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Lesson's day in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDay(String)}
+ */
 public class Day {
 
     public static final String MESSAGE_CONSTRAINTS =
