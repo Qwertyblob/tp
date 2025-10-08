@@ -2,8 +2,8 @@
 
 ![Ui](docs/images/Ui.png)
 
-* **Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff. 
-* With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software. 
+* **Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff.
+* With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software.
 * Example usages:
   * Enrolling students into a tuition class
   * Marking students attendance

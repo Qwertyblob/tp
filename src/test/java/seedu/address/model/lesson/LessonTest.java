@@ -103,7 +103,7 @@ public class LessonTest {
         Set<Tag> tags = new HashSet<>();
 
         Lesson lesson1 = new Lesson(className, day, time, tutor, tags);
-        Lesson lesson2 = new Lesson(className, new Day("Tuesday"), new Time("1300"), 
+        Lesson lesson2 = new Lesson(className, new Day("Tuesday"), new Time("1300"),
                 new Tutor("B12345678"), new HashSet<>());
 
         assertTrue(lesson1.isSameLesson(lesson1)); // same object
