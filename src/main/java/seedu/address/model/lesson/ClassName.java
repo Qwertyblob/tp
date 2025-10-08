@@ -16,7 +16,7 @@ public class ClassName {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[A-Z]//d[a-z]";
+    public static final String VALIDATION_REGEX = "^[A-Z]\\d[a-z]$";
 
     public final String fullClassName;
 
