@@ -19,6 +19,9 @@ import seedu.address.model.lesson.Time;
 import seedu.address.model.lesson.Tutor;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddLessonCommand object
+ */
 public class AddLessonCommandParser implements Parser<AddLessonCommand> {
 
     /**
