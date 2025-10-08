@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Roles are only either \"tutor\" or \"student\".";
-    public static final String VALIDATION_REGEX = "(^student|tutor}$)";
+    public static final String VALIDATION_REGEX = "^(student|tutor)$";
 
     public final String role;
 
