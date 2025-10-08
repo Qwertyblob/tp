@@ -26,33 +26,33 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withRole("Student")
+            .withRole("student")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withRole("Student")
+            .withRole("student")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
-            .withRole("Tutor")
+            .withRole("tutor")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withRole("Tutor")
+            .withRole("tutor")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withRole("Student")
+            .withRole("student")
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withRole("Tutor")
+            .withRole("tutor")
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo").build();
@@ -64,11 +64,11 @@ public class TypicalPersons {
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
-            .withRole("Student")
+            .withRole("student")
             .withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
-            .withRole("Tutor")
+            .withRole("tutor")
             .withPhone("8482131")
             .withEmail("hans@example.com")
             .withAddress("chicago ave").build();

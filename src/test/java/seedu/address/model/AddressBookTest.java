@@ -105,10 +105,6 @@ public class AddressBookTest {
             return persons;
         }
 
-        @Override
-        public ObservableList<Lesson> getLessonList() {
-            return null;
-        }
     }
 
 }

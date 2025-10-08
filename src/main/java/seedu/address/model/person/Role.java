@@ -41,12 +41,12 @@ public class Role {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Tag)) {
+        if (!(other instanceof Role)) {
             return false;
         }
 
-        Tag otherRole = (Tag) other;
-        return role.equals(otherRole.tagName);
+        Role otherRole = (Role) other;
+        return role.equals(otherRole.role);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Role {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + role + ']';
+        return role;
     }
 
 }
