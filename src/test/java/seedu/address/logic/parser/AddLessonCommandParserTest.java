@@ -34,7 +34,7 @@ public class AddLessonCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Lesson expectedLesson = new LessonBuilder()
                 .withClassName(VALID_CLASS_MATH)
-                .withDay(VALID_DAY_MONDAY)
+                .withDay(VALID_DAY_MONDAY)  // Parser capitalizes the day
                 .withTime(VALID_TIME_1200)
                 .withTutor(VALID_TUTOR_A12345678)
                 .build();
@@ -107,15 +107,15 @@ public class AddLessonCommandParserTest {
                 Day.MESSAGE_CONSTRAINTS);
 
         // invalid time
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + " t/invalid" + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_A12345678,
                 Time.MESSAGE_CONSTRAINTS);
 
         // invalid tutor
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + " u/invalid",
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + " tt/invalid",
                 Tutor.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + " t/invalid" + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_A12345678,
                 ClassName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble

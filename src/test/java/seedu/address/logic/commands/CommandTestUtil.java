@@ -46,9 +46,9 @@ public class CommandTestUtil {
 
     // Lesson test data
     public static final String VALID_CLASS_MATH = "A1a";
-    public static final String VALID_DAY_MONDAY = "Monday";
+    public static final String VALID_DAY_MONDAY = "monday";
     public static final String VALID_TIME_1200 = "1200";
-    public static final String VALID_TUTOR_A12345678 = "A12345678";
+    public static final String VALID_TUTOR_A12345678 = "t12345678";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

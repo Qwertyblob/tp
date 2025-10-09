@@ -36,6 +36,7 @@ public class AddLessonCommandTest {
     @Test
     public void execute_duplicateLesson_throwsCommandException() {
         Lesson lessonInList = getTypicalLessons().get(0);
+        model.addLesson(lessonInList);
         assertCommandFailure(new AddLessonCommand(lessonInList), model,
                 AddLessonCommand.MESSAGE_DUPLICATE_CLASS);
     }

@@ -32,7 +32,7 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASS, PREFIX_DAY,
-                        PREFIX_TIME, PREFIX_TUTOR);
+                        PREFIX_TIME, PREFIX_TUTOR, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CLASS, PREFIX_DAY, PREFIX_TIME, PREFIX_TUTOR)
                 || !argMultimap.getPreamble().isEmpty()) {

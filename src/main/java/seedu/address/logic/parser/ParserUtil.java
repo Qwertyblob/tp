@@ -169,7 +169,7 @@ public class ParserUtil {
         if (!Day.isValidDay(trimmedName)) {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
-        return new Day(trimmedName);
+        return new Day(name);
     }
 
     /**

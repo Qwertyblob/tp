@@ -16,9 +16,9 @@ import seedu.address.model.tag.Tag;
 public class LessonBuilder {
 
     public static final String DEFAULT_CLASS_NAME = "A1a";
-    public static final String DEFAULT_DAY = "Monday";
+    public static final String DEFAULT_DAY = "monday";
     public static final String DEFAULT_TIME = "1200";
-    public static final String DEFAULT_TUTOR = "A12345678";
+    public static final String DEFAULT_TUTOR = "t12345678";
 
     private ClassName className;
     private Day day;

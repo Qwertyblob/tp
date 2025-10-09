@@ -13,33 +13,33 @@ import seedu.address.model.lesson.Lesson;
 public class TypicalLessons {
 
     public static final Lesson MATH_A1A = new LessonBuilder().withClassName("A1a")
-            .withDay("Monday")
+            .withDay("monday")
             .withTime("1200")
-            .withTutor("A12345678")
+            .withTutor("t12345678")
             .withTags("math").build();
 
     public static final Lesson SCIENCE_B2B = new LessonBuilder().withClassName("B2b")
-            .withDay("Tuesday")
+            .withDay("tuesday")
             .withTime("1300")
-            .withTutor("B12345678")
+            .withTutor("t12345678")
             .withTags("science").build();
 
     public static final Lesson ENGLISH_C3C = new LessonBuilder().withClassName("C3c")
-            .withDay("Wednesday")
+            .withDay("wednesday")
             .withTime("1400")
-            .withTutor("C12345678")
+            .withTutor("t12345678")
             .withTags("english").build();
 
     public static final Lesson PHYSICS_D4D = new LessonBuilder().withClassName("D4d")
-            .withDay("Thursday")
+            .withDay("thursday")
             .withTime("1500")
-            .withTutor("D12345678")
+            .withTutor("t12345678")
             .withTags("physics").build();
 
     public static final Lesson CHEMISTRY_E5E = new LessonBuilder().withClassName("E5e")
-            .withDay("Friday")
+            .withDay("friday")
             .withTime("1600")
-            .withTutor("E12345678")
+            .withTutor("t12345678")
             .withTags("chemistry").build();
 
     private TypicalLessons() {} // prevents instantiation

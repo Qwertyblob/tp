@@ -64,7 +64,7 @@ public class AddLessonCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof AddLessonCommand)) {
             return false;
         }
 

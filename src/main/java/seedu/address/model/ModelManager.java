@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -23,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ObservableList<Lesson> lessons;
+    private final FilteredList<Lesson> filteredLessons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +38,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.lessons = FXCollections.observableArrayList();
+        this.filteredLessons = new FilteredList<>(this.lessons);
     }
 
     public ModelManager() {
@@ -131,7 +136,8 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasLesson(Lesson aLesson) {
-        return false;
+        requireNonNull(aLesson);
+        return lessons.stream().anyMatch(aLesson::equals);
     }
 
     @Override
@@ -140,8 +146,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addLesson(Lesson person) {
-
+    public void addLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        lessons.add(lesson);
     }
 
     @Override
@@ -151,12 +158,13 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Lesson> getFilteredClassList() {
-        return null;
+        return filteredLessons;
     }
 
     @Override
     public void updateFilteredLessonList(Predicate<Lesson> predicate) {
-
+        requireNonNull(predicate);
+        filteredLessons.setPredicate(predicate);
     }
 
     @Override
