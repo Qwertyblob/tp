@@ -352,7 +352,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. The given information matches an existing item exactly
     * 1b1. Rollcall shows an error message.
-    
+
       Use case resumes at step 1.
 
 **Use case: UC02 - Edit an item (a student, tutor or class)**
@@ -404,8 +404,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. The list is empty.
-  * 1a1. Rollcall shows a message indicating the list is empty. 
-  
+  * 1a1. Rollcall shows a message indicating the list is empty.
+
     Use case ends.
 
 **Use case: UC05 - Search persons or classes**
@@ -458,7 +458,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2c. There are multiple possible matches for the requested item.
   * 2c1. Rollcall requests clarification.
   * 2c2. User clarifies the item to be deleted.
-  
+
     Use case resumes at step 3.
 
 **Use case: UC07 - Enroll a new student into a class**
@@ -468,7 +468,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User <u>adds a new student (UC01)</u>.
 2. User requests to enroll the student into a class.
 3. Rollcall shows a success message and a list of current students in the class.
-    
+
    Use case ends.
 
 **Extensions**

@@ -9,10 +9,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Day;
+import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.Tutor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,6 +53,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String role} into a {@code Role}.
+     * Leading and trailing whitespaces will be trimmed, all letters will be made to lower case.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim().toLowerCase();
+        if (!Role.isValidRole(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return new Role(trimmedRole);
     }
 
     /**
@@ -120,5 +140,65 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static ClassName parseClassName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedClassName = name.trim();
+        if (!ClassName.isValidClassName(trimmedClassName)) {
+            throw new ParseException(ClassName.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassName(trimmedClassName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Day parseDay(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim().toLowerCase();
+        if (!Day.isValidDay(trimmedName)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+        }
+        return new Day(name);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Time parseTime(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Time.isValidTime(trimmedName)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Tutor parseTutor(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim().toLowerCase();
+        if (!Tutor.isValidTutor(trimmedName)) {
+            throw new ParseException(Tutor.MESSAGE_CONSTRAINTS);
+        }
+        return new Tutor(trimmedName);
     }
 }

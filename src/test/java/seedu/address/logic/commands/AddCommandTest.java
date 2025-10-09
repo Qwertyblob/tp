@@ -22,6 +22,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -39,7 +40,7 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.formatPerson(validPerson)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
@@ -156,6 +157,36 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasLesson(Lesson aLesson) {
+            return false;
+        }
+
+        @Override
+        public void deleteLesson(Lesson target) {
+
+        }
+
+        @Override
+        public void addLesson(Lesson person) {
+
+        }
+
+        @Override
+        public void setLesson(Lesson target, Lesson editedPerson) {
+
+        }
+
+        @Override
+        public ObservableList<Lesson> getFilteredClassList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+
         }
     }
 

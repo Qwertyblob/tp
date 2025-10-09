@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.lesson;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,53 +10,48 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
+
 /**
- * Represents a Person in the address book.
+ * Represents a Lesson in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Lesson {
 
     // Identity fields
-    private final Name name;
-    private final Role role;
-    private final Phone phone;
-    private final Email email;
+    private final ClassName className;
+    private final Day day;
+    private final Time time;
 
     // Data fields
-    private final Address address;
+    private final Tutor tutor;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Role role, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, role, phone, email, address, tags);
-        this.name = name;
-        this.role = role;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags) {
+        requireAllNonNull(className, day, time, tutor, tags);
+        this.className = className;
+        this.day = day;
+        this.time = time;
+        this.tutor = tutor;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public ClassName getClassName() {
+        return className;
     }
 
-    public Role getRole() {
-        return role;
+    public Day getDay() {
+        return day;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Time getTime() {
+        return time;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Tutor getTutor() {
+        return tutor;
     }
 
     /**
@@ -71,13 +66,13 @@ public class Person {
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean isSameLesson(Lesson otherPerson) {
         if (otherPerson == this) {
             return true;
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getClassName().equals(getClassName());
     }
 
     /**
@@ -91,33 +86,32 @@ public class Person {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Lesson)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
+        Lesson otherPerson = (Lesson) other;
+        return className.equals(otherPerson.className)
+                && day.equals(otherPerson.day)
+                && time.equals(otherPerson.time)
+                && tutor.equals(otherPerson.tutor)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(className, day, time, tutor, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
+                .add("class", className)
+                .add("day", day)
+                .add("time", time)
+                .add("tutor", tutor)
                 .add("tags", tags)
                 .toString();
     }
-
 }

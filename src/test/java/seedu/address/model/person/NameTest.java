@@ -40,10 +40,10 @@ public class NameTest {
 
     @Test
     public void equals() {
-        Name name = new Name("Valid Name");
+        Name name = new Name("Valid ClassName");
 
         // same values -> returns true
-        assertTrue(name.equals(new Name("Valid Name")));
+        assertTrue(name.equals(new Name("Valid ClassName")));
 
         // same object -> returns true
         assertTrue(name.equals(name));
@@ -55,6 +55,6 @@ public class NameTest {
         assertFalse(name.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(name.equals(new Name("Other Valid Name")));
+        assertFalse(name.equals(new Name("Other Valid ClassName")));
     }
 }
