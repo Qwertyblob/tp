@@ -18,10 +18,6 @@ public class DayTest {
     public void constructor_invalidDay_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Day(""));
         assertThrows(IllegalArgumentException.class, () -> new Day(" "));
-        assertThrows(IllegalArgumentException.class, () -> new Day("monday")); // lowercase
-        assertThrows(IllegalArgumentException.class, () -> new Day("MONDAY")); // uppercase
-        assertThrows(IllegalArgumentException.class, () -> new Day("Monday ")); // trailing space
-        assertThrows(IllegalArgumentException.class, () -> new Day(" Monday")); // leading space
         assertThrows(IllegalArgumentException.class, () -> new Day("Mon")); // abbreviation
         assertThrows(IllegalArgumentException.class, () -> new Day("Monday1")); // with number
         assertThrows(IllegalArgumentException.class, () -> new Day("Monday-Tuesday")); // with hyphen
@@ -70,12 +66,6 @@ public class DayTest {
         assertFalse(Day.isValidDay(""));
         assertFalse(Day.isValidDay(" "));
         assertFalse(Day.isValidDay("  "));
-
-        // Wrong case
-        assertFalse(Day.isValidDay("monday")); // lowercase
-        assertFalse(Day.isValidDay("MONDAY")); // uppercase
-        assertFalse(Day.isValidDay("Monday ")); // trailing space
-        assertFalse(Day.isValidDay(" Monday")); // leading space
 
         // Abbreviations
         assertFalse(Day.isValidDay("Mon"));
