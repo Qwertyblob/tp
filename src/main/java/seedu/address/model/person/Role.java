@@ -13,6 +13,7 @@ public class Role {
     public static final String VALIDATION_REGEX = "^(student|tutor)$";
 
     public final String role;
+    public final boolean isTutor;
 
     /**
      * Constructs a {@code Role}.
@@ -23,6 +24,11 @@ public class Role {
         requireNonNull(role);
         checkArgument(isValidRole(role), MESSAGE_CONSTRAINTS);
         this.role = role;
+        if (role.equals("tutor")) {
+            this.isTutor = true;
+        } else {
+            this.isTutor = false;
+        }
     }
 
     /**
@@ -30,6 +36,14 @@ public class Role {
      */
     public static boolean isValidRole(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public boolean isTutor() {
+        return this.isTutor;
+    }
+
+    public boolean isStudent() {
+        return !this.isTutor;
     }
 
     @Override
