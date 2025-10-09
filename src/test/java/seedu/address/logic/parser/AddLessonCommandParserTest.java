@@ -34,7 +34,7 @@ public class AddLessonCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Lesson expectedLesson = new LessonBuilder()
                 .withClassName(VALID_CLASS_MATH)
-                .withDay(VALID_DAY_MONDAY)  // Parser capitalizes the day
+                .withDay(VALID_DAY_MONDAY)
                 .withTime(VALID_TIME_1200)
                 .withTutor(VALID_TUTOR_A12345678)
                 .build();
