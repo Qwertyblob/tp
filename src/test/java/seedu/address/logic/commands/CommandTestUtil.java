@@ -48,7 +48,7 @@ public class CommandTestUtil {
     public static final String VALID_CLASS_MATH = "A1a";
     public static final String VALID_DAY_MONDAY = "monday";
     public static final String VALID_TIME_1200 = "1200";
-    public static final String VALID_TUTOR_A12345678 = "t12345678";
+    public static final String VALID_TUTOR_A1234567 = "t1234567";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -67,7 +67,7 @@ public class CommandTestUtil {
     public static final String CLASS_DESC_MATH = " " + PREFIX_CLASS + VALID_CLASS_MATH;
     public static final String DAY_DESC_MONDAY = " " + PREFIX_DAY + VALID_DAY_MONDAY;
     public static final String TIME_DESC_1200 = " " + PREFIX_TIME + VALID_TIME_1200;
-    public static final String TUTOR_DESC_A12345678 = " " + PREFIX_TUTOR + VALID_TUTOR_A12345678;
+    public static final String TUTOR_DESC_A12345678 = " " + PREFIX_TUTOR + VALID_TUTOR_A1234567;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "teacher"; // '&' not allowed in names

@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TUTOR_DESC_A12345678;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASS_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DAY_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_1200;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TUTOR_A12345678;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TUTOR_A1234567;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -36,7 +36,7 @@ public class AddLessonCommandParserTest {
                 .withClassName(VALID_CLASS_MATH)
                 .withDay(VALID_DAY_MONDAY)
                 .withTime(VALID_TIME_1200)
-                .withTutor(VALID_TUTOR_A12345678)
+                .withTutor(VALID_TUTOR_A1234567)
                 .build();
 
         // whitespace only preamble
@@ -88,11 +88,11 @@ public class AddLessonCommandParserTest {
                 expectedMessage);
 
         // missing tutor prefix
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + VALID_TUTOR_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + VALID_TUTOR_A1234567,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_CLASS_MATH + VALID_DAY_MONDAY + VALID_TIME_1200 + VALID_TUTOR_A12345678,
+        assertParseFailure(parser, VALID_CLASS_MATH + VALID_DAY_MONDAY + VALID_TIME_1200 + VALID_TUTOR_A1234567,
                 expectedMessage);
     }
 
