@@ -73,7 +73,7 @@ public class Lesson {
         return Collections.unmodifiableSet(students);
     }
 
-    public boolean hasAttendee(Name studentName) {
+    public boolean hasStudent(Name studentName) {
         return students.contains(studentName);
     }
 

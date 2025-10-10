@@ -57,7 +57,7 @@ public class MarkCommand extends Command {
             return new CommandResult(String.format(MESSAGE_PERSON_NOT_FOUND, studentName));
         }
 
-        if (lesson.hasAttendee(studentName)) {
+        if (lesson.hasStudent(studentName)) {
             return new CommandResult(String.format(MESSAGE_ALREADY_MARKED, studentName, className));
         }
 
