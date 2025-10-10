@@ -22,7 +22,7 @@ public class Role {
     public Role(String role) {
         requireNonNull(role);
         checkArgument(isValidRole(role), MESSAGE_CONSTRAINTS);
-        String i = role.substring(0,1).toUpperCase();
+        String i = role.substring(0, 1).toUpperCase();
         this.role = i + role.substring(1);
     }
 
