@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 
@@ -25,17 +26,23 @@ public class Lesson {
     // Data fields
     private final Tutor tutor;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Name> students = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags) {
-        requireAllNonNull(className, day, time, tutor, tags);
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<Name> students) {
+        requireAllNonNull(className, day, time, tutor, tags, students);
         this.className = className;
         this.day = day;
         this.time = time;
         this.tutor = tutor;
         this.tags.addAll(tags);
+        this.students.addAll(students);
+    }
+
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags) {
+        this(className, day, time, tutor, tags, new HashSet<>());
     }
 
     public ClassName getClassName() {
@@ -60,6 +67,20 @@ public class Lesson {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Set<Name> getAttendees() {
+        return Collections.unmodifiableSet(students);
+    }
+
+    public boolean hasAttendee(Name studentName) {
+        return students.contains(studentName);
+    }
+
+    public Lesson markAttendance(Name studentName) {
+        Set<Name> updated = new HashSet<>(students);
+        updated.add(studentName);
+        return new Lesson(className, day, time, tutor, tags, updated);
     }
 
     /**
@@ -90,18 +111,19 @@ public class Lesson {
             return false;
         }
 
-        Lesson otherPerson = (Lesson) other;
-        return className.equals(otherPerson.className)
-                && day.equals(otherPerson.day)
-                && time.equals(otherPerson.time)
-                && tutor.equals(otherPerson.tutor)
-                && tags.equals(otherPerson.tags);
+        Lesson otherLesson = (Lesson) other;
+        return className.equals(otherLesson.className)
+                && day.equals(otherLesson.day)
+                && time.equals(otherLesson.time)
+                && tutor.equals(otherLesson.tutor)
+                && tags.equals(otherLesson.tags)
+                && students.equals(otherLesson.students);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(className, day, time, tutor, tags);
+        return Objects.hash(className, day, time, tutor, tags, students);
     }
 
     @Override
@@ -112,6 +134,7 @@ public class Lesson {
                 .add("time", time)
                 .add("tutor", tutor)
                 .add("tags", tags)
+                .add("students", students)
                 .toString();
     }
 }
