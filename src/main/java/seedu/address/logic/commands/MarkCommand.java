@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_CLASS + "CLASS "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME +"Alice Tan"
+            + PREFIX_NAME + "Alice Tan"
             + PREFIX_CLASS + "M2a";
 
     public static final String MESSAGE_SUCCESS = "Marked %1$s as present for class %2$s.";
