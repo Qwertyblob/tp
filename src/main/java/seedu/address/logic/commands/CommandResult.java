@@ -19,21 +19,29 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    public enum DisplayType {
+        DEFAULT,     // show person list
+        CLASS_LIST   // show lesson list
+    }
+
+    private final DisplayType displayType;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, DisplayType displayType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.displayType = displayType;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, DisplayType displayType) {
+        this(feedbackToUser, false, false, displayType);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +54,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public DisplayType getDisplayType() {
+        return displayType;
     }
 
     @Override
@@ -76,6 +88,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("displayType", displayType)
                 .toString();
     }
 

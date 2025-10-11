@@ -54,7 +54,8 @@ public class AddLessonCommand extends Command {
         }
 
         model.addLesson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatLesson(toAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatLesson(toAdd)),
+                CommandResult.DisplayType.DEFAULT);
     }
 
     @Override
