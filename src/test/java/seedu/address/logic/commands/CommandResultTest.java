@@ -14,7 +14,8 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback", CommandResult.DisplayType.DEFAULT)));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, CommandResult.DisplayType.DEFAULT)));
+        assertTrue(commandResult.equals(new CommandResult(
+                "feedback", false, false, CommandResult.DisplayType.DEFAULT)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,10 +30,12 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different", CommandResult.DisplayType.DEFAULT)));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, CommandResult.DisplayType.DEFAULT)));
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", true, false, CommandResult.DisplayType.DEFAULT)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, CommandResult.DisplayType.DEFAULT)));
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", false, true, CommandResult.DisplayType.DEFAULT)));
     }
 
     @Test
@@ -40,16 +43,20 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback", CommandResult.DisplayType.DEFAULT);
 
         // same values -> returns same hashcode
-        assertEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.DisplayType.DEFAULT).hashCode());
+        assertEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResult.DisplayType.DEFAULT).hashCode());
 
         // different feedbackToUser value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("different", CommandResult.DisplayType.DEFAULT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "different", CommandResult.DisplayType.DEFAULT).hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, CommandResult.DisplayType.DEFAULT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", true, false, CommandResult.DisplayType.DEFAULT).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, CommandResult.DisplayType.DEFAULT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", false, true, CommandResult.DisplayType.DEFAULT).hashCode());
     }
 
     @Test

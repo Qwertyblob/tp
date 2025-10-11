@@ -19,9 +19,10 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Types of display */
     public enum DisplayType {
-        DEFAULT,     // show person list
-        CLASS_LIST   // show lesson list
+        DEFAULT, // show person list
+        CLASS_LIST // show lesson list
     }
 
     private final DisplayType displayType;

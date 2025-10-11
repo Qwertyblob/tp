@@ -18,6 +18,9 @@ public class ContactMatchesPredicate implements Predicate<Person> {
     private final String address;
     private final String tags;
 
+    /**
+     * Creates a ContactMatchesPredicate with the given information of a person.
+     */
     public ContactMatchesPredicate(String name, String role, String phone, String email, String address, String tags) {
         this.name = name;
         this.role = role;
