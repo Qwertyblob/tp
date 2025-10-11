@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final ObservableList<Lesson> lessons;
+    //private final ObservableList<Lesson> lessons;
     private final FilteredList<Lesson> filteredLessons;
 
     /**
@@ -38,8 +38,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.lessons = FXCollections.observableArrayList();
-        this.filteredLessons = new FilteredList<>(this.lessons);
+        //this.lessons = FXCollections.observableArrayList();
+        this.filteredLessons = new FilteredList<>(this.addressBook.getLessonList());
     }
 
     public ModelManager() {
@@ -93,6 +93,8 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    // Person operations
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -134,31 +136,35 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    // Lesson operations
+
     @Override
-    public boolean hasLesson(Lesson aLesson) {
-        requireNonNull(aLesson);
-        return lessons.stream().anyMatch(aLesson::equals);
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return addressBook.hasLesson(lesson);
     }
 
     @Override
     public void deleteLesson(Lesson target) {
-
+        addressBook.removeLesson(target);
     }
 
     @Override
     public void addLesson(Lesson lesson) {
         requireNonNull(lesson);
-        lessons.add(lesson);
+        addressBook.addLesson(lesson);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
 
     @Override
-    public void setLesson(Lesson target, Lesson editedPerson) {
-
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+        addressBook.setLesson(target, editedLesson);
     }
 
     @Override
     public ObservableList<Lesson> getFilteredClassList() {
-        return filteredLessons;
+        return FXCollections.unmodifiableObservableList(filteredLessons);
     }
 
     @Override
