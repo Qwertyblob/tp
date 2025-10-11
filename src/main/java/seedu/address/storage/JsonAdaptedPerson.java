@@ -89,9 +89,7 @@ class JsonAdaptedPerson {
         if (!IdentificationNumber.isValidId(id)) {
             throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
         }
-
-        IdentificationNumber modelId = new IdentificationNumber(id);
-
+        final IdentificationNumber modelId = new IdentificationNumber(id);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

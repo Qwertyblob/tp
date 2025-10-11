@@ -27,12 +27,6 @@ public class IdentificationNumberGenerator {
 
         tutorCounter.set(maxTutor);
         studentCounter.set(maxStudent);
-        /**
-        int maxTutor = persons.getMaxIdentificationNumberForRole(new Role("tutor")).orElse(0);
-        int maxStudent = persons.getMaxIdentificationNumberForRole(new Role("student")).orElse(0);
-        IdentificationNumberGenerator.tutorCounter.set(maxTutor);
-        IdentificationNumberGenerator.studentCounter.set(maxStudent);
-         */
     }
 
     public static IdentificationNumber generate(Role role) {
