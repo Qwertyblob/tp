@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
+/**
+ * Tests whether a {@code Person} matches all the specified search criteria.
+ */
 public class ContactMatchesPredicate implements Predicate<Person> {
     private final String name;
     private final String role;
@@ -24,8 +27,20 @@ public class ContactMatchesPredicate implements Predicate<Person> {
         this.tags = tags;
     }
 
+    /**
+     * Tests whether the given {@code Person} satisfies all specified criteria.
+     * Any empty search fields are ignored.
+     *
+     * @param person The {@code Person} to test.
+     * @return {@code true} if the person matches all non-empty criteria, {@code false} otherwise.
+     */
     @Override
     public boolean test(Person person) {
+        if (name.isEmpty() && role.isEmpty() && phone.isEmpty()
+                && email.isEmpty() && address.isEmpty() && tags.isEmpty()) {
+            return false;
+        }
+
         boolean matches = true;
 
         if (!name.isEmpty()) {
