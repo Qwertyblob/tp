@@ -86,6 +86,9 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "IdentificationNumber"));
         }
+        if (!IdentificationNumber.isValidId(id)) {
+            throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+        }
 
         IdentificationNumber modelId = new IdentificationNumber(id);
 
@@ -131,7 +134,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelRole, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelId, modelName, modelRole, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
 }

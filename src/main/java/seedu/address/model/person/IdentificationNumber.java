@@ -40,6 +40,17 @@ public class IdentificationNumber {
         this.number = Integer.parseInt(value.substring(1));
     }
 
+    public static boolean isValidId(String test) {
+       return test.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isValidId(String testPrefix, int testNumber) {
+        if (!testPrefix.equals("T") && !testPrefix.equals("S")) {
+            return false;
+        }
+        return testNumber >= 0 && testNumber <= 99999999;
+    }
+
     public String getPrefix() {
         return this.prefix;
     }
