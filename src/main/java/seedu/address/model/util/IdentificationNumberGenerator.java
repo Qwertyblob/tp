@@ -1,29 +1,45 @@
 package seedu.address.model.util;
 
 import seedu.address.model.person.IdentificationNumber;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.UniquePersonList;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IdentificationNumberGenerator {
-    private final AtomicInteger tutorCounter;
-    private final AtomicInteger studentCounter;
+    private final static AtomicInteger tutorCounter = new AtomicInteger(0);
+    private final static AtomicInteger studentCounter = new AtomicInteger(0);
 
-    public IdentificationNumberGenerator(int tutorStart, int studentStart) {
-        this.tutorCounter = new AtomicInteger(tutorStart);
-        this.studentCounter = new AtomicInteger(studentStart);
+    public static void init(List<Person> persons) {
+        int maxTutor = persons.stream()
+                .filter(p -> p.getRole().isTutor())
+                .mapToInt(p -> p.getId().getNumericValue())
+                .max()
+                .orElse(0);
+
+        int maxStudent = persons.stream()
+                .filter(p -> p.getRole().isStudent())
+                .mapToInt(p -> p.getId().getNumericValue())
+                .max()
+                .orElse(0);
+
+        tutorCounter.set(maxTutor);
+        studentCounter.set(maxStudent);
+        /**
+        int maxTutor = persons.getMaxIdentificationNumberForRole(new Role("tutor")).orElse(0);
+        int maxStudent = persons.getMaxIdentificationNumberForRole(new Role("student")).orElse(0);
+        IdentificationNumberGenerator.tutorCounter.set(maxTutor);
+        IdentificationNumberGenerator.studentCounter.set(maxStudent);
+         */
     }
 
-    public IdentificationNumber generate(Role role) {
+    public static IdentificationNumber generate(Role role) {
         if (role.isTutor()) {
-            return new IdentificationNumber(String.format("T%08d", tutorCounter.incrementAndGet()));
+            return new IdentificationNumber("T", tutorCounter.incrementAndGet());
         } else {
-            return new IdentificationNumber(String.format("S%08d", studentCounter.incrementAndGet()));
+            return new IdentificationNumber("S", studentCounter.incrementAndGet());
         }
-    }
-
-    public void init(int tutorStart, int studentStart) {
-        tutorCounter.set(tutorStart);
-        studentCounter.set(studentStart);
     }
 }

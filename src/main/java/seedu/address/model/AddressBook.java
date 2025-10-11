@@ -18,7 +18,6 @@ import seedu.address.model.util.IdentificationNumberGenerator;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final IdentificationNumberGenerator idGenerator;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,7 +28,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        idGenerator = new IdentificationNumberGenerator(0,0);
     }
 
     public AddressBook() {}
