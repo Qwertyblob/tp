@@ -178,6 +178,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            switch (commandResult.getDisplayType()) {
+            case DEFAULT:
+                personListPanelPlaceholder.setVisible(true);
+                //lessonListPanelPlaceholder.setVisible(false);
+                break;
+            case CLASS_LIST:
+                personListPanelPlaceholder.setVisible(false);
+                //lessonListPanelPlaceholder.setVisible(true);
+                break;
+            default:
+                break;
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
