@@ -23,6 +23,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private CommandResult.DisplayType currentDisplayType = CommandResult.DisplayType.DEFAULT;
+
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -184,7 +186,12 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            switch (commandResult.getDisplayType()) {
+            CommandResult.DisplayType displayType =
+                    commandResult.getDisplayType() != CommandResult.DisplayType.RECENT
+                            ? commandResult.getDisplayType()
+                            : currentDisplayType;
+
+            switch (displayType) {
             case DEFAULT:
                 personListPanelPlaceholder.setVisible(true);
                 personListPanelPlaceholder.setManaged(true);
@@ -200,6 +207,8 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
+
+            currentDisplayType = displayType;
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
