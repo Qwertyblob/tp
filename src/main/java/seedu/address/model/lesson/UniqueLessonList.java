@@ -118,7 +118,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.person.UniquePersonList)) {
+        if (!(other instanceof seedu.address.model.lesson.UniqueLessonList)) {
             return false;
         }
 
