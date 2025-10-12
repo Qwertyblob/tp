@@ -27,6 +27,8 @@ public class LessonCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
+    private Label tutor;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -39,6 +41,7 @@ public class LessonCard extends UiPart<Region> {
         className.setText(lesson.getClassName().fullClassName);
         day.setText("Day: " + lesson.getDay());
         time.setText("Time: " + lesson.getTime());
+        tutor.setText("Tutor: " + lesson.getTutor());
     }
 
     @Override
