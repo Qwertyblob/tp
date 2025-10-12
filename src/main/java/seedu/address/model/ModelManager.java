@@ -163,8 +163,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Lesson> getFilteredClassList() {
-        return FXCollections.unmodifiableObservableList(filteredLessons);
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return filteredLessons;
     }
 
     @Override
