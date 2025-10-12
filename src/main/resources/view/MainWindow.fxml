@@ -46,13 +46,14 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <VBox fx:id="listArea" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
 
+          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="lessonListPanelPlaceholder" VBox.vgrow="ALWAYS" visible="false"  managed="false"/>
+        </VBox>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

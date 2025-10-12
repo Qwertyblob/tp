@@ -45,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane lessonListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -112,6 +115,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        LessonListPanel lessonListPanel = new LessonListPanel(logic.getFilteredLessonList());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -181,11 +187,15 @@ public class MainWindow extends UiPart<Stage> {
             switch (commandResult.getDisplayType()) {
             case DEFAULT:
                 personListPanelPlaceholder.setVisible(true);
-                //lessonListPanelPlaceholder.setVisible(false);
+                personListPanelPlaceholder.setManaged(true);
+                lessonListPanelPlaceholder.setVisible(false);
+                lessonListPanelPlaceholder.setManaged(false);
                 break;
             case CLASS_LIST:
                 personListPanelPlaceholder.setVisible(false);
-                //lessonListPanelPlaceholder.setVisible(true);
+                personListPanelPlaceholder.setManaged(false);
+                lessonListPanelPlaceholder.setVisible(true);
+                lessonListPanelPlaceholder.setManaged(true);
                 break;
             default:
                 break;
