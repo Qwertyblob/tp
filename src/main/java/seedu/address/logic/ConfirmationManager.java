@@ -9,11 +9,15 @@ import seedu.address.model.Model;
  */
 public class ConfirmationManager {
 
+    public static final String MESSAGE_NO_PENDING_ACTION = "No action pending confirmation.";
+    public static final String MESSAGE_ACTION_CANCELLED = "Action cancelled.";
+    public static final String MESSAGE_INVALID_CONFIRMATION_INPUT = "Please respond with Y or N.";
+
     private ConfirmableCommand pendingCommand;
 
     public CommandResult handleUserResponse(String input, Model model) throws Exception {
         if (pendingCommand == null) {
-            return new CommandResult("No action pending confirmation.", CommandResult.DisplayType.RECENT);
+            return new CommandResult(MESSAGE_NO_PENDING_ACTION, CommandResult.DisplayType.RECENT);
         }
 
         String trimmed = input.trim().toLowerCase();
@@ -25,9 +29,9 @@ public class ConfirmationManager {
             return result;
         case "n":
             clearPendingCommand();
-            return new CommandResult("Action cancelled.", CommandResult.DisplayType.RECENT);
+            return new CommandResult(MESSAGE_ACTION_CANCELLED, CommandResult.DisplayType.RECENT);
         default:
-            return new CommandResult("Please respond with Y or N.", CommandResult.DisplayType.RECENT);
+            return new CommandResult(MESSAGE_INVALID_CONFIRMATION_INPUT, CommandResult.DisplayType.RECENT);
         }
     }
 
