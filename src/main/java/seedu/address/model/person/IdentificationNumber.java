@@ -15,6 +15,11 @@ public class IdentificationNumber {
     private final String prefix;
     private final int number;
 
+    /**
+     * Constructor for Identification Number
+     * @param prefix Prefix to determine type of person
+     * @param number Number of ID
+     */
     public IdentificationNumber(String prefix, int number) {
         requireNonNull(prefix);
         if (!prefix.equals("T") && !prefix.equals("S")) {
@@ -29,6 +34,10 @@ public class IdentificationNumber {
         this.value = String.format("%s%08d", prefix, number);
     }
 
+    /**
+     * Constructor for Identification Number
+     * @param value String value of ID
+     */
     public IdentificationNumber(String value) {
         requireNonNull(value);
         if (!value.matches(VALIDATION_REGEX)) {
@@ -40,10 +49,21 @@ public class IdentificationNumber {
         this.number = Integer.parseInt(value.substring(1));
     }
 
+    /**
+     * Returns boolean if ID provided is valid
+     * @param test String to be tested
+     * @return boolean result
+     */
     public static boolean isValidId(String test) {
-       return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns boolean if ID provided is valid
+     * @param testPrefix Prefix to be tested
+     * @param testNumber Number to be tested
+     * @return boolean result
+     */
     public static boolean isValidId(String testPrefix, int testNumber) {
         if (!testPrefix.equals("T") && !testPrefix.equals("S")) {
             return false;
@@ -55,7 +75,7 @@ public class IdentificationNumber {
         return this.prefix;
     }
 
-    public int getNumericValue(){
+    public int getNumericValue() {
         return this.number;
     }
 

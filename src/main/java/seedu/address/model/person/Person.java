@@ -9,7 +9,6 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.IdentificationNumberGenerator;
 
 /**
  * Represents a Person in the address book.
@@ -31,7 +30,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(IdentificationNumber id, Name name, Role role, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(IdentificationNumber id, Name name, Role role, Phone phone,
+                  Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, role, phone, email, address, tags);
         this.id = id;
         this.name = name;
