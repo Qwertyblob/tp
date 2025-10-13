@@ -60,13 +60,8 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-<<<<<<< HEAD
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)),
-                CommandResult.DisplayType.DEFAULT);
-=======
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)), CommandResult.DisplayType.DEFAULT);
->>>>>>> master
     }
 
     @Override
