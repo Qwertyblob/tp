@@ -19,12 +19,11 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /**
-     * Enumeration to differentiate between displaying person list or lesson list
-     */
+    /** Types of display */
     public enum DisplayType {
-        DEFAULT,        // show person list
-        CLASS_LIST      // show lesson list
+        DEFAULT, // show person list
+        CLASS_LIST, // show lesson list
+        RECENT, // show current list
     }
 
     private final DisplayType displayType;
@@ -36,7 +35,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.displayType = displayType;
+        this.displayType = displayType != null ? displayType : DisplayType.RECENT;
     }
 
     /**

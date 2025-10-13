@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.lesson.exceptions.DuplicateLessonException;
+import seedu.address.model.lesson.exceptions.LessonNotFoundException;
 
 /**
  * A list of lessons that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +43,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
     public void add(Lesson toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateLessonException();
         }
         internalList.add(toAdd);
     }
@@ -58,11 +58,11 @@ public class UniqueLessonList implements Iterable<Lesson> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new LessonNotFoundException();
         }
 
         if (!target.isSameLesson(editedLesson) && contains(editedLesson)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateLessonException();
         }
 
         internalList.set(index, editedLesson);
@@ -75,7 +75,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
     public void remove(Lesson toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new LessonNotFoundException();
         }
     }
 
@@ -86,12 +86,12 @@ public class UniqueLessonList implements Iterable<Lesson> {
 
     /**
      * Replaces the contents of this list with {@code lessons}.
-     * {@code persons} must not contain duplicate lessons.
+     * {@code lessons} must not contain duplicate lessons.
      */
     public void setLessons(List<Lesson> lessons) {
         requireAllNonNull(lessons);
         if (!lessonsAreUnique(lessons)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateLessonException();
         }
 
         internalList.setAll(lessons);
@@ -116,7 +116,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.person.UniquePersonList)) {
+        if (!(other instanceof seedu.address.model.lesson.UniqueLessonList)) {
             return false;
         }
 
