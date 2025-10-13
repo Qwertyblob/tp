@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -87,10 +86,8 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = new ToStringBuilder(addressBook)
-                .add("persons", addressBook.getPersonList())
-                .add("lessons", addressBook.getLessonList())
-                .toString();
+        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
+                + ", lessons=" + addressBook.getLessonList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -114,7 +111,5 @@ public class AddressBookTest {
             // Return an empty observable list since lessons aren't used in these tests.
             return FXCollections.observableArrayList();
         }
-
     }
-
 }

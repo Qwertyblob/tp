@@ -23,9 +23,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private CommandResult.DisplayType currentDisplayType = CommandResult.DisplayType.DEFAULT;
-
     private static final String FXML = "MainWindow.fxml";
+
+    private CommandResult.DisplayType currentDisplayType = CommandResult.DisplayType.DEFAULT;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
