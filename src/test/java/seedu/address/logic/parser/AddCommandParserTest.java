@@ -38,6 +38,9 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -49,13 +52,23 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
+    @BeforeEach
+    public void setUp() {
+        // Reset the ID generator before each test
+        IdentificationNumberGenerator.init(new ArrayList<>());
+    }
+
     @Test
     public void parse_allFieldsPresent_success() {
+
+        IdentificationNumberGenerator.init(new ArrayList<>());
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
@@ -63,6 +76,7 @@ public class AddCommandParserTest {
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
 
+        IdentificationNumberGenerator.init(new ArrayList<>());
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();

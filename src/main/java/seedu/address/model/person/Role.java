@@ -13,6 +13,7 @@ public class Role {
     public static final String VALIDATION_REGEX = "^(?i)(student|tutor)$";
 
     public final String role;
+    public final boolean isTutor;
 
     /**
      * Constructs a {@code Role}.
@@ -24,6 +25,11 @@ public class Role {
         checkArgument(isValidRole(role), MESSAGE_CONSTRAINTS);
         String i = role.substring(0, 1).toUpperCase();
         this.role = i + role.substring(1);
+        if (role.equals("tutor")) {
+            this.isTutor = true;
+        } else {
+            this.isTutor = false;
+        }
     }
 
     /**
@@ -31,6 +37,14 @@ public class Role {
      */
     public static boolean isValidRole(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public boolean isTutor() {
+        return this.isTutor;
+    }
+
+    public boolean isStudent() {
+        return !this.isTutor;
     }
 
     @Override
