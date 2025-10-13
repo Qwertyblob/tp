@@ -98,7 +98,7 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        IdentificationNumber id = personToEdit.getId();
+        IdentificationNumber id = new IdentificationNumber(personToEdit.getId().toString());
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());

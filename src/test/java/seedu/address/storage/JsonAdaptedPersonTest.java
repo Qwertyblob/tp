@@ -19,7 +19,6 @@ import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
-import seedu.address.model.util.IdentificationNumberGenerator;
 
 public class JsonAdaptedPersonTest {
 
@@ -44,7 +43,6 @@ public class JsonAdaptedPersonTest {
     @BeforeEach
     public void setUp() {
         // Reset the ID generator before each test
-        IdentificationNumberGenerator.init(new ArrayList<>());
     }
 
     @Test

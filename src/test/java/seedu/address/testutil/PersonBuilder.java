@@ -18,7 +18,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_ID = "S00000000";
+    public static final String DEFAULT_ID = "S00000001";
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_ROLE = "student";
     public static final String DEFAULT_PHONE = "85355255";
@@ -64,7 +64,7 @@ public class PersonBuilder {
      * Sets the {@code id} of the {@code Person} that we are building.
      */
     public PersonBuilder withId(IdentificationNumber id) {
-        this.id = id;
+        this.id = new IdentificationNumber(id.toString());
         return this;
     }
 
