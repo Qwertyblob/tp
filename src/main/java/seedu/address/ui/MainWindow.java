@@ -25,6 +25,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    private CommandResult.DisplayType currentDisplayType = CommandResult.DisplayType.DEFAULT;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -43,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane lessonListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -113,6 +118,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        LessonListPanel lessonListPanel = new LessonListPanel(logic.getFilteredLessonList());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -178,18 +186,29 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            switch (commandResult.getDisplayType()) {
+            CommandResult.DisplayType displayType =
+                    commandResult.getDisplayType() != CommandResult.DisplayType.RECENT
+                            ? commandResult.getDisplayType()
+                            : currentDisplayType;
+
+            switch (displayType) {
             case DEFAULT:
                 personListPanelPlaceholder.setVisible(true);
-                //lessonListPanelPlaceholder.setVisible(false);
+                personListPanelPlaceholder.setManaged(true);
+                lessonListPanelPlaceholder.setVisible(false);
+                lessonListPanelPlaceholder.setManaged(false);
                 break;
             case CLASS_LIST:
                 personListPanelPlaceholder.setVisible(false);
-                //lessonListPanelPlaceholder.setVisible(true);
+                personListPanelPlaceholder.setManaged(false);
+                lessonListPanelPlaceholder.setVisible(true);
+                lessonListPanelPlaceholder.setManaged(true);
                 break;
             default:
                 break;
             }
+
+            currentDisplayType = displayType;
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
