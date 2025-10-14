@@ -32,14 +32,12 @@ public class EnrolCommandTest {
 
     @BeforeEach
     public void setUp() {
-        // Use the typical model manager for both the actual and expected models
         model = getTypicalModelManager();
         expectedModel = getTypicalModelManager();
     }
 
     @Test
     public void execute_validStudentAndLesson_success() {
-        // Assumes a lesson with class name "A1a" exists and AMY is a person not yet in this lesson.
         ClassName classNameToEnrol = new ClassName(VALID_CLASS_MATH);
         IdentificationNumber studentIdToEnrol = AMY.getId();
         EnrolCommand enrolCommand = new EnrolCommand(studentIdToEnrol, classNameToEnrol);
@@ -65,12 +63,10 @@ public class EnrolCommandTest {
 
     @Test
     public void execute_duplicateStudent_throwsCommandException() {
-        // We first enrol AMY into the class, then try to enrol her again.
         ClassName className = new ClassName(VALID_CLASS_MATH);
         IdentificationNumber studentId = AMY.getId();
         EnrolCommand initialEnrolCommand = new EnrolCommand(studentId, className);
 
-        // Create a temporary model to perform the first enrolment
         Model tempModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         try {
             initialEnrolCommand.execute(tempModel);
@@ -78,14 +74,12 @@ public class EnrolCommandTest {
             // Should not fail
         }
 
-        // Now, try to execute the same command on the modified model
         EnrolCommand duplicateEnrolCommand = new EnrolCommand(studentId, className);
         assertCommandFailure(duplicateEnrolCommand, tempModel, EnrolCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 
     @Test
     public void execute_lessonNotFound_throwsCommandException() {
-        // Use a class name that is valid in format but does not exist
         ClassName nonExistentClassName = new ClassName("Z9z");
         EnrolCommand enrolCommand = new EnrolCommand(AMY.getId(), nonExistentClassName);
 
@@ -94,7 +88,6 @@ public class EnrolCommandTest {
 
     @Test
     public void execute_studentNotFound_throwsCommandException() {
-        // Use a valid class name but a student ID that does not exist
         ClassName className = new ClassName(VALID_CLASS_MATH);
         IdentificationNumber nonExistentStudentId = new IdentificationNumber("S9999999");
         EnrolCommand enrolCommand = new EnrolCommand(nonExistentStudentId, className);
