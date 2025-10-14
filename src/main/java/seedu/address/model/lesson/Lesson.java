@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 
@@ -25,6 +26,7 @@ public class Lesson {
     // Data fields
     private final Tutor tutor;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<IdentificationNumber> studentIds = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -36,6 +38,19 @@ public class Lesson {
         this.time = time;
         this.tutor = tutor;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<IdentificationNumber> studentIds) {
+        requireAllNonNull(className, day, time, tutor, tags, studentIds);
+        this.className = className;
+        this.day = day;
+        this.time = time;
+        this.tutor = tutor;
+        this.tags.addAll(tags);
+        this.studentIds.addAll(studentIds);
     }
 
     public ClassName getClassName() {
@@ -63,16 +78,24 @@ public class Lesson {
     }
 
     /**
+     * Returns an immutable set of student IDs, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<IdentificationNumber> getStudents() {
+        return Collections.unmodifiableSet(studentIds);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameLesson(Lesson otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameLesson(Lesson otherLesson) {
+        if (otherLesson == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getClassName().equals(getClassName());
+        return otherLesson != null
+                && otherLesson.getClassName().equals(getClassName());
     }
 
     /**
@@ -90,18 +113,19 @@ public class Lesson {
             return false;
         }
 
-        Lesson otherPerson = (Lesson) other;
-        return className.equals(otherPerson.className)
-                && day.equals(otherPerson.day)
-                && time.equals(otherPerson.time)
-                && tutor.equals(otherPerson.tutor)
-                && tags.equals(otherPerson.tags);
+        Lesson otherLesson = (Lesson) other;
+        return className.equals(otherLesson.className)
+                && day.equals(otherLesson.day)
+                && time.equals(otherLesson.time)
+                && tutor.equals(otherLesson.tutor)
+                && tags.equals(otherLesson.tags)
+                && studentIds.equals(otherLesson.studentIds);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(className, day, time, tutor, tags);
+        return Objects.hash(className, day, time, tutor, tags, studentIds);
     }
 
     @Override
@@ -112,6 +136,7 @@ public class Lesson {
                 .add("time", time)
                 .add("tutor", tutor)
                 .add("tags", tags)
+                .add("students", studentIds)
                 .toString();
     }
 }
