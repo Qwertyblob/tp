@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.model.ModelManager;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Lesson} objects to be used in tests.
@@ -49,6 +50,11 @@ public class TypicalLessons {
      */
     public static ModelManager getTypicalModelManager() {
         ModelManager model = new ModelManager();
+
+        for (Person person : TypicalPersons.getTypicalPersons()) {
+            model.addPerson(person);
+        }
+
         for (Lesson lesson : getTypicalLessons()) {
             model.addLesson(lesson);
         }
