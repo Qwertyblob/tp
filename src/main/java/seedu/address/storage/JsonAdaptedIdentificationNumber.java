@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.IdentificationNumber;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link IdentificationNumber}.
@@ -41,7 +40,7 @@ class JsonAdaptedIdentificationNumber {
      */
     public IdentificationNumber toModelType() throws IllegalValueException {
         if (!IdentificationNumber.isValidId(studentId)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
         }
         return new IdentificationNumber(studentId);
     }
