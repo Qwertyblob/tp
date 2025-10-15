@@ -33,10 +33,10 @@ public class DeleteCommand extends ConfirmableCommand {
     }
 
     @Override
-    public String getConfirmationMessage(Model model) {
+    public String getConfirmationMessage(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            return Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         return String.format(MESSAGE_CONFIRM_DELETE, Messages.formatPerson(personToDelete));

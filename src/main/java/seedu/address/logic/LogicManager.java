@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         try {
-            if (confirmationManager.hasPendingCommand()) {
+            if (model.getPendingCommand() != null) {
                 return confirmationManager.handleUserResponse(commandText, model);
             }
 

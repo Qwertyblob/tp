@@ -19,7 +19,7 @@ public abstract class ConfirmableCommand extends Command implements Confirmable 
     @Override
     public final CommandResult execute(Model model) throws CommandException {
         if (!isConfirmed) {
-            throw new CommandException("Command not confirmed yet.");
+            return new CommandResult(getConfirmationMessage(model), CommandResult.DisplayType.CONFIRMATION);
         }
         return executeConfirmed(model);
     }

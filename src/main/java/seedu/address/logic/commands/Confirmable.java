@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 public interface Confirmable {
-    String getConfirmationMessage(Model model);
+    String getConfirmationMessage(Model model) throws CommandException;
 }
