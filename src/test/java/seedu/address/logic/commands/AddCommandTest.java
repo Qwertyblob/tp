@@ -180,7 +180,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Lesson> getFilteredClassList() {
+        public ObservableList<Lesson> getFilteredLessonList() {
             return null;
         }
 

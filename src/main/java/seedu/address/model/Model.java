@@ -15,6 +15,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Lesson> PREDICATE_SHOW_ALL_LESSONS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -111,7 +114,7 @@ public interface Model {
     void setLesson(Lesson target, Lesson editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Lesson> getFilteredClassList();
+    ObservableList<Lesson> getFilteredLessonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

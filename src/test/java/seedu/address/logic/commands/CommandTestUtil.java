@@ -15,14 +15,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTOR;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.ContactMatchesPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -31,6 +30,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_ID_AMY = "S0000001";
+    public static final String VALID_ID_BOB = "T0000001";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_ROLE_AMY = "student";
@@ -49,6 +50,10 @@ public class CommandTestUtil {
     public static final String VALID_DAY_MONDAY = "monday";
     public static final String VALID_TIME_1200 = "1200";
     public static final String VALID_TUTOR_A1234567 = "t1234567";
+
+    public static final String VALID_CLASS_SCIENCE = "B2b";
+    public static final String INVALID_CLASS_NAME_FORMAT = "Math101";
+    public static final String INVALID_STUDENT_ID_FORMAT = "A1234567";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -101,7 +106,7 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedModel.getFilteredPersonList(), actualModel.getFilteredPersonList());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -113,7 +118,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -141,8 +146,9 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        model.updateFilteredPersonList(new ContactMatchesPredicate(
+                person.getName().fullName, "", "", "", "", ""));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

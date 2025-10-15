@@ -2,13 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,8 +45,35 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        IdentificationNumber personIdToDelete = personToDelete.getId();
+
+        // Create a copy of the lesson list to iterate over, to avoid modification issues.
+        List<Lesson> lessonsToUpdate = new java.util.ArrayList<>(model.getFilteredLessonList());
+
+        for (Lesson lesson : lessonsToUpdate) {
+            // Check if the person to be deleted is enrolled in this lesson.
+            if (lesson.getStudents().contains(personIdToDelete)) {
+                // Create a new set of student IDs without the deleted person's ID.
+                Set<IdentificationNumber> newStudentIdSet = new HashSet<>(lesson.getStudents());
+                newStudentIdSet.remove(personIdToDelete);
+
+                // Create a new lesson with the updated student list.
+                Lesson updatedLesson = new Lesson(
+                        lesson.getClassName(),
+                        lesson.getDay(),
+                        lesson.getTime(),
+                        lesson.getTutor(),
+                        lesson.getTags(),
+                        newStudentIdSet
+                );
+                // Update the lesson in the model.
+                model.setLesson(lesson, updatedLesson);
+            }
+        }
+
         model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)),
+                CommandResult.DisplayType.RECENT);
     }
 
     @Override

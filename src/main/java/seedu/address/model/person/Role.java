@@ -10,9 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Roles are only either \"tutor\" or \"student\".";
-    public static final String VALIDATION_REGEX = "^(student|tutor)$";
+    public static final String VALIDATION_REGEX = "^(?i)(student|tutor)$";
 
     public final String role;
+    public final boolean isTutor;
 
     /**
      * Constructs a {@code Role}.
@@ -22,7 +23,13 @@ public class Role {
     public Role(String role) {
         requireNonNull(role);
         checkArgument(isValidRole(role), MESSAGE_CONSTRAINTS);
-        this.role = role;
+        String i = role.substring(0, 1).toUpperCase();
+        this.role = i + role.substring(1);
+        if (role.equalsIgnoreCase("tutor")) {
+            this.isTutor = true;
+        } else {
+            this.isTutor = false;
+        }
     }
 
     /**
@@ -30,6 +37,14 @@ public class Role {
      */
     public static boolean isValidRole(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public boolean isTutor() {
+        return this.isTutor;
+    }
+
+    public boolean isStudent() {
+        return !this.isTutor;
     }
 
     @Override

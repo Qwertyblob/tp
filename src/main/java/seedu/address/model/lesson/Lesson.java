@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.Name;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 
@@ -26,23 +26,31 @@ public class Lesson {
     // Data fields
     private final Tutor tutor;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Name> students = new HashSet<>();
+    private final Set<IdentificationNumber> studentIds = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<Name> students) {
-        requireAllNonNull(className, day, time, tutor, tags, students);
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags) {
+        requireAllNonNull(className, day, time, tutor, tags);
         this.className = className;
         this.day = day;
         this.time = time;
         this.tutor = tutor;
         this.tags.addAll(tags);
-        this.students.addAll(students);
     }
 
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags) {
-        this(className, day, time, tutor, tags, new HashSet<>());
+    /**
+     * Every field must be present and not null.
+     */
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<IdentificationNumber> studentIds) {
+        requireAllNonNull(className, day, time, tutor, tags, studentIds);
+        this.className = className;
+        this.day = day;
+        this.time = time;
+        this.tutor = tutor;
+        this.tags.addAll(tags);
+        this.studentIds.addAll(studentIds);
     }
 
     public ClassName getClassName() {
@@ -69,31 +77,31 @@ public class Lesson {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Set<Name> getAttendees() {
-        return Collections.unmodifiableSet(students);
-    }
-
-    public boolean hasStudent(Name studentName) {
-        return students.contains(studentName);
-    }
-
-    public Lesson markAttendance(Name studentName) {
-        Set<Name> updated = new HashSet<>(students);
-        updated.add(studentName);
+    public Lesson markAttendance(IdentificationNumber id) {
+        Set<IdentificationNumber> updated = new HashSet<>(studentIds);
+        updated.add(id);
         return new Lesson(className, day, time, tutor, tags, updated);
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns an immutable set of student IDs, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
-    public boolean isSameLesson(Lesson otherPerson) {
-        if (otherPerson == this) {
+    public Set<IdentificationNumber> getStudents() {
+        return Collections.unmodifiableSet(studentIds);
+    }
+
+    /**
+     * Returns true if both lessons have the same name.
+     * This defines a weaker notion of equality between two lessons.
+     */
+    public boolean isSameLesson(Lesson otherLesson) {
+        if (otherLesson == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getClassName().equals(getClassName());
+        return otherLesson != null
+                && otherLesson.getClassName().equals(getClassName());
     }
 
     /**
@@ -117,13 +125,13 @@ public class Lesson {
                 && time.equals(otherLesson.time)
                 && tutor.equals(otherLesson.tutor)
                 && tags.equals(otherLesson.tags)
-                && students.equals(otherLesson.students);
+                && studentIds.equals(otherLesson.studentIds);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(className, day, time, tutor, tags, students);
+        return Objects.hash(className, day, time, tutor, tags, studentIds);
     }
 
     @Override
@@ -134,7 +142,7 @@ public class Lesson {
                 .add("time", time)
                 .add("tutor", tutor)
                 .add("tags", tags)
-                .add("students", students)
+                .add("students", studentIds)
                 .toString();
     }
 }
