@@ -8,14 +8,14 @@ import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link IdentificationNumber}.
  */
 class JsonAdaptedIdentificationNumber {
 
     private final String studentId;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedIdentificationNumber} with the given {@code studentId}.
      */
     @JsonCreator
     public JsonAdaptedIdentificationNumber(String studentId) {
@@ -23,7 +23,7 @@ class JsonAdaptedIdentificationNumber {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code IdentificationNumber} into this class for Jackson use.
      */
     public JsonAdaptedIdentificationNumber(IdentificationNumber source) {
         studentId = source.toString();
@@ -35,9 +35,9 @@ class JsonAdaptedIdentificationNumber {
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted tag object into the model's {@code IdentificationNumber} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted studentId.
      */
     public IdentificationNumber toModelType() throws IllegalValueException {
         if (!IdentificationNumber.isValidId(studentId)) {
