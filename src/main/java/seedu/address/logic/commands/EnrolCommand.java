@@ -111,4 +111,5 @@ public class EnrolCommand extends Command {
         return className.equals(otherEnrolCommand.className)
                 && studentId.equals(otherEnrolCommand.studentId);
     }
+
 }

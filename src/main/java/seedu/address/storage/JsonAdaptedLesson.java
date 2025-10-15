@@ -10,7 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.lesson.*;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Day;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.Tutor;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +29,7 @@ class JsonAdaptedLesson {
     private final String day;
     private final String time;
     private final String tutor;
+    private final List<JsonAdaptedIdentificationNumber> students = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -34,11 +40,15 @@ class JsonAdaptedLesson {
                              @JsonProperty("day") String day,
                              @JsonProperty("time") String time,
                              @JsonProperty("tutor") String tutor,
+                             @JsonProperty("students") List<JsonAdaptedIdentificationNumber> students,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.className = className;
         this.day = day;
         this.time = time;
         this.tutor = tutor;
+        if (students != null) {
+            this.students.addAll(students);
+        }
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -52,6 +62,9 @@ class JsonAdaptedLesson {
         day = source.getDay().fullDay;
         time = source.getTime().fullTime;
         tutor = source.getTutor().tutorName;
+        students.addAll(source.getStudents().stream()
+                .map(JsonAdaptedIdentificationNumber::new)
+                .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -63,7 +76,11 @@ class JsonAdaptedLesson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Lesson toModelType() throws IllegalValueException {
+        final List<IdentificationNumber> lessonStudents = new ArrayList<>();
         final List<Tag> lessonTags = new ArrayList<>();
+        for (JsonAdaptedIdentificationNumber student : students) {
+            lessonStudents.add(student.toModelType());
+        }
         for (JsonAdaptedTag tag : tags) {
             lessonTags.add(tag.toModelType());
         }
@@ -101,8 +118,10 @@ class JsonAdaptedLesson {
         }
         final Tutor modelTutor = new Tutor(tutor);
 
+        final Set<IdentificationNumber> modelStudents = new HashSet<>(lessonStudents);
+
         final Set<Tag> modelTags = new HashSet<>(lessonTags);
-        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelTags);
+        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelTags, modelStudents);
     }
 
 }

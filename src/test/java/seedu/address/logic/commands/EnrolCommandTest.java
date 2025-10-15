@@ -123,4 +123,5 @@ public class EnrolCommandTest {
         // different student id -> returns false
         assertFalse(standardCommand.equals(new EnrolCommand(bobId, mathClass)));
     }
+
 }

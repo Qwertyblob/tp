@@ -49,7 +49,7 @@ public class ParserUtil {
      */
     public static IdentificationNumber parseIdentificationNumber(String id) throws ParseException {
         requireNonNull(id);
-        String trimmedId = id.trim();
+        String trimmedId = id.trim().toUpperCase();
         if (!IdentificationNumber.isValidId(trimmedId)) {
             throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
         }
