@@ -9,7 +9,7 @@ public class IdentificationNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Identification number must start with 'T' or 'S' followed by an 8 digit number";
-    public static final String VALIDATION_REGEX = "[TS]\\d{8}$";
+    public static final String VALIDATION_REGEX = "[TtSs]\\d{7}$";
 
     private final String value;
     private final String prefix;
@@ -25,7 +25,7 @@ public class IdentificationNumber {
         if (!prefix.equals("T") && !prefix.equals("S")) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
-        if (number < 0 || number > 99999999) {
+        if (number < 0 || number > 9999999) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
 

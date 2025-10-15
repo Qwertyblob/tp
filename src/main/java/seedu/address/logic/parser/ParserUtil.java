@@ -15,6 +15,7 @@ import seedu.address.model.lesson.Time;
 import seedu.address.model.lesson.Tutor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
@@ -38,6 +39,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String id} into an {@code IdentificationNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static IdentificationNumber parseIdentificationNumber(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (!IdentificationNumber.isValidId(trimmedId)) {
+            throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new IdentificationNumber(trimmedId);
     }
 
     /**
