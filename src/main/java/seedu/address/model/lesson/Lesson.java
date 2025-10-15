@@ -86,8 +86,8 @@ public class Lesson {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both lessons have the same name.
+     * This defines a weaker notion of equality between two lessons.
      */
     public boolean isSameLesson(Lesson otherLesson) {
         if (otherLesson == this) {

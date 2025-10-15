@@ -9,7 +9,7 @@ public class IdentificationNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Identification number must start with 'T' or 'S' followed by an 8 digit number";
-    public static final String VALIDATION_REGEX = "[TS]\\d{7}$";
+    public static final String VALIDATION_REGEX = "[TtSs]\\d{7}$";
 
     private final String value;
     private final String prefix;
