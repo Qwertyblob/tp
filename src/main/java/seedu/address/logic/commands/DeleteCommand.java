@@ -64,7 +64,8 @@ public class DeleteCommand extends Command {
                         lesson.getTime(),
                         lesson.getTutor(),
                         lesson.getTags(),
-                        newStudentIdSet
+                        newStudentIdSet,
+                        lesson.getAttendance()
                 );
                 // Update the lesson in the model.
                 model.setLesson(lesson, updatedLesson);
