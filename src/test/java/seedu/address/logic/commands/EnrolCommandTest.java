@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import seedu.address.testutil.PersonBuilder;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.ClassName;
@@ -54,6 +57,15 @@ public class EnrolCommandTest {
         Lesson expectedLesson = new LessonBuilder(lessonInModel)
                 .withStudents(newStudentIds.stream().map(IdentificationNumber::toString).toArray(String[]::new)).build();
         expectedModel.setLesson(lessonInModel, expectedLesson);
+
+        // Update the person's lessons as well
+        Set<Lesson> newLessons = Stream.concat(
+                AMY.getLessons().stream(),
+                Stream.of(expectedLesson)
+        ).collect(Collectors.toSet());
+        Person expectedPerson = new Person(AMY.getId(), AMY.getName(), AMY.getRole(), 
+                newLessons, AMY.getPhone(), AMY.getEmail(), AMY.getAddress(), AMY.getTags());
+        expectedModel.setPerson(AMY, expectedPerson);
 
         String expectedMessage = String.format(EnrolCommand.MESSAGE_ENROL_SUCCESS,
                 Messages.formatPerson(AMY), Messages.formatLesson(expectedLesson));

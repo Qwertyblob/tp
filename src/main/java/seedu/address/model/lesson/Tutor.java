@@ -28,7 +28,8 @@ public class Tutor {
     public Tutor(String tutor) {
         requireNonNull(tutor);
         checkArgument(isValidTutor(tutor), MESSAGE_CONSTRAINTS);
-        tutorName = tutor;
+        String i = tutor.substring(0, 1).toUpperCase();
+        this.tutorName = i + tutor.substring(1);
     }
 
     /**

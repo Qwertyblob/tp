@@ -75,8 +75,8 @@ public class TutorTest {
 
     @Test
     public void toString_returnsCorrectString() {
-        Tutor tutor = new Tutor("A1234567");
-        assertEquals("A1234567", tutor.toString());
+        Tutor tutor = new Tutor("T1234567");
+        assertEquals("T1234567", tutor.toString());
     }
 
     @Test

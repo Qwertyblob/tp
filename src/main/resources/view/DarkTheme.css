@@ -350,3 +350,19 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.role_label {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-padding: 2 6 2 6;
+    -fx-background-radius: 10;
+    -fx-font-size: 11;
+}
+
+.lesson_label {
+    -fx-background-color: #dd0000;
+    -fx-text-fill: white;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 10;
+    -fx-font-size: 11;
+}

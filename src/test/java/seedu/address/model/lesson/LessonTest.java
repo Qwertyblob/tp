@@ -19,7 +19,7 @@ public class LessonTest {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
         Time time = new Time("1200");
-        Tutor tutor = new Tutor("A1234567");
+        Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
         assertThrows(NullPointerException.class, () -> new Lesson(null, day, time, tutor, tags));
@@ -34,7 +34,7 @@ public class LessonTest {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
         Time time = new Time("1200");
-        Tutor tutor = new Tutor("A1234567");
+        Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
 
@@ -52,7 +52,7 @@ public class LessonTest {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
         Time time = new Time("1200");
-        Tutor tutor = new Tutor("A1234567");
+        Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
         Lesson lesson = new Lesson(className, day, time, tutor, tags);
@@ -65,7 +65,7 @@ public class LessonTest {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
         Time time = new Time("1200");
-        Tutor tutor = new Tutor("A1234567");
+        Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
         tags.add(new Tag("algebra"));
@@ -82,7 +82,7 @@ public class LessonTest {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
         Time time = new Time("1200");
-        Tutor tutor = new Tutor("A1234567");
+        Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
 
