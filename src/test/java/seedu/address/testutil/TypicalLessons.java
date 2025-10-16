@@ -49,8 +49,8 @@ public class TypicalLessons {
             .withDay("saturday")
             .withTime("1700")
             .withTutor("t1234567")
-            .withTags("chinese")
-            .withStudents(BENSON.getId().toString()).build();
+            .withStudents(BENSON.getId().toString())
+            .withTags("chinese").build();
 
     private TypicalLessons() {} // prevents instantiation
 

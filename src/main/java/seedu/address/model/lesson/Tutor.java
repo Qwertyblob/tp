@@ -16,7 +16,7 @@ public class Tutor {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z]\\d{7}$";
+    public static final String VALIDATION_REGEX = "^[Tt]\\d{7}$";
 
     public final String tutorName;
 

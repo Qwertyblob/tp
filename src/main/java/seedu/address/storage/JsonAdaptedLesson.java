@@ -121,7 +121,7 @@ class JsonAdaptedLesson {
         final Set<IdentificationNumber> modelStudents = new HashSet<>(lessonStudents);
 
         final Set<Tag> modelTags = new HashSet<>(lessonTags);
-        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelTags, modelStudents);
+        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelStudents, modelTags);
     }
 
 }

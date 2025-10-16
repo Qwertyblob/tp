@@ -43,7 +43,7 @@ public class Lesson {
     /**
      * Every field must be present and not null.
      */
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<IdentificationNumber> studentIds) {
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<IdentificationNumber> studentIds, Set<Tag> tags) {
         requireAllNonNull(className, day, time, tutor, tags, studentIds);
         this.className = className;
         this.day = day;

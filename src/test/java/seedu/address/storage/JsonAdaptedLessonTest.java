@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.JsonAdaptedLesson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalLessons.MATH_A1A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,30 +13,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.IdentificationNumber;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Day;
+import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.Tutor;
 
-public class JsonAdaptedPersonTest {
+public class JsonAdaptedLessonTest {
 
-    private static final String INVALID_ID = "X123"; // invalid format
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_ROLE = "Teacher";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_CLASSNAME = "math3a";
+    private static final String INVALID_DAY = "Today";
+    private static final String INVALID_TIME = "4pm";
+    private static final String INVALID_TUTOR = "S1234567";
+    private static final String INVALID_IDS = "S123456";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_ID = BENSON.getId().toString();
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_ROLE = BENSON.getRole().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_CLASSNAME = MATH_A1A.getClassName().toString();
+    private static final String VALID_DAY = MATH_A1A.getDay().toString();
+    private static final String VALID_TIME = MATH_A1A.getTime().toString();
+    private static final String VALID_TUTOR = MATH_A1A.getTutor().toString();
+    private static final List<JsonAdaptedIdentificationNumber> VALID_IDS = MATH_A1A.getStudents().stream()
+            .map(JsonAdaptedIdentificationNumber::new)
+            .collect(Collectors.toList());
+    private static final List<JsonAdaptedTag> VALID_TAGS = MATH_A1A.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
@@ -46,133 +44,105 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(BENSON, person.toModelType());
+    public void toModelType_validLessonDetails_returnsLesson() throws Exception {
+        JsonAdaptedLesson lesson = new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                VALID_TUTOR, VALID_IDS, VALID_TAGS);
+        assertEquals(MATH_A1A, lesson.toModelType());
     }
 
     @Test
-    public void toModelType_invalidId_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = IdentificationNumber.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidClassName_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(INVALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+        String expectedMessage = ClassName.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_nullId_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(null, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+    public void toModelType_nullClassName_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(null, VALID_DAY, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                IdentificationNumber.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                ClassName.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, INVALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidDay_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, INVALID_DAY, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+        String expectedMessage = Day.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, null, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+    public void toModelType_nullDay_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, null, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                Day.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_invalidRole_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, INVALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Role.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidTime_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, INVALID_TIME,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+        String expectedMessage = Time.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_nullRole_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, null, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+    public void toModelType_nullTime_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, null,
+                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Role.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                Time.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, INVALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidTutor_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        INVALID_TUTOR, VALID_IDS, VALID_TAGS);
+        String expectedMessage = Tutor.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, null,
-                        VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+    public void toModelType_nullTutor_throwsIllegalValueException() {
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        null, VALID_IDS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                Tutor.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
 
     @Test
-    public void toModelType_invalidEmail_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        null, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Email.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Address.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidStudentIds_throwsIllegalValueException() {
+        List<JsonAdaptedIdentificationNumber> invalidIds = new ArrayList<>(VALID_IDS);
+        invalidIds.add(new JsonAdaptedIdentificationNumber(INVALID_IDS));
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        VALID_TUTOR, invalidIds, VALID_TAGS);
+        assertThrows(IllegalValueException.class, lesson::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_ID, VALID_NAME, VALID_ROLE, VALID_PHONE,
-                        VALID_EMAIL, VALID_ADDRESS, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, invalidTags);
+        assertThrows(IllegalValueException.class, lesson::toModelType);
     }
 }
