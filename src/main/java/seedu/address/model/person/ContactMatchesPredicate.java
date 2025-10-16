@@ -11,6 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
  * Tests whether a {@code Person} matches all the specified search criteria.
  */
 public class ContactMatchesPredicate implements Predicate<Person> {
+    private final String id;
     private final String name;
     private final String role;
     private final String phone;
@@ -21,7 +22,8 @@ public class ContactMatchesPredicate implements Predicate<Person> {
     /**
      * Creates a ContactMatchesPredicate with the given information of a person.
      */
-    public ContactMatchesPredicate(String name, String role, String phone, String email, String address, String tags) {
+    public ContactMatchesPredicate(String id, String name, String role, String phone, String email, String address, String tags) {
+        this.id = id;
         this.name = name;
         this.role = role;
         this.phone = phone;
@@ -39,13 +41,16 @@ public class ContactMatchesPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        if (name.isEmpty() && role.isEmpty() && phone.isEmpty()
+        if (id.isEmpty() && name.isEmpty() && role.isEmpty() && phone.isEmpty()
                 && email.isEmpty() && address.isEmpty() && tags.isEmpty()) {
             return false;
         }
 
         boolean matches = true;
 
+        if (!id.isEmpty()) {
+            matches &= StringUtil.containsWordIgnoreCase(person.getId().getValue(), id);
+        }
         if (!name.isEmpty()) {
             String[] keywords = name.trim().split("\\s+");
             String personName = person.getName().fullName;
@@ -103,7 +108,8 @@ public class ContactMatchesPredicate implements Predicate<Person> {
         }
 
         ContactMatchesPredicate otherContactMatchesPredicate = (ContactMatchesPredicate) other;
-        return name.equals(otherContactMatchesPredicate.name)
+        return id.equals(otherContactMatchesPredicate.id)
+                && name.equals(otherContactMatchesPredicate.name)
                 && role.equals(otherContactMatchesPredicate.role)
                 && phone.equals(otherContactMatchesPredicate.phone)
                 && email.equals(otherContactMatchesPredicate.email)
@@ -114,6 +120,7 @@ public class ContactMatchesPredicate implements Predicate<Person> {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("id", id)
                 .add("name", name)
                 .add("role", role)
                 .add("phone", phone)
