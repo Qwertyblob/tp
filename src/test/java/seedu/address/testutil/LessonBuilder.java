@@ -124,6 +124,6 @@ public class LessonBuilder {
     }
 
     public Lesson build() {
-        return new Lesson(className, day, time, tutor, tags, studentIds, attendance);
+        return new Lesson(className, day, time, tutor, studentIds, attendance, tags);
     }
 }

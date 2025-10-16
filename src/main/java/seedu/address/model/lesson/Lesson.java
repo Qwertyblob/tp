@@ -47,7 +47,7 @@ public class Lesson {
     /**
      * Every field must be present and not null.
      */
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<Tag> tags, Set<IdentificationNumber> studentIds, Map<LocalDate, Set<IdentificationNumber>> attendance) {
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<IdentificationNumber> studentIds, Map<LocalDate, Set<IdentificationNumber>> attendance, Set<Tag> tags) {
         requireAllNonNull(className, day, time, tutor, tags, studentIds);
         this.className = className;
         this.day = day;
@@ -127,15 +127,15 @@ public class Lesson {
                 && day.equals(otherLesson.day)
                 && time.equals(otherLesson.time)
                 && tutor.equals(otherLesson.tutor)
-                && tags.equals(otherLesson.tags)
                 && studentIds.equals(otherLesson.studentIds)
-                && attendance.equals(otherLesson.attendance);
+                && attendance.equals(otherLesson.attendance)
+                && tags.equals(otherLesson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(className, day, time, tutor, tags, studentIds);
+        return Objects.hash(className, day, time, tutor, studentIds, attendance, tags);
     }
 
     @Override
@@ -145,9 +145,9 @@ public class Lesson {
                 .add("day", day)
                 .add("time", time)
                 .add("tutor", tutor)
-                .add("tags", tags)
                 .add("students", studentIds)
                 .add("attendance", attendance)
+                .add("tags", tags)
                 .toString();
     }
 }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EnrolCommand.MESSAGE_STUDENT_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -94,9 +93,7 @@ public class MarkCommand extends Command {
                 lessonToMark.getDay(),
                 lessonToMark.getTime(),
                 lessonToMark.getTutor(),
-                lessonToMark.getTags(),
-                lessonToMark.getStudents(),
-                newAttendanceMap
+                lessonToMark.getStudents(), newAttendanceMap, lessonToMark.getTags()
         );
 
         model.setLesson(lessonToMark, updatedLesson);

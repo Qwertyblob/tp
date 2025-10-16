@@ -74,9 +74,7 @@ public class DeleteCommand extends ConfirmableCommand {
                         lesson.getDay(),
                         lesson.getTime(),
                         lesson.getTutor(),
-                        lesson.getTags(),
-                        newStudentIdSet,
-                        lesson.getAttendance()
+                        newStudentIdSet, lesson.getAttendance(), lesson.getTags()
                 );
                 // Update the lesson in the model.
                 model.setLesson(lesson, updatedLesson);
