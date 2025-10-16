@@ -13,7 +13,6 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,19 +37,22 @@ import seedu.address.testutil.LessonBuilder;
  */
 public class DeleteCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = getTypicalModelManager();
-    private final ConfirmationManager confirmationManager = new ConfirmationManager();
+    private Model model;
+    private Model expectedModel;
+    private ConfirmationManager confirmationManager;
+
+    @BeforeEach
+    public void setUp() {
+        // Use getTypicalModelManager for a fully initialized model
+        model = getTypicalModelManager();
+        expectedModel = getTypicalModelManager();
+        confirmationManager = new ConfirmationManager();
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_requestsConfirmation() {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-
         assertConfirmationRequested(deleteCommand, model);
-
-        // AddressBook remains unchanged until confirmation
-        ModelManager expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        assertEquals(model.getAddressBook(), expectedModel.getAddressBook());
     }
 
     @Test
@@ -73,14 +75,6 @@ public class DeleteCommandTest {
                 expectedCommandResult);
     }
 
-    /*
-    @BeforeEach
-    public void setUp() {
-        model = getTypicalModelManager();
-        expectedModel = getTypicalModelManager();
-    }
-
-     */
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -114,7 +108,7 @@ public class DeleteCommandTest {
         assertConfirmationRequested(deleteCommand, model);
 
         // AddressBook remains unchanged until confirmation
-        ModelManager expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = getTypicalModelManager();
         assertEquals(model.getAddressBook(), expectedModel.getAddressBook());
     }
 
@@ -211,7 +205,7 @@ public class DeleteCommandTest {
         Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withStudents().build(); // Lesson is now empty
         expectedModel.setLesson(lessonToUpdate, updatedLesson);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertConfirmableCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT), expectedModel, confirmationManager);
 
     }
 

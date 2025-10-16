@@ -86,8 +86,8 @@ public class EnrolCommand extends Command {
                 lessonToEnrolIn.getDay(),
                 lessonToEnrolIn.getTime(),
                 lessonToEnrolIn.getTutor(),
-                newStudentIdSet,
-                lessonToEnrolIn.getTags());
+                newStudentIdSet, lessonToEnrolIn.getAttendance(), lessonToEnrolIn.getTags()
+        );
 
         model.setLesson(lessonToEnrolIn, newLesson);
 

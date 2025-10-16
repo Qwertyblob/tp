@@ -2,8 +2,11 @@ package seedu.address.model.lesson;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +30,7 @@ public class Lesson {
     private final Tutor tutor;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<IdentificationNumber> studentIds = new HashSet<>();
+    private final Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -43,7 +47,7 @@ public class Lesson {
     /**
      * Every field must be present and not null.
      */
-    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<IdentificationNumber> studentIds, Set<Tag> tags) {
+    public Lesson(ClassName className, Day day, Time time, Tutor tutor, Set<IdentificationNumber> studentIds, Map<LocalDate, Set<IdentificationNumber>> attendance, Set<Tag> tags) {
         requireAllNonNull(className, day, time, tutor, tags, studentIds);
         this.className = className;
         this.day = day;
@@ -51,6 +55,7 @@ public class Lesson {
         this.tutor = tutor;
         this.tags.addAll(tags);
         this.studentIds.addAll(studentIds);
+        this.attendance.putAll(attendance);
     }
 
     public ClassName getClassName() {
@@ -77,13 +82,17 @@ public class Lesson {
         return Collections.unmodifiableSet(tags);
     }
 
-    /**
-     * Returns an immutable set of student IDs, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
     public Set<IdentificationNumber> getStudents() {
         return Collections.unmodifiableSet(studentIds);
     }
+
+    /**
+     * Returns an immutable map of attendance records.
+     */
+    public Map<LocalDate, Set<IdentificationNumber>> getAttendance() {
+        return Collections.unmodifiableMap(attendance);
+    }
+
 
     /**
      * Returns true if both lessons have the same name.
@@ -118,14 +127,15 @@ public class Lesson {
                 && day.equals(otherLesson.day)
                 && time.equals(otherLesson.time)
                 && tutor.equals(otherLesson.tutor)
-                && tags.equals(otherLesson.tags)
-                && studentIds.equals(otherLesson.studentIds);
+                && studentIds.equals(otherLesson.studentIds)
+                && attendance.equals(otherLesson.attendance)
+                && tags.equals(otherLesson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(className, day, time, tutor, tags, studentIds);
+        return Objects.hash(className, day, time, tutor, studentIds, attendance, tags);
     }
 
     @Override
@@ -135,8 +145,9 @@ public class Lesson {
                 .add("day", day)
                 .add("time", time)
                 .add("tutor", tutor)
-                .add("tags", tags)
                 .add("students", studentIds)
+                .add("attendance", attendance)
+                .add("tags", tags)
                 .toString();
     }
 }
