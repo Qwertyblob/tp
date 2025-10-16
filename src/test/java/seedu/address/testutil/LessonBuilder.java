@@ -1,6 +1,9 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.lesson.ClassName;
@@ -27,6 +30,7 @@ public class LessonBuilder {
     private Tutor tutor;
     private Set<Tag> tags;
     private Set<IdentificationNumber> studentIds;
+    private Map<LocalDate, Set<IdentificationNumber>> attendance;
 
     /**
      * Creates a {@code LessonBuilder} with the default details.
@@ -36,8 +40,9 @@ public class LessonBuilder {
         day = new Day(DEFAULT_DAY);
         time = new Time(DEFAULT_TIME);
         tutor = new Tutor(DEFAULT_TUTOR);
-        studentIds = new HashSet<>();
         tags = new HashSet<>();
+        studentIds = new HashSet<>();
+        attendance = new HashMap<>();
     }
 
     /**
@@ -48,8 +53,9 @@ public class LessonBuilder {
         day = lessonToCopy.getDay();
         time = lessonToCopy.getTime();
         tutor = lessonToCopy.getTutor();
-        studentIds = new HashSet<>(lessonToCopy.getStudents());
         tags = new HashSet<>(lessonToCopy.getTags());
+        studentIds = new HashSet<>(lessonToCopy.getStudents());
+        attendance = new HashMap<>(lessonToCopy.getAttendance());
     }
 
     /**
@@ -107,8 +113,17 @@ public class LessonBuilder {
         return this;
     }
 
+    /**
+     * Sets the attendance map for the {@code Lesson} that we are building.
+     *
+     * @param attendance The map of attendance data to set.
+     */
+    public LessonBuilder withAttendance(Map<LocalDate, Set<IdentificationNumber>> attendance) {
+        this.attendance = new HashMap<>(attendance);
+        return this;
+    }
 
     public Lesson build() {
-        return new Lesson(className, day, time, tutor, studentIds, tags);
+        return new Lesson(className, day, time, tutor, studentIds, attendance, tags);
     }
 }

@@ -2,7 +2,25 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons": [
     {
-      "id": "S00000001",
+      "id": "S0000001",
+      "name": "Amy Bee",
+      "role": "student",
+      "phone": "11111111",
+      "email": "amy@example.com",
+      "address": "Block 312, Amy Street 1",
+      "tags": ["friend"]
+    },
+    {
+      "id": "T0000001",
+      "name": "Bob Choo",
+      "role": "tutor",
+      "phone": "22222222",
+      "email": "bob@example.com",
+      "address": "Block 123, Bobby Street 3",
+      "tags": ["friend", "husband"]
+    },
+    {
+      "id": "S0000002",
       "name": "Alice Pauline",
       "role": "student",
       "phone": "94351253",
@@ -11,7 +29,7 @@
       "tags": ["friends"]
     },
     {
-      "id": "S00000002",
+      "id": "S0000003",
       "name": "Benson Meier",
       "role": "student",
       "phone": "98765432",
@@ -20,7 +38,7 @@
       "tags": ["owesMoney", "friends"]
     },
     {
-      "id": "T00000001",
+      "id": "T0000002",
       "name": "Carl Kurz",
       "role": "tutor",
       "phone": "95352563",
@@ -29,7 +47,7 @@
       "tags": []
     },
     {
-      "id": "T00000002",
+      "id": "T0000003",
       "name": "Daniel Meier",
       "role": "tutor",
       "phone": "87652533",
@@ -38,7 +56,7 @@
       "tags": ["friends"]
     },
     {
-      "id": "S00000003",
+      "id": "S0000004",
       "name": "Elle Meyer",
       "role": "student",
       "phone": "9482224",
@@ -47,7 +65,7 @@
       "tags": []
     },
     {
-      "id": "T00000003",
+      "id": "T0000004",
       "name": "Fiona Kunz",
       "role": "tutor",
       "phone": "9482427",
@@ -56,7 +74,7 @@
       "tags": []
     },
     {
-      "id": "S00000004",
+      "id": "S0000005",
       "name": "George Best",
       "role": "student",
       "phone": "9482442",

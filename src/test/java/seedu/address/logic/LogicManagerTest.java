@@ -1,5 +1,11 @@
 package seedu.address.logic;
 
+import javafx.collections.ObservableList;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+
+import java.util.logging.Logger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -10,6 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
+
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -39,6 +46,7 @@ import seedu.address.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     @TempDir
     public Path temporaryFolder;
@@ -52,6 +60,10 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ObservableList<Person> People = model.getAddressBook().getPersonList();
+        for (Person person : People) {
+            logger.info("Default: " + person);
+        }
         logic = new LogicManager(model, storage);
         IdentificationNumberGenerator.init(new ArrayList<>());
     }
@@ -168,10 +180,22 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
+
+        ObservableList<Person> People = model.getAddressBook().getPersonList();
+        for (Person person : People) {
+            logger.info("Default: " + person);
+        }
+
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + ROLE_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        logger.info("Person: " + expectedPerson);
+
+
+
+
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);

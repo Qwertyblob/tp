@@ -1,7 +1,7 @@
 {
   "persons": [
     {
-      "id": "S00000001",
+      "id": "S0000001",
       "name": "Valid Person",
       "role": "student",
       "phone": "9482424",
@@ -10,7 +10,7 @@
       "tags": [ "friends" ]
     },
     {
-      "id": "T00000001",
+      "id": "T0000001",
       "name": "Person With Invalid Phone Field",
       "role": "tutor",
       "phone": "948asdf2424",

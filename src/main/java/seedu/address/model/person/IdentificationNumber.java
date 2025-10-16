@@ -10,6 +10,7 @@ public class IdentificationNumber {
     public static final String MESSAGE_CONSTRAINTS =
             "Identification number must start with 'T' or 'S' followed by a 7 digit number";
     public static final String VALIDATION_REGEX = "[TtSs]\\d{7}$";
+    public static final String FORMATTER = "%s%07d";
 
     private final String value;
     private final String prefix;
@@ -29,9 +30,9 @@ public class IdentificationNumber {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
 
-        this.prefix = prefix;
+        this.prefix = prefix.toUpperCase();
         this.number = number;
-        this.value = String.format("%s%07d", prefix, number);
+        this.value = String.format(FORMATTER, prefix, number);
     }
 
     /**
@@ -44,9 +45,9 @@ public class IdentificationNumber {
             throw new IllegalArgumentException("Invalid identification number format");
         }
 
-        this.value = value;
-        this.prefix = value.substring(0, 1);
+        this.prefix = value.substring(0, 1).toUpperCase();
         this.number = Integer.parseInt(value.substring(1));
+        this.value = String.format(FORMATTER, prefix, number);
     }
 
     /**
@@ -65,7 +66,7 @@ public class IdentificationNumber {
      * @return boolean result
      */
     public static boolean isValidId(String testPrefix, int testNumber) {
-        if (!testPrefix.equals("T") && !testPrefix.equals("S")) {
+        if (!testPrefix.equalsIgnoreCase("T") && !testPrefix.equalsIgnoreCase("S")) {
             return false;
         }
         return testNumber >= 0 && testNumber <= 9999999;
@@ -77,6 +78,10 @@ public class IdentificationNumber {
 
     public int getNumericValue() {
         return this.number;
+    }
+
+    public String getValue() {
+        return this.toString();
     }
 
     @Override
