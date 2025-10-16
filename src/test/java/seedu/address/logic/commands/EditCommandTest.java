@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLASSREP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -28,7 +29,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -70,11 +73,14 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Person editedPerson = personInList.withName(VALID_NAME_JAMES)
+                .withPhone(VALID_PHONE_JAMES)
+                .withTags(VALID_TAG_CLASSREP).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(VALID_NAME_JAMES)
+                .withPhone(VALID_PHONE_JAMES)
+                .withTags(VALID_TAG_CLASSREP).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
@@ -84,6 +90,7 @@ public class EditCommandTest {
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
     }
 
     @Test
@@ -103,10 +110,12 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
+        IdentificationNumberGenerator.init(model.getAddressBook().getPersonList());
+
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_JAMES).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_JAMES).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.formatPerson(editedPerson));
@@ -163,6 +172,47 @@ public class EditCommandTest {
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void execute_roleChange_generatesNewId() {
+        // Initialize ID generator with current address book
+        IdentificationNumberGenerator.init(model.getAddressBook().getPersonList());
+
+        // Assume the last person in the list is George Best (student)
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+
+        // Create edited person descriptor: change role from student -> tutor
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withRole("tutor") // role change
+                .withName(lastPerson.getName().fullName)
+                .withPhone(lastPerson.getPhone().value)
+                .withEmail(lastPerson.getEmail().value)
+                .withAddress(lastPerson.getAddress().value)
+                .withTags(lastPerson.getTags().stream().map(tag -> tag.tagName).toArray(String[]::new))
+                .build();
+
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+
+        // Build expected person with new role and a new ID
+        Person editedPerson = new PersonBuilder(lastPerson)
+                .withRole("tutor")
+                .withId(new IdentificationNumber("T0000005")) // new ID for tutor
+                .build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.formatPerson(editedPerson));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(lastPerson, editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+        // Verify the ID actually changed
+        Person updatedPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        assertEquals("T0000005", updatedPerson.getId().toString()); // adjust expected ID based on generator
+    }
+
 
     @Test
     public void equals() {

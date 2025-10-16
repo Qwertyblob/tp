@@ -34,18 +34,31 @@ public class CommandTestUtil {
 
     public static final String VALID_ID_AMY = "S0000001";
     public static final String VALID_ID_BOB = "T0000001";
+    public static final String VALID_ID_JAMES = "S0000010";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_JAMES = "James Tan";
+
     public static final String VALID_ROLE_AMY = "student";
     public static final String VALID_ROLE_BOB = "tutor";
+    public static final String VALID_ROLE_JAMES = "student";
+
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_JAMES = "93334444";
+
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
+    public static final String VALID_EMAIL_JAMES = "james@example.com";
+
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_ADDRESS_JAMES = "99, Clementi Street 12";
+
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_CLASSREP = "classrep";
 
     // Lesson test data
     public static final String VALID_CLASS_MATH = "A1a";
@@ -57,19 +70,32 @@ public class CommandTestUtil {
     public static final String INVALID_CLASS_NAME_FORMAT = "Math101";
     public static final String INVALID_STUDENT_ID_FORMAT = "A1234567";
 
+    // Descriptor-style constants
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_JAMES = " " + PREFIX_NAME + VALID_NAME_JAMES;
+
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
     public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
+    public static final String ROLE_DESC_JAMES = " " + PREFIX_ROLE + VALID_ROLE_JAMES;
+
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String PHONE_DESC_JAMES = " " + PREFIX_PHONE + VALID_PHONE_JAMES;
+
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String EMAIL_DESC_JAMES = " " + PREFIX_EMAIL + VALID_EMAIL_JAMES;
+
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String ADDRESS_DESC_JAMES = " " + PREFIX_ADDRESS + VALID_ADDRESS_JAMES;
+
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String STUDENT_ID_DESC_AMY = " " + PREFIX_ID + VALID_ID_AMY;
+    public static final String TAG_DESC_CLASSREP = " " + PREFIX_TAG + VALID_TAG_CLASSREP;
+
 
     // Lesson command descriptions
     public static final String CLASS_DESC_MATH = " " + PREFIX_CLASS + VALID_CLASS_MATH;
