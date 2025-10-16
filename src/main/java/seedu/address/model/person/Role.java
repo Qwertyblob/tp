@@ -25,7 +25,7 @@ public class Role {
         checkArgument(isValidRole(role), MESSAGE_CONSTRAINTS);
         String i = role.substring(0, 1).toUpperCase();
         this.role = i + role.substring(1);
-        if (role.equalsIgnoreCase("tutor")) {
+        if (role.equalsIgnoreCase("Tutor")) {
             this.isTutor = true;
         } else {
             this.isTutor = false;

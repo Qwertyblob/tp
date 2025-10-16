@@ -165,8 +165,6 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        IdentificationNumberGenerator.init(new ArrayList<>());
-
         // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
             @Override
@@ -200,17 +198,6 @@ public class LogicManagerTest {
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
-
-        System.out.println("=== EXPECTED ADDRESS BOOK ===");
-        modelToPrint(expectedModel);
-        System.out.println("=== ACTUAL ADDRESS BOOK ===");
-        modelToPrint(model);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    }
-
-    private void modelToPrint(Model model) {
-        model.getAddressBook().getPersonList().forEach(p -> {
-            System.out.println(p.getName() + " | ID: " + p.getId() + " | " + p.getEmail());
-        });
     }
 }

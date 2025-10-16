@@ -2,16 +2,23 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLASSREP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -105,6 +112,17 @@ public class TypicalPersons {
             .withId(new IdentificationNumber("T0000005"))
             .build();
 
+    // Person for adding
+    public static final Person JAMES = new PersonBuilder()
+            .withName(VALID_NAME_JAMES)
+            .withRole(VALID_ROLE_JAMES)
+            .withPhone(VALID_PHONE_JAMES)
+            .withEmail(VALID_EMAIL_JAMES)
+            .withAddress(VALID_ADDRESS_JAMES)
+            .withTags(VALID_TAG_CLASSREP)
+            .withId(new IdentificationNumber(VALID_ID_JAMES))
+            .build();
+
     // Persons from CommandTestUtil
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY)
             .withRole(VALID_ROLE_AMY)
@@ -124,6 +142,8 @@ public class TypicalPersons {
             .withId(new IdentificationNumber(VALID_ID_BOB))
             .build();
 
+
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -140,6 +160,6 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, AMY, BOB));
+        return new ArrayList<>(Arrays.asList(AMY, BOB, ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

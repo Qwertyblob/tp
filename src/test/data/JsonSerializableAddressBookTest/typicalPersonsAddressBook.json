@@ -2,6 +2,24 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons": [
     {
+      "id": "S0000001",
+      "name": "Amy Bee",
+      "role": "student",
+      "phone": "11111111",
+      "email": "amy@example.com",
+      "address": "Block 312, Amy Street 1",
+      "tags": ["friend"]
+    },
+    {
+      "id": "T0000001",
+      "name": "Bob Choo",
+      "role": "tutor",
+      "phone": "22222222",
+      "email": "bob@example.com",
+      "address": "Block 123, Bobby Street 3",
+      "tags": ["friend", "husband"]
+    },
+    {
       "id": "S0000002",
       "name": "Alice Pauline",
       "role": "student",
