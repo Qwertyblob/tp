@@ -24,12 +24,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IdentificationNumber;
-import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.IdentificationNumberGenerator;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        IdentificationNumber id = EditCommand.getNewId(personToEdit.getRole(),updatedRole, personToEdit.getId());
+        IdentificationNumber id = EditCommand.getNewId(personToEdit.getRole(), updatedRole, personToEdit.getId());
 
         return new Person(id, updatedName, updatedRole, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }

@@ -125,8 +125,12 @@ public class EditLessonCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (!(other instanceof EditLessonCommand)) return false;
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof EditLessonCommand)) {
+            return false;
+        }
         EditLessonCommand otherCommand = (EditLessonCommand) other;
         return index.equals(otherCommand.index)
                 && editLessonDescriptor.equals(otherCommand.editLessonDescriptor);
@@ -153,6 +157,10 @@ public class EditLessonCommand extends Command {
 
         public EditLessonDescriptor() {}
 
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
         public EditLessonDescriptor(EditLessonDescriptor toCopy) {
             setClassName(toCopy.className);
             setDay(toCopy.day);
@@ -165,17 +173,33 @@ public class EditLessonCommand extends Command {
             return CollectionUtil.isAnyNonNull(className, day, time, tutor, tags);
         }
 
-        public void setClassName(ClassName className) { this.className = className; }
-        public Optional<ClassName> getClassName() { return Optional.ofNullable(className); }
+        public void setClassName(ClassName className) {
+            this.className = className;
+        }
+        public Optional<ClassName> getClassName() {
+            return Optional.ofNullable(className);
+        }
 
-        public void setDay(Day day) { this.day = day; }
-        public Optional<Day> getDay() { return Optional.ofNullable(day); }
+        public void setDay(Day day) {
+            this.day = day;
+        }
+        public Optional<Day> getDay() {
+            return Optional.ofNullable(day);
+        }
 
-        public void setTime(Time time) { this.time = time; }
-        public Optional<Time> getTime() { return Optional.ofNullable(time); }
+        public void setTime(Time time) {
+            this.time = time;
+        }
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
+        }
 
-        public void setTutor(Tutor tutor) { this.tutor = tutor; }
-        public Optional<Tutor> getTutor() { return Optional.ofNullable(tutor); }
+        public void setTutor(Tutor tutor) {
+            this.tutor = tutor;
+        }
+        public Optional<Tutor> getTutor() {
+            return Optional.ofNullable(tutor);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -198,8 +222,12 @@ public class EditLessonCommand extends Command {
 
         @Override
         public boolean equals(Object other) {
-            if (other == this) return true;
-            if (!(other instanceof EditLessonDescriptor)) return false;
+            if (other == this) {
+                return true;
+            }
+            if (!(other instanceof EditLessonDescriptor)) {
+                return false;
+            }
             EditLessonDescriptor otherDesc = (EditLessonDescriptor) other;
             return Objects.equals(className, otherDesc.className)
                     && Objects.equals(day, otherDesc.day)
