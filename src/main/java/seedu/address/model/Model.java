@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 
@@ -121,4 +122,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLessonList(Predicate<Lesson> predicate);
+
+    /** Returns the command that is awaiting confirmation */
+    public ConfirmableCommand getPendingCommand();
+
+    /** Updates the model to contain a new command that is awaiting confirmation */
+    public void updatePendingCommand(ConfirmableCommand command);
+
+    public void clearPendingCommand();
 }

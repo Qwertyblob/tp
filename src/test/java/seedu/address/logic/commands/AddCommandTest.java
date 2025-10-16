@@ -160,6 +160,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public ConfirmableCommand getPendingCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePendingCommand(ConfirmableCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearPendingCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasLesson(Lesson aLesson) {
             return false;
         }

@@ -24,6 +24,7 @@ public class CommandResult {
         DEFAULT, // show person list
         CLASS_LIST, // show lesson list
         RECENT, // show current list
+        CONFIRMATION, // show confirmation request
     }
 
     private final DisplayType displayType;
