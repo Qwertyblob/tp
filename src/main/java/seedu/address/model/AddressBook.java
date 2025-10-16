@@ -13,7 +13,7 @@ import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .hasSameName comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 

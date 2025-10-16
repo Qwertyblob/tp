@@ -78,7 +78,7 @@ public class Person {
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean hasSameName(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
