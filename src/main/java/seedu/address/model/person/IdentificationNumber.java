@@ -80,6 +80,10 @@ public class IdentificationNumber {
         return this.number;
     }
 
+    public String getValue() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return this.value;

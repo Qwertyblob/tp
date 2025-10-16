@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IdentificationNumber;
+import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -98,7 +99,6 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        IdentificationNumber id = new IdentificationNumber(personToEdit.getId().toString());
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
@@ -106,7 +106,24 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
+        IdentificationNumber id = EditCommand.getNewId(personToEdit.getRole(),updatedRole, personToEdit.getId());
+
         return new Person(id, updatedName, updatedRole, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    }
+
+    /**
+     * Checks if new ID is needed when given oldRole and newRole
+     * @param oldRole old role of person to be edited
+     * @param newRole new role of person to be edited
+     * @param oldID old ID of person to be edited
+     * @return new IdentificationNumber object
+     */
+    private static IdentificationNumber getNewId(Role oldRole, Role newRole, IdentificationNumber oldID) {
+        if (oldRole.equals(newRole)) {
+            return new IdentificationNumber(oldID.getValue());
+        } else {
+            return IdentificationNumberGenerator.generate(newRole);
+        }
     }
 
     @Override
@@ -144,6 +161,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private IdentificationNumber id; // added for testing
+
 
         public EditPersonDescriptor() {}
 
@@ -158,6 +177,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setId(toCopy.id); // copy id
         }
 
         /**
@@ -165,6 +185,14 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, role, phone, email, address, tags);
+        }
+
+        public void setId(IdentificationNumber id) {
+            this.id = id;
+        }
+
+        public Optional<IdentificationNumber> getId() {
+            return Optional.ofNullable(id);
         }
 
         public void setName(Name name) {
@@ -241,12 +269,14 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(id, otherEditPersonDescriptor.id);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("id", id)
                     .add("name", name)
                     .add("role", role)
                     .add("phone", phone)
