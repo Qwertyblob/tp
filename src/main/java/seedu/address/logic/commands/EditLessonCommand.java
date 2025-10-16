@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTOR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONS;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -21,11 +23,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Day;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
-import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Tutor;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,10 +48,10 @@ public class EditLessonCommand extends Command {
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TUTOR + "TUTOR] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASS + "M2a "
             + PREFIX_DAY + "monday "
-            + PREFIX_TIME + "/1400 "
+            + PREFIX_TIME + "1400 "
             + PREFIX_TUTOR + "T7654321";
 
     public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited Lesson: %1$s";
@@ -96,17 +99,28 @@ public class EditLessonCommand extends Command {
     /**
      * Creates and returns a {@code Lesson} with the details of {@code lessonToEdit}
      * edited with {@code editLessonDescriptor}.
+     *
+     * Preserves student IDs and attendance in an immutable and defensive manner.
      */
     private static Lesson createEditedLesson(Lesson lessonToEdit, EditLessonDescriptor descriptor) {
-        var updatedClassName = descriptor.getClassName().orElse(lessonToEdit.getClassName());
-        var updatedDay = descriptor.getDay().orElse(lessonToEdit.getDay());
-        var updatedTime = descriptor.getTime().orElse(lessonToEdit.getTime());
-        var updatedTutor = descriptor.getTutor().orElse(lessonToEdit.getTutor());
+        assert lessonToEdit != null;
+
+        ClassName updatedClassName = descriptor.getClassName().orElse(lessonToEdit.getClassName());
+        Day updatedDay = descriptor.getDay().orElse(lessonToEdit.getDay());
+        Time updatedTime = descriptor.getTime().orElse(lessonToEdit.getTime());
+        Tutor updatedTutor = descriptor.getTutor().orElse(lessonToEdit.getTutor());
         Set<Tag> updatedTags = descriptor.getTags().orElse(lessonToEdit.getTags());
 
-        // Keep student IDs unchanged
+        // Defensive copies for immutability
+        Set<IdentificationNumber> preservedStudents = new HashSet<>(lessonToEdit.getStudents());
+        Map<java.time.LocalDate, Set<IdentificationNumber>> preservedAttendance = new HashMap<>();
+
+        lessonToEdit.getAttendance().forEach((date, ids) ->
+                preservedAttendance.put(date, new HashSet<>(ids))
+        );
+
         return new Lesson(updatedClassName, updatedDay, updatedTime, updatedTutor,
-                lessonToEdit.getStudents(), updatedTags);
+                preservedStudents, preservedAttendance, updatedTags);
     }
 
     @Override
@@ -126,6 +140,10 @@ public class EditLessonCommand extends Command {
                 .toString();
     }
 
+    /**
+     * Stores the details to edit the lesson with. Each non-empty field value will replace
+     * the corresponding value of the lesson.
+     */
     public static class EditLessonDescriptor {
         private ClassName className;
         private Day day;
@@ -173,7 +191,9 @@ public class EditLessonCommand extends Command {
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return (tags != null)
+                    ? Optional.of(Collections.unmodifiableSet(tags))
+                    : Optional.empty();
         }
 
         @Override
@@ -181,11 +201,11 @@ public class EditLessonCommand extends Command {
             if (other == this) return true;
             if (!(other instanceof EditLessonDescriptor)) return false;
             EditLessonDescriptor otherDesc = (EditLessonDescriptor) other;
-            return Objects.equals(className, otherDesc.className) &&
-                    Objects.equals(day, otherDesc.day) &&
-                    Objects.equals(time, otherDesc.time) &&
-                    Objects.equals(tutor, otherDesc.tutor) &&
-                    Objects.equals(tags, otherDesc.tags);
+            return Objects.equals(className, otherDesc.className)
+                    && Objects.equals(day, otherDesc.day)
+                    && Objects.equals(time, otherDesc.time)
+                    && Objects.equals(tutor, otherDesc.tutor)
+                    && Objects.equals(tags, otherDesc.tags);
         }
     }
 }

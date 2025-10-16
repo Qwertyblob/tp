@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MATH;
@@ -20,9 +21,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.testutil.EditLessonDescriptorBuilder;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditLessonCommand.
@@ -103,6 +111,43 @@ public class EditLessonCommandTest {
 
         assertCommandFailure(editLessonCommand, model, "The class index provided is invalid");
     }
+
+    @Test
+    public void execute_preservesStudentIdsAndAttendance() {
+        // Arrange: pick the first lesson and store its students and attendance
+        Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        Set<IdentificationNumber> originalStudents = new HashSet<>(lessonToEdit.getStudents());
+        Map<LocalDate, Set<IdentificationNumber>> originalAttendance = new HashMap<>();
+        lessonToEdit.getAttendance().forEach((date, ids) ->
+                originalAttendance.put(date, new HashSet<>(ids))
+        );
+
+        // Build a descriptor that edits only the tags
+        EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder()
+                .withTags("EditedTag")
+                .build();
+        EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_FIRST_LESSON, descriptor);
+
+        // Act
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
+                new LessonBuilder(lessonToEdit).withTags("EditedTag").build());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Lesson editedLesson = new LessonBuilder(lessonToEdit)
+                .withTags("EditedTag")
+                .build();
+        expectedModel.setLesson(lessonToEdit, editedLesson);
+
+        // Assert: command succeeds
+        assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
+
+        // Assert: student IDs are unchanged
+        Lesson updatedLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        assertEquals(originalStudents, updatedLesson.getStudents(), "Student IDs should be preserved");
+
+        // Assert: attendance map is unchanged
+        assertEquals(originalAttendance, updatedLesson.getAttendance(), "Attendance should be preserved");
+    }
+
 
     @Test
     public void equals() {

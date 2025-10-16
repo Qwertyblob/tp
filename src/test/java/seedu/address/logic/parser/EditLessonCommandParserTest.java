@@ -4,7 +4,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static seedu.address.logic.commands.CommandTestUtil.CLASS_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.CLASS_DESC_SCIENCE;
-import static seedu.address.logic.commands.CommandTestUtil.DAY_DESC_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASS_NAME_FORMAT;
