@@ -58,9 +58,13 @@ public class DeleteCommand extends ConfirmableCommand {
         }
 
         // Else search for matching name in list
-        for (Person person : lastShownList) {
-            if (person.getName().equals(targetName)) {
-                return person;
+        if (targetName != null) {
+            for (Person person : lastShownList) {
+                String trimmedName = person.getName().fullName.toLowerCase().trim();
+                String trimmedTargetName = targetName.fullName.toLowerCase().trim();
+                if (trimmedName.equals(trimmedTargetName)) {
+                    return person;
+                }
             }
         }
 
