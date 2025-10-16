@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -22,12 +21,13 @@ import seedu.address.model.person.Person;
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a student's attendance for a class on the current day. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks a student's attendance for a class on the current day. "
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "S0000001"
+            + PREFIX_ID + "S0000001"
             + PREFIX_CLASS + "M2a";
 
     public static final String MESSAGE_SUCCESS = "Marked %1$s as present for class %2$s.";

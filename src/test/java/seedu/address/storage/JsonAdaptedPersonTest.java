@@ -25,6 +25,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ID = "X123"; // invalid format
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_ROLE = "Teacher";
+    private static final String INVALID_LESSONS = "Math";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
