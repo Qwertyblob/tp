@@ -26,8 +26,10 @@ public class MarkCommandParser implements Parser<MarkCommand> {
                     MarkCommand.MESSAGE_USAGE));
         }
 
-        ClassName className = new ClassName(argMultimap.getValue(PREFIX_CLASS).get());
-        IdentificationNumber studentId = new IdentificationNumber(argMultimap.getValue(PREFIX_ID).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ID, PREFIX_CLASS);
+
+        IdentificationNumber studentId = ParserUtil.parseIdentificationNumber(argMultimap.getValue(PREFIX_ID).get());
+        ClassName className = ParserUtil.parseClassName(argMultimap.getValue(PREFIX_CLASS).get());
 
         return new MarkCommand(studentId, className);
     }

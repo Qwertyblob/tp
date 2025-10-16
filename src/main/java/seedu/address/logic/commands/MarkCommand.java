@@ -54,7 +54,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (lessonOptional.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_LESSON_NOT_FOUND, className), CommandResult.DisplayType.RECENT);
+            throw new CommandException(MESSAGE_LESSON_NOT_FOUND);
         }
 
         Lesson lessonToMark = lessonOptional.get();
@@ -64,7 +64,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (studentToMarkOptional.isEmpty()) {
-            throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
+            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
         Person studentToMark = studentToMarkOptional.get();
 
