@@ -10,12 +10,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+<<<<<<< HEAD
 import seedu.address.model.Model;
 <<<<<<< HEAD
 =======
 import seedu.address.model.person.Name;
 >>>>>>> fdeb4d28 (Add case insensitive matching)
+=======
+>>>>>>> 05989ffd (Fix checkstyle)
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.Model;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -72,6 +76,9 @@ public class DeleteCommand extends ConfirmableCommand {
 
         // Else search for matching name in list
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05989ffd (Fix checkstyle)
         if (targetName != null) {
             for (Person person : lastShownList) {
                 String trimmedName = person.getName().fullName.toLowerCase().trim();
@@ -79,11 +86,14 @@ public class DeleteCommand extends ConfirmableCommand {
                 if (trimmedName.equals(trimmedTargetName)) {
                     return person;
                 }
+<<<<<<< HEAD
 =======
         for (Person person : lastShownList) {
             if (person.getName().equals(targetName)) {
                 return person;
 >>>>>>> fdeb4d28 (Add case insensitive matching)
+=======
+>>>>>>> 05989ffd (Fix checkstyle)
             }
         }
 
@@ -126,8 +136,7 @@ public class DeleteCommand extends ConfirmableCommand {
                         lesson.getDay(),
                         lesson.getTime(),
                         lesson.getTutor(),
-                        newStudentIdSet,
-                        lesson.getTags()
+                        newStudentIdSet, lesson.getAttendance(), lesson.getTags()
                 );
                 // Update the lesson in the model.
                 model.setLesson(lesson, updatedLesson);
