@@ -55,4 +55,5 @@ public class EnrolCommandParserTest {
         assertParseFailure(parser, CLASS_DESC_MATH + " " + PREFIX_ID + "A1234567",
                 IdentificationNumber.MESSAGE_CONSTRAINTS);
     }
+
 }

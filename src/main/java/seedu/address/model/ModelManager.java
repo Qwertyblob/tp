@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     //private final ObservableList<Lesson> lessons;
     private final FilteredList<Lesson> filteredLessons;
+    private ConfirmableCommand pendingCommand = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -170,6 +172,21 @@ public class ModelManager implements Model {
     public void updateFilteredLessonList(Predicate<Lesson> predicate) {
         requireNonNull(predicate);
         filteredLessons.setPredicate(predicate);
+    }
+
+    @Override
+    public ConfirmableCommand getPendingCommand() {
+        return pendingCommand;
+    }
+
+    @Override
+    public void updatePendingCommand(ConfirmableCommand command) {
+        this.pendingCommand = command;
+    }
+
+    @Override
+    public void clearPendingCommand() {
+        this.pendingCommand = null;
     }
 
     @Override

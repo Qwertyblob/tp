@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.ConfirmationManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -111,8 +112,27 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel.getFilteredPersonList(), actualModel.getFilteredPersonList());
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertConfirmableCommandSuccess(ConfirmableCommand command, Model actualModel,
+                                                       CommandResult expectedCommandResult,
+                                                       Model expectedModel, ConfirmationManager confirmationManager) {
+        try {
+            confirmationManager.requestConfirmation(command, actualModel);
+            CommandResult result = confirmationManager.handleUserResponse(
+                    ConfirmationManager.INPUT_CONFIRM, actualModel);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel.getFilteredPersonList(), actualModel.getFilteredPersonList());
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
         }
     }
 
@@ -124,6 +144,21 @@ public class CommandTestUtil {
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Confirms that <br>
+     * - The DisplayType is CONFIRMATION <br>
+     * - The correct confirmation message is displayed
+     */
+    public static void assertConfirmationRequested(ConfirmableCommand command, Model actualModel) {
+        try {
+            CommandResult result = command.execute(actualModel);
+            assertEquals(CommandResult.DisplayType.CONFIRMATION, result.getDisplayType());
+            assertEquals(command.getConfirmationMessage(actualModel), result.getFeedbackToUser());
+        } catch (CommandException e) {
+            throw new AssertionError("Requesting confirmation should not fail", e);
+        }
     }
 
     /**
