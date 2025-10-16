@@ -1,8 +1,12 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +34,7 @@ class JsonAdaptedLesson {
     private final String time;
     private final String tutor;
     private final List<JsonAdaptedIdentificationNumber> students = new ArrayList<>();
+    private final List<JsonAdaptedAttendance> attendance = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -41,6 +46,7 @@ class JsonAdaptedLesson {
                              @JsonProperty("time") String time,
                              @JsonProperty("tutor") String tutor,
                              @JsonProperty("students") List<JsonAdaptedIdentificationNumber> students,
+                             @JsonProperty("attendance") List<JsonAdaptedAttendance> attendance,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.className = className;
         this.day = day;
@@ -48,6 +54,9 @@ class JsonAdaptedLesson {
         this.tutor = tutor;
         if (students != null) {
             this.students.addAll(students);
+        }
+        if (attendance != null) {
+            this.attendance.addAll(attendance);
         }
         if (tags != null) {
             this.tags.addAll(tags);
@@ -64,6 +73,14 @@ class JsonAdaptedLesson {
         tutor = source.getTutor().tutorName;
         students.addAll(source.getStudents().stream()
                 .map(JsonAdaptedIdentificationNumber::new)
+                .collect(Collectors.toList()));
+        attendance.addAll(source.getAttendance().entrySet().stream()
+                .map(entry -> {
+                    List<JsonAdaptedIdentificationNumber> presentIds = entry.getValue().stream()
+                            .map(JsonAdaptedIdentificationNumber::new)
+                            .collect(Collectors.toList());
+                    return new JsonAdaptedAttendance(entry.getKey().toString(), presentIds);
+                })
                 .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -120,8 +137,23 @@ class JsonAdaptedLesson {
 
         final Set<IdentificationNumber> modelStudents = new HashSet<>(lessonStudents);
 
+        final Map<LocalDate, Set<IdentificationNumber>> modelAttendance = new HashMap<>();
+        for (JsonAdaptedAttendance record : attendance) {
+            try {
+                LocalDate date = LocalDate.parse(record.getDate());
+                Set<IdentificationNumber> presentStudents = new HashSet<>();
+                for (JsonAdaptedIdentificationNumber studentId : record.getPresentStudents()) {
+                    presentStudents.add(studentId.toModelType());
+                }
+                modelAttendance.put(date, presentStudents);
+            } catch (DateTimeParseException e) {
+                // Catch the specific error and throw the expected exception
+                throw new IllegalValueException("Invalid date format in attendance record: " + record.getDate());
+            }
+        }
+
         final Set<Tag> modelTags = new HashSet<>(lessonTags);
-        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelStudents, modelTags);
+        return new Lesson(modelClassName, modelDay, modelTime, modelTutor, modelStudents, modelAttendance, modelTags);
     }
 
 }
