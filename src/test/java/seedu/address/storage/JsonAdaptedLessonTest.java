@@ -34,6 +34,14 @@ public class JsonAdaptedLessonTest {
     private static final List<JsonAdaptedIdentificationNumber> VALID_IDS = MATH_A1A.getStudents().stream()
             .map(JsonAdaptedIdentificationNumber::new)
             .collect(Collectors.toList());
+    private static final List<JsonAdaptedAttendance> VALID_ATTENDANCE = MATH_A1A.getAttendance().entrySet().stream()
+            .map(entry -> {
+                List<JsonAdaptedIdentificationNumber> presentIds = entry.getValue().stream()
+                        .map(JsonAdaptedIdentificationNumber::new)
+                        .collect(Collectors.toList());
+                return new JsonAdaptedAttendance(entry.getKey().toString(), presentIds);
+            })
+            .collect(Collectors.toList());
     private static final List<JsonAdaptedTag> VALID_TAGS = MATH_A1A.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -46,7 +54,7 @@ public class JsonAdaptedLessonTest {
     @Test
     public void toModelType_validLessonDetails_returnsLesson() throws Exception {
         JsonAdaptedLesson lesson = new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         assertEquals(MATH_A1A, lesson.toModelType());
     }
 
@@ -54,7 +62,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_invalidClassName_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(INVALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = ClassName.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
@@ -63,7 +71,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_nullClassName_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(null, VALID_DAY, VALID_TIME,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 ClassName.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
@@ -73,7 +81,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_invalidDay_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, INVALID_DAY, VALID_TIME,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = Day.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
@@ -82,7 +90,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_nullDay_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, null, VALID_TIME,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Day.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
@@ -92,7 +100,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, INVALID_TIME,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = Time.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
@@ -101,7 +109,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_nullTime_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, null,
-                        VALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE,VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Time.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
@@ -111,7 +119,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_invalidTutor_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                        INVALID_TUTOR, VALID_IDS, VALID_TAGS);
+                        INVALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = Tutor.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
     }
@@ -120,7 +128,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_nullTutor_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                        null, VALID_IDS, VALID_TAGS);
+                        null, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Tutor.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
@@ -132,7 +140,21 @@ public class JsonAdaptedLessonTest {
         invalidIds.add(new JsonAdaptedIdentificationNumber(INVALID_IDS));
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                        VALID_TUTOR, invalidIds, VALID_TAGS);
+                        VALID_TUTOR, invalidIds, VALID_ATTENDANCE, VALID_TAGS);
+        assertThrows(IllegalValueException.class, lesson::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidAttendanceDate_throwsIllegalValueException() {
+        // Create an attendance record with an invalid date format
+        List<JsonAdaptedAttendance> invalidAttendance = new ArrayList<>();
+        invalidAttendance.add(new JsonAdaptedAttendance("not-a-valid-date", new ArrayList<>()));
+
+        JsonAdaptedLesson lesson =
+                new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
+                        VALID_TUTOR, VALID_IDS, invalidAttendance, VALID_TAGS);
+
+        // The toModelType method should fail when trying to parse the invalid date
         assertThrows(IllegalValueException.class, lesson::toModelType);
     }
 
@@ -142,7 +164,7 @@ public class JsonAdaptedLessonTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, VALID_TIME,
-                        VALID_TUTOR, VALID_IDS, invalidTags);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, invalidTags);
         assertThrows(IllegalValueException.class, lesson::toModelType);
     }
 }

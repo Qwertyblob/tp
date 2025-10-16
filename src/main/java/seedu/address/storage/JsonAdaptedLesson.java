@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,12 +139,17 @@ class JsonAdaptedLesson {
 
         final Map<LocalDate, Set<IdentificationNumber>> modelAttendance = new HashMap<>();
         for (JsonAdaptedAttendance record : attendance) {
-            LocalDate date = LocalDate.parse(record.getDate());
-            Set<IdentificationNumber> presentStudents = new HashSet<>();
-            for (JsonAdaptedIdentificationNumber studentId : record.getPresentStudents()) {
-                presentStudents.add(studentId.toModelType());
+            try {
+                LocalDate date = LocalDate.parse(record.getDate());
+                Set<IdentificationNumber> presentStudents = new HashSet<>();
+                for (JsonAdaptedIdentificationNumber studentId : record.getPresentStudents()) {
+                    presentStudents.add(studentId.toModelType());
+                }
+                modelAttendance.put(date, presentStudents);
+            } catch (DateTimeParseException e) {
+                // Catch the specific error and throw the expected exception
+                throw new IllegalValueException("Invalid date format in attendance record: " + record.getDate());
             }
-            modelAttendance.put(date, presentStudents);
         }
 
         final Set<Tag> modelTags = new HashSet<>(lessonTags);
