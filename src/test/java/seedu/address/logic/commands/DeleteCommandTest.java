@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.ConfirmationManager.MESSAGE_ACTION_CANCELLED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmableCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmationRequested;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -12,6 +13,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +39,7 @@ import seedu.address.testutil.LessonBuilder;
 public class DeleteCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = getTypicalModelManager();
     private final ConfirmationManager confirmationManager = new ConfirmationManager();
 
     @Test
@@ -70,11 +73,14 @@ public class DeleteCommandTest {
                 expectedCommandResult);
     }
 
+    /*
     @BeforeEach
     public void setUp() {
         model = getTypicalModelManager();
         expectedModel = getTypicalModelManager();
     }
+
+     */
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
