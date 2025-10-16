@@ -28,7 +28,8 @@ public class Day {
     public Day(String day) {
         requireNonNull(day);
         checkArgument(isValidDay(day), MESSAGE_CONSTRAINTS);
-        fullDay = day;
+        String i = day.substring(0, 1).toUpperCase();
+        this.fullDay = i + day.substring(1);
     }
 
     /**

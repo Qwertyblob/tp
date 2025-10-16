@@ -17,7 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
-
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;

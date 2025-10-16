@@ -72,6 +72,10 @@ public class LogicManager implements Logic {
             }
 
             return commandResult;
+        } catch (ParseException e) {
+            throw e; // Re-throw ParseException as-is
+        } catch (CommandException e) {
+            throw e; // Re-throw CommandException as-is
         } catch (Exception e) {
             throw new CommandException("Error handling user response: " + e.getMessage());
         }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 
 /**
@@ -29,11 +30,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label index;
+    @FXML
     private Label name;
     @FXML
     private Label id;
     @FXML
-    private Label role;
+    private FlowPane roleAndLessons;
     @FXML
     private Label phone;
     @FXML
@@ -49,9 +52,21 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
+        index.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        role.setText(person.getRole().role);
+        id.setText(person.getId().toString());
+
+        Label roleLabel = new Label(person.getRole().role);
+        roleLabel.getStyleClass().add("role_label"); // define style in CSS
+        roleAndLessons.getChildren().add(roleLabel);
+
+        // Lessons (assuming person has a getLessons() method returning a list)
+        for (Lesson lesson : person.getLessons()) {
+            Label lessonLabel = new Label(lesson.getClassName().fullClassName);
+            lessonLabel.getStyleClass().add("lesson_label");
+            roleAndLessons.getChildren().add(lessonLabel);
+        }
+
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);

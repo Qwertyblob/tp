@@ -33,7 +33,9 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("lessons") List<JsonAdaptedLesson> lessons) {
         this.persons.addAll(persons);
-        this.lessons.addAll(lessons);
+        if (lessons != null) {
+            this.lessons.addAll(lessons);
+        }
     }
 
     /**
@@ -53,19 +55,23 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            addressBook.addPerson(person);
-        }
+        // First add lessons so that persons can reference existing Lesson objects by className.
         for (JsonAdaptedLesson jsonAdaptedLesson : lessons) {
             Lesson lesson = jsonAdaptedLesson.toModelType();
             if (addressBook.hasLesson(lesson)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LESSON);
             }
             addressBook.addLesson(lesson);
+        }
+
+        // Now add persons, resolving their lesson references against the lessons present in the addressBook.
+        List<Lesson> addedLessons = addressBook.getLessonList();
+        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+            Person person = jsonAdaptedPerson.toModelType(addedLessons);
+            if (addressBook.hasPerson(person)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            addressBook.addPerson(person);
         }
         return addressBook;
     }

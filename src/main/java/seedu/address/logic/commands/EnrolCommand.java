@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -22,7 +23,8 @@ public class EnrolCommand extends Command {
 
     public static final String COMMAND_WORD = "enrol";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrols a student into a lesson using student ID and class name.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Enrols a student into a lesson using student ID and class name.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS_NAME\n"
@@ -90,6 +92,21 @@ public class EnrolCommand extends Command {
         );
 
         model.setLesson(lessonToEnrolIn, newLesson);
+
+        Set<Lesson> newLessonSet = new HashSet<>(studentToEnrol.getLessons());
+        newLessonSet.add(newLesson);
+        Person enrolledStudent = new Person(
+                studentToEnrol.getId(),
+                studentToEnrol.getName(),
+                studentToEnrol.getRole(),
+                newLessonSet,
+                studentToEnrol.getPhone(),
+                studentToEnrol.getEmail(),
+                studentToEnrol.getAddress(),
+                studentToEnrol.getTags()
+        );
+
+        model.setPerson(studentToEnrol, enrolledStudent);
 
         return new CommandResult(String.format(MESSAGE_ENROL_SUCCESS,
                 Messages.formatPerson(studentToEnrol), Messages.formatLesson(newLesson)),
