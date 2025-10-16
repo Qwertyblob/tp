@@ -11,6 +11,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+<<<<<<< HEAD
+=======
+import seedu.address.model.person.Name;
+>>>>>>> fdeb4d28 (Add case insensitive matching)
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Name;
@@ -43,9 +47,12 @@ public class DeleteCommand extends ConfirmableCommand {
         this.targetName = null;
     }
 
+<<<<<<< HEAD
     /**
      * @param name of the contact/lesson to delete.
      */
+=======
+>>>>>>> fdeb4d28 (Add case insensitive matching)
     public DeleteCommand(Name name) {
         requireNonNull(name);
         this.targetName = name;
@@ -64,6 +71,7 @@ public class DeleteCommand extends ConfirmableCommand {
         }
 
         // Else search for matching name in list
+<<<<<<< HEAD
         if (targetName != null) {
             for (Person person : lastShownList) {
                 String trimmedName = person.getName().fullName.toLowerCase().trim();
@@ -71,6 +79,11 @@ public class DeleteCommand extends ConfirmableCommand {
                 if (trimmedName.equals(trimmedTargetName)) {
                     return person;
                 }
+=======
+        for (Person person : lastShownList) {
+            if (person.getName().equals(targetName)) {
+                return person;
+>>>>>>> fdeb4d28 (Add case insensitive matching)
             }
         }
 
@@ -113,7 +126,8 @@ public class DeleteCommand extends ConfirmableCommand {
                         lesson.getDay(),
                         lesson.getTime(),
                         lesson.getTutor(),
-                        newStudentIdSet, lesson.getAttendance(), lesson.getTags()
+                        newStudentIdSet,
+                        lesson.getTags()
                 );
                 // Update the lesson in the model.
                 model.setLesson(lesson, updatedLesson);
