@@ -8,6 +8,7 @@ import seedu.address.model.lesson.Day;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
 import seedu.address.model.lesson.Tutor;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +26,7 @@ public class LessonBuilder {
     private Time time;
     private Tutor tutor;
     private Set<Tag> tags;
+    private Set<IdentificationNumber> studentIds;
 
     /**
      * Creates a {@code LessonBuilder} with the default details.
@@ -34,6 +36,7 @@ public class LessonBuilder {
         day = new Day(DEFAULT_DAY);
         time = new Time(DEFAULT_TIME);
         tutor = new Tutor(DEFAULT_TUTOR);
+        studentIds = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -45,6 +48,7 @@ public class LessonBuilder {
         day = lessonToCopy.getDay();
         time = lessonToCopy.getTime();
         tutor = lessonToCopy.getTutor();
+        studentIds = new HashSet<>(lessonToCopy.getStudents());
         tags = new HashSet<>(lessonToCopy.getTags());
     }
 
@@ -91,7 +95,20 @@ public class LessonBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code studentIds} into a {@code Set<IdentificationNumber>} and sets it to the {@code Lesson}
+     * that we are building.
+     */
+    public LessonBuilder withStudents(String... studentIds) {
+        this.studentIds = new HashSet<>();
+        for (String id : studentIds) {
+            this.studentIds.add(new IdentificationNumber(id));
+        }
+        return this;
+    }
+
+
     public Lesson build() {
-        return new Lesson(className, day, time, tutor, tags);
+        return new Lesson(className, day, time, tutor, studentIds, tags);
     }
 }

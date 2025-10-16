@@ -8,8 +8,8 @@ import static java.util.Objects.requireNonNull;
 public class IdentificationNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Identification number must start with 'T' or 'S' followed by an 8 digit number";
-    public static final String VALIDATION_REGEX = "[TS]\\d{8}$";
+            "Identification number must start with 'T' or 'S' followed by a 7 digit number";
+    public static final String VALIDATION_REGEX = "[TtSs]\\d{7}$";
 
     private final String value;
     private final String prefix;
@@ -22,16 +22,16 @@ public class IdentificationNumber {
      */
     public IdentificationNumber(String prefix, int number) {
         requireNonNull(prefix);
-        if (!prefix.equals("T") && !prefix.equals("S")) {
+        if (!prefix.equalsIgnoreCase("T") && !prefix.equalsIgnoreCase("S")) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
-        if (number < 0 || number > 99999999) {
+        if (number < 0 || number > 9999999) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
 
         this.prefix = prefix;
         this.number = number;
-        this.value = String.format("%s%08d", prefix, number);
+        this.value = String.format("%s%07d", prefix, number);
     }
 
     /**
@@ -68,7 +68,7 @@ public class IdentificationNumber {
         if (!testPrefix.equals("T") && !testPrefix.equals("S")) {
             return false;
         }
-        return testNumber >= 0 && testNumber <= 99999999;
+        return testNumber >= 0 && testNumber <= 9999999;
     }
 
     public String getPrefix() {

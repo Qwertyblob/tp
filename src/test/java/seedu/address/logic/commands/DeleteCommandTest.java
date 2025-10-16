@@ -11,8 +11,12 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +26,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.LessonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -64,6 +70,11 @@ public class DeleteCommandTest {
                 expectedCommandResult);
     }
 
+    @BeforeEach
+    public void setUp() {
+        model = getTypicalModelManager();
+        expectedModel = getTypicalModelManager();
+    }
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -180,6 +191,25 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_deletePerson_unenrollsFromAssociatedLessons() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.formatPerson(personToDelete));
+
+        expectedModel.deletePerson(personToDelete);
+        Lesson lessonToUpdate = expectedModel.getFilteredLessonList().stream()
+                .filter(l -> l.getClassName().toString().equals("D6f"))
+                .findFirst().get();
+        Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withStudents().build(); // Lesson is now empty
+        expectedModel.setLesson(lessonToUpdate, updatedLesson);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+
+    }
+
+    @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
@@ -195,4 +225,5 @@ public class DeleteCommandTest {
 
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
+
 }
