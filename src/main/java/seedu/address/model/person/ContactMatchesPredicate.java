@@ -14,6 +14,7 @@ public class ContactMatchesPredicate implements Predicate<Person> {
     private final String id;
     private final String name;
     private final String role;
+    private final String lesson;
     private final String phone;
     private final String email;
     private final String address;
@@ -22,10 +23,12 @@ public class ContactMatchesPredicate implements Predicate<Person> {
     /**
      * Creates a ContactMatchesPredicate with the given information of a person.
      */
-    public ContactMatchesPredicate(String id, String name, String role, String phone, String email, String address, String tags) {
+    public ContactMatchesPredicate(String id, String name, String role, String lesson,
+                                   String phone, String email, String address, String tags) {
         this.id = id;
         this.name = name;
         this.role = role;
+        this.lesson = lesson;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -41,7 +44,7 @@ public class ContactMatchesPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        if (id.isEmpty() && name.isEmpty() && role.isEmpty() && phone.isEmpty()
+        if (id.isEmpty() && name.isEmpty() && role.isEmpty() && lesson.isEmpty() && phone.isEmpty()
                 && email.isEmpty() && address.isEmpty() && tags.isEmpty()) {
             return false;
         }
@@ -63,6 +66,18 @@ public class ContactMatchesPredicate implements Predicate<Person> {
         }
         if (!role.isEmpty()) {
             matches &= StringUtil.containsWordIgnoreCase(person.getRole().role, role);
+        }
+        if (!lesson.isEmpty()) {
+            Set<String> personLessons = person.getLessons().stream()
+                    .map(lesson -> lesson.getClassName().toString().toLowerCase())
+                    .collect(Collectors.toSet());
+            String[] searchLessons = lesson.toLowerCase().trim().split("\\s+");
+            for (String searchLesson : searchLessons) {
+                if (!personLessons.contains(searchLesson)) {
+                    matches = false;
+                    break;
+                }
+            }
         }
         if (!phone.isEmpty()) {
             matches &= StringUtil.containsWordIgnoreCase(person.getPhone().value, phone);
@@ -114,6 +129,7 @@ public class ContactMatchesPredicate implements Predicate<Person> {
                 && phone.equals(otherContactMatchesPredicate.phone)
                 && email.equals(otherContactMatchesPredicate.email)
                 && address.equals(otherContactMatchesPredicate.address)
+                && lesson.equals(otherContactMatchesPredicate.lesson)
                 && tags.equals(otherContactMatchesPredicate.tags);
     }
 
@@ -126,6 +142,7 @@ public class ContactMatchesPredicate implements Predicate<Person> {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("lessons", lesson)
                 .add("tags", tags)
                 .toString();
     }
