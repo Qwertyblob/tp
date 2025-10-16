@@ -36,8 +36,8 @@ public class LessonBuilder {
         day = new Day(DEFAULT_DAY);
         time = new Time(DEFAULT_TIME);
         tutor = new Tutor(DEFAULT_TUTOR);
-        tags = new HashSet<>();
         studentIds = new HashSet<>();
+        tags = new HashSet<>();
     }
 
     /**
@@ -48,8 +48,8 @@ public class LessonBuilder {
         day = lessonToCopy.getDay();
         time = lessonToCopy.getTime();
         tutor = lessonToCopy.getTutor();
-        tags = new HashSet<>(lessonToCopy.getTags());
         studentIds = new HashSet<>(lessonToCopy.getStudents());
+        tags = new HashSet<>(lessonToCopy.getTags());
     }
 
     /**
@@ -109,6 +109,6 @@ public class LessonBuilder {
 
 
     public Lesson build() {
-        return new Lesson(className, day, time, tutor, tags, studentIds);
+        return new Lesson(className, day, time, tutor, studentIds, tags);
     }
 }
