@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
 import java.util.stream.Stream;
+
 import seedu.address.logic.commands.EnrolCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.ClassName;
