@@ -19,7 +19,8 @@ class JsonAdaptedAttendance {
      */
     @JsonCreator
     public JsonAdaptedAttendance(@JsonProperty("date") String date,
-                                 @JsonProperty("presentStudents") List<JsonAdaptedIdentificationNumber> presentStudents) {
+                                 @JsonProperty("presentStudents") List<JsonAdaptedIdentificationNumber>
+                                         presentStudents) {
         this.date = date;
         if (presentStudents != null) {
             this.presentStudents.addAll(presentStudents);

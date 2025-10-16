@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -30,8 +30,7 @@ public class EnrolCommand extends Command {
             + PREFIX_CLASS + "CLASS_NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "S1234567"
-            + PREFIX_CLASS + "M2a "
-            ;
+            + PREFIX_CLASS + "M2a ";
 
     public static final String MESSAGE_ENROL_SUCCESS = "Enrolled student %1$s to lesson %2$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student is already enrolled in the lesson.";
