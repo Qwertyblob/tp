@@ -25,6 +25,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.ContactMatchesPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditLessonDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -64,11 +65,21 @@ public class CommandTestUtil {
     public static final String VALID_CLASS_MATH = "A1a";
     public static final String VALID_DAY_MONDAY = "monday";
     public static final String VALID_TIME_1200 = "1200";
-    public static final String VALID_TUTOR_A1234567 = "t1234567";
+    public static final String VALID_TUTOR_T1234567 = "t1234567";
+    public static final String VALID_TAG_MATH = "Math";
+    public static final String VALID_TAG_SCIENCE = "Science";
 
     public static final String VALID_CLASS_SCIENCE = "B2b";
+    public static final String VALID_DAY_TUESDAY = "tuesday";
+    public static final String VALID_TIME_1400 = "1400";
+    public static final String VALID_TUTOR_T7654321 = "t7654321";
+
+
     public static final String INVALID_CLASS_NAME_FORMAT = "Math101";
-    public static final String INVALID_STUDENT_ID_FORMAT = "A1234567";
+    public static final String INVALID_DAY_FORMAT = "Funday";
+    public static final String INVALID_TIME_FORMAT = "25:00";
+    public static final String INVALID_TUTOR_ID_FORMAT = "A1234567";
+
 
     // Descriptor-style constants
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -99,9 +110,19 @@ public class CommandTestUtil {
 
     // Lesson command descriptions
     public static final String CLASS_DESC_MATH = " " + PREFIX_CLASS + VALID_CLASS_MATH;
+    public static final String CLASS_DESC_SCIENCE = " " + PREFIX_CLASS + VALID_CLASS_SCIENCE;
+
     public static final String DAY_DESC_MONDAY = " " + PREFIX_DAY + VALID_DAY_MONDAY;
+    public static final String DAY_DESC_TUESDAY = " " + PREFIX_DAY + VALID_DAY_TUESDAY;
+
     public static final String TIME_DESC_1200 = " " + PREFIX_TIME + VALID_TIME_1200;
-    public static final String TUTOR_DESC_A12345678 = " " + PREFIX_TUTOR + VALID_TUTOR_A1234567;
+    public static final String TIME_DESC_1400 = " " + PREFIX_TIME + VALID_TIME_1400;
+
+    public static final String TUTOR_DESC_T1234567 = " " + PREFIX_TUTOR + VALID_TUTOR_T1234567;
+    public static final String TUTOR_DESC_T7654321 = " " + PREFIX_TUTOR + VALID_TUTOR_T7654321;
+
+    public static final String TAG_DESC_MATH = " " + PREFIX_TAG + VALID_TAG_MATH;
+    public static final String TAG_DESC_SCIENCE = " " + PREFIX_TAG + VALID_TAG_SCIENCE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "teacher"; // '&' not allowed in names
@@ -125,6 +146,14 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withRole(VALID_ROLE_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+
+    public static final EditLessonCommand.EditLessonDescriptor DESC_MATH;
+    public static final EditLessonCommand.EditLessonDescriptor DESC_SCIENCE;
+
+    static {
+        DESC_MATH = new EditLessonDescriptorBuilder().withTags(VALID_TAG_MATH).build();
+        DESC_SCIENCE = new EditLessonDescriptorBuilder().withTags(VALID_TAG_SCIENCE).build();
     }
 
     /**
