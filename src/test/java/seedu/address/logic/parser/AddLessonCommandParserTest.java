@@ -4,11 +4,11 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASS_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.DAY_DESC_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_1200;
-import static seedu.address.logic.commands.CommandTestUtil.TUTOR_DESC_A12345678;
+import static seedu.address.logic.commands.CommandTestUtil.TUTOR_DESC_T1234567;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASS_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DAY_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_1200;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TUTOR_A1234567;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TUTOR_T1234567;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -36,17 +36,17 @@ public class AddLessonCommandParserTest {
                 .withClassName(VALID_CLASS_MATH)
                 .withDay(VALID_DAY_MONDAY)
                 .withTime(VALID_TIME_1200)
-                .withTutor(VALID_TUTOR_A1234567)
+                .withTutor(VALID_TUTOR_T1234567)
                 .build();
 
         // whitespace only preamble
         assertParseSuccess(parser, " " + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200
-                        + TUTOR_DESC_A12345678, new AddLessonCommand(expectedLesson));
+                        + TUTOR_DESC_T1234567, new AddLessonCommand(expectedLesson));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
-        String validExpectedLessonString = CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678;
+        String validExpectedLessonString = CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_T1234567;
 
         // multiple class names
         assertParseFailure(parser, CLASS_DESC_MATH + validExpectedLessonString,
@@ -61,12 +61,12 @@ public class AddLessonCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
 
         // multiple tutors
-        assertParseFailure(parser, TUTOR_DESC_A12345678 + validExpectedLessonString,
+        assertParseFailure(parser, TUTOR_DESC_T1234567 + validExpectedLessonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TUTOR));
 
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedLessonString + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
+                validExpectedLessonString + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_T1234567,
                 Messages.getErrorMessageForDuplicatePrefixes(
                         PREFIX_CLASS, PREFIX_DAY, PREFIX_TIME, PREFIX_TUTOR));
     }
@@ -76,38 +76,38 @@ public class AddLessonCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE);
 
         // missing class prefix
-        assertParseFailure(parser, VALID_CLASS_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, VALID_CLASS_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_T1234567,
                 expectedMessage);
 
         // missing day prefix
-        assertParseFailure(parser, CLASS_DESC_MATH + VALID_DAY_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + VALID_DAY_MONDAY + TIME_DESC_1200 + TUTOR_DESC_T1234567,
                 expectedMessage);
 
         // missing time prefix
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + VALID_TIME_1200 + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + VALID_TIME_1200 + TUTOR_DESC_T1234567,
                 expectedMessage);
 
         // missing tutor prefix
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + VALID_TUTOR_A1234567,
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200 + VALID_TUTOR_T1234567,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_CLASS_MATH + VALID_DAY_MONDAY + VALID_TIME_1200 + VALID_TUTOR_A1234567,
+        assertParseFailure(parser, VALID_CLASS_MATH + VALID_DAY_MONDAY + VALID_TIME_1200 + VALID_TUTOR_T1234567,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid class name
-        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + TIME_DESC_1200 + TUTOR_DESC_T1234567,
                 ClassName.MESSAGE_CONSTRAINTS);
 
         // invalid day
-        assertParseFailure(parser, CLASS_DESC_MATH + " d/invalid" + TIME_DESC_1200 + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + " d/invalid" + TIME_DESC_1200 + TUTOR_DESC_T1234567,
                 Day.MESSAGE_CONSTRAINTS);
 
         // invalid time
-        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, CLASS_DESC_MATH + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_T1234567,
                 Time.MESSAGE_CONSTRAINTS);
 
         // invalid tutor
@@ -115,11 +115,11 @@ public class AddLessonCommandParserTest {
                 Tutor.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_A12345678,
+        assertParseFailure(parser, " c/invalid" + DAY_DESC_MONDAY + " tm/invalid" + TUTOR_DESC_T1234567,
                 ClassName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, " preamble" + CLASS_DESC_MATH + DAY_DESC_MONDAY + TIME_DESC_1200
-                + TUTOR_DESC_A12345678, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+                + TUTOR_DESC_T1234567, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
     }
 }

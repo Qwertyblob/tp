@@ -16,33 +16,63 @@ import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using its displayed index from the address book.
  */
 public class DeleteCommand extends ConfirmableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the person identified by the index number or name used in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer) or n/NAME\n"
+            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " n/Alice";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "(Y/N) Would you like to delete this item? %1$s";
+    private static final String MESSAGE_PERSON_NOT_FOUND = "No person found with the given name.";
 
     private final Index targetIndex;
+    private final Name targetName;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.targetName = null;
+    }
+
+    public DeleteCommand(Name name) {
+        requireNonNull(name);
+        this.targetName = name;
+        this.targetIndex = null;
+    }
+
+    private Person getPersonToDelete(Model model) throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        // If index is provided, get the person accordingly
+        if (targetIndex != null) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            return lastShownList.get(targetIndex.getZeroBased());
+        }
+
+        // Else search for matching name in list
+        if (targetName != null) {
+            for (Person person : lastShownList) {
+                String trimmedName = person.getName().fullName.toLowerCase().trim();
+                String trimmedTargetName = targetName.fullName.toLowerCase().trim();
+                if (trimmedName.equals(trimmedTargetName)) {
+                    return person;
+                }
+            }
+        }
+
+        throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Override
     public String getConfirmationMessage(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Person personToDelete = getPersonToDelete(model);
         return String.format(MESSAGE_CONFIRM_DELETE, Messages.formatPerson(personToDelete));
     }
 
@@ -51,11 +81,13 @@ public class DeleteCommand extends ConfirmableCommand {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (targetIndex != null) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Person personToDelete = getPersonToDelete(model);
         IdentificationNumber personIdToDelete = personToDelete.getId();
 
         // Create a copy of the lesson list to iterate over, to avoid modification issues.
