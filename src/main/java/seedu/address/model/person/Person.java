@@ -104,6 +104,22 @@ public class Person {
     }
 
     /**
+     * Returns true if both persons have the same identity fields.
+     * This defines identity equality between two persons.
+     */
+    public boolean hasSameIdentity(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && id.equals(otherPerson.id)
+                && name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone)
+                && email.equals(otherPerson.email);
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */

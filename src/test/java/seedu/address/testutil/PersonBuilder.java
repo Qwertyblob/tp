@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -28,6 +29,7 @@ public class PersonBuilder {
     private IdentificationNumber id;
     private Name name;
     private Role role;
+    private Set<Lesson> lessons;
     private Phone phone;
     private Email email;
     private Address address;
@@ -40,6 +42,7 @@ public class PersonBuilder {
         id = new IdentificationNumber(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
         role = new Role(DEFAULT_ROLE);
+        lessons = new HashSet<>();
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -53,6 +56,7 @@ public class PersonBuilder {
         id = personToCopy.getId();
         name = personToCopy.getName();
         role = personToCopy.getRole();
+        lessons = new HashSet<>(personToCopy.getLessons());
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
@@ -117,8 +121,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code lessons} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLessons(Set<Lesson> lessons) {
+        this.lessons = new HashSet<>(lessons);
+        return this;
+    }
+
     public Person build() {
-        return new Person(id, name, role, phone, email, address, tags);
+        return new Person(id, name, role, lessons, phone, email, address, tags);
     }
 
 }

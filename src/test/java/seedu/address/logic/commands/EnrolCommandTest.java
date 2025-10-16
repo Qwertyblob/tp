@@ -63,7 +63,7 @@ public class EnrolCommandTest {
                 AMY.getLessons().stream(),
                 Stream.of(expectedLesson)
         ).collect(Collectors.toSet());
-        Person expectedPerson = new Person(AMY.getId(), AMY.getName(), AMY.getRole(), 
+        Person expectedPerson = new Person(AMY.getId(), AMY.getName(), AMY.getRole(),
                 newLessons, AMY.getPhone(), AMY.getEmail(), AMY.getAddress(), AMY.getTags());
         expectedModel.setPerson(AMY, expectedPerson);
 

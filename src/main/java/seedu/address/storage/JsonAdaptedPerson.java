@@ -120,7 +120,8 @@ class JsonAdaptedPerson {
                 }
             }
             if (matched == null) {
-                throw new IllegalValueException("Lesson with className '" + classNameStr + "' not found in lessons list.");
+                throw new IllegalValueException("Lesson with className '"
+                        + classNameStr + "' not found in lessons list.");
             }
             personLessons.add(matched);
         }

@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
@@ -11,7 +10,6 @@ import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.person.IdentificationNumber;
-import seedu.address.model.person.Name;
 
 public class MarkCommandParser implements Parser<MarkCommand> {
 
