@@ -28,9 +28,6 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    static {
-        // Initialize ID counters so that typical persons have predictable IDs
-    }
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withRole("student")

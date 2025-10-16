@@ -68,7 +68,7 @@ public class IdentificationNumber {
         if (!testPrefix.equals("T") && !testPrefix.equals("S")) {
             return false;
         }
-        return testNumber >= 0 && testNumber <= 99999999;
+        return testNumber >= 0 && testNumber <= 9999999;
     }
 
     public String getPrefix() {
