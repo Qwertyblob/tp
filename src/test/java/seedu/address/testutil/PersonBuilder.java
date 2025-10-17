@@ -125,8 +125,6 @@ public class PersonBuilder {
      * Sets the {@code lessons} of the {@code Person} that we are building.
      */
     public PersonBuilder withLessons(String ... lessons) {
-        this.lessons = new HashSet<>(lessons);
-        return this;
         this.lessons = SampleDataUtil.getLessonSet(lessons);
         return this;
     }

@@ -197,7 +197,7 @@ public class EditCommandTest {
         // Build expected person with new role and a new ID
         Person editedPerson = new PersonBuilder(lastPerson)
                 .withRole("tutor")
-                .withId(new IdentificationNumber("T0000005")) // new ID for tutor
+                .withId("T0000005") // new ID for tutor
                 .build();
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,

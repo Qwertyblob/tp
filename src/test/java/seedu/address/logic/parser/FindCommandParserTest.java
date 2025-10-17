@@ -23,7 +23,7 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new ContactMatchesPredicate(
-                        "Alice Bob", "student", "", "", "", ""));
+                        "", "Alice Bob", "student", "", "", "", "", ""));
         assertParseSuccess(parser, " n/Alice Bob r/student", expectedFindCommand);
 
         // multiple whitespaces between keywords
