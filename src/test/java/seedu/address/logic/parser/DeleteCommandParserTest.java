@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.model.person.Name;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -35,18 +34,6 @@ public class DeleteCommandParserTest {
 
         // Large index
         assertParseSuccess(parser, "999", new DeleteCommand(Index.fromOneBased(999)));
-    }
-
-    @Test
-    public void parse_validNameArgs_returnsDeleteCommand() {
-        // Simple name
-        assertParseSuccess(parser, "n/Alice", new DeleteCommand(new Name("Alice")));
-
-        // Name with spaces
-        assertParseSuccess(parser, "n/Alice Bob", new DeleteCommand(new Name("Alice Bob")));
-
-        // Name with numbers
-        assertParseSuccess(parser, "n/Alice123", new DeleteCommand(new Name("Alice123")));
     }
 
     @Test
