@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
@@ -39,8 +40,6 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
-import javafx.collections.ObservableList;
-
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
@@ -58,8 +57,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        ObservableList<Person> Persons = model.getAddressBook().getPersonList();
-        for (Person person : Persons) {
+        ObservableList<Person> people = model.getAddressBook().getPersonList();
+        for (Person person : people) {
             logger.info("Default: " + person);
         }
         logic = new LogicManager(model, storage);
@@ -179,8 +178,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
 
-        ObservableList<Person> Persons = model.getAddressBook().getPersonList();
-        for (Person person : Persons) {
+        ObservableList<Person> people = model.getAddressBook().getPersonList();
+        for (Person person : people) {
             logger.info("Default: " + person);
         }
 
