@@ -59,6 +59,20 @@ public class Lesson {
         this.attendance.putAll(attendance);
     }
 
+    /**
+     * Constructor for tests.
+     */
+    private Lesson(String string) {
+        this.className = new ClassName(string);
+        this.day = null;
+        this.time = null;
+        this.tutor = null;
+    }
+
+    public static Lesson makeLessonTest(String string) {
+        return new Lesson(string);
+    }
+
     public ClassName getClassName() {
         return className;
     }

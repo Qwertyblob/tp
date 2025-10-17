@@ -242,7 +242,9 @@ public class CommandTestUtil {
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
 
         model.updateFilteredPersonList(new ContactMatchesPredicate(
-                person.getName().fullName, "", "", "", "", ""));
+                person.getId().toString(),
+                person.getName().fullName,
+                "", "", "", "", "", ""));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

@@ -67,8 +67,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code id} of the {@code Person} that we are building.
      */
-    public PersonBuilder withId(IdentificationNumber id) {
-        this.id = new IdentificationNumber(id.toString());
+    public PersonBuilder withId(String id) {
+        this.id = new IdentificationNumber(id);
         return this;
     }
 
@@ -124,8 +124,10 @@ public class PersonBuilder {
     /**
      * Sets the {@code lessons} of the {@code Person} that we are building.
      */
-    public PersonBuilder withLessons(Set<Lesson> lessons) {
+    public PersonBuilder withLessons(String ... lessons) {
         this.lessons = new HashSet<>(lessons);
+        return this;
+        this.lessons = SampleDataUtil.getLessonSet(lessons);
         return this;
     }
 

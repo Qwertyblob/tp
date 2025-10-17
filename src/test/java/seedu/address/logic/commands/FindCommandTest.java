@@ -27,9 +27,9 @@ public class FindCommandTest {
     @Test
     public void equals() {
         ContactMatchesPredicate firstPredicate =
-                new ContactMatchesPredicate("first", "", "", "", "", "");
+                new ContactMatchesPredicate("", "first", "", "", "", "", "", "");
         ContactMatchesPredicate secondPredicate =
-                new ContactMatchesPredicate("second", "", "", "", "", "");
+                new ContactMatchesPredicate("", "second", "", "", "", "", "", "");
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -74,7 +74,7 @@ public class FindCommandTest {
     @Test
     public void toStringMethod() {
         ContactMatchesPredicate predicate = new ContactMatchesPredicate(
-                "keyword", "", "", "", "", "");
+                "", "keyword", "", "", "", "", "", "");
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
@@ -84,6 +84,6 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code ContactMatchesPredicate}.
      */
     private ContactMatchesPredicate preparePredicate(String userInput) {
-        return new ContactMatchesPredicate(userInput.trim(), "", "", "", "", "");
+        return new ContactMatchesPredicate(userInput.trim(), "", "", "", "", "", "", "");
     }
 }
