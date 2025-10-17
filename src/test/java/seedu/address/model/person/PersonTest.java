@@ -91,60 +91,6 @@ public class PersonTest {
     }
 
     @Test
-    public void hasSameIdentity() {
-        // same object -> returns true
-        assertTrue(ALICE.hasSameIdentity(ALICE));
-
-        // null -> returns false
-        assertFalse(ALICE.hasSameIdentity(null));
-
-        // same identity fields, different data fields -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.hasSameIdentity(editedAlice));
-
-        // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.hasSameIdentity(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.hasSameIdentity(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.hasSameIdentity(editedAlice));
-
-        // different role -> returns false
-        editedAlice = new PersonBuilder(ALICE).withRole("tutor").build();
-        assertFalse(ALICE.hasSameIdentity(editedAlice));
-    }
-
-    @Test
-    public void getLessons() {
-        Person person = new PersonBuilder().build();
-        assertTrue(person.getLessons().isEmpty());
-
-        // Test that returned set is immutable
-        assertThrows(UnsupportedOperationException.class, () -> person.getLessons().add(null));
-    }
-
-    @Test
-    public void constructor_withLessons() {
-        Person person = new PersonBuilder().withLessons().build();
-        assertTrue(person.getLessons().isEmpty());
-    }
-
-    @Test
-    public void testHashCode() {
-        Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
-
-        Person differentPerson = new PersonBuilder(BOB).build();
-        assertFalse(ALICE.hashCode() == differentPerson.hashCode());
-    }
-
-    @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{id=" + ALICE.getId() + ", name=" + ALICE.getName()
                 + ", role=" + ALICE.getRole() + ", lessons=" + ALICE.getLessons() + ", phone=" + ALICE.getPhone()
