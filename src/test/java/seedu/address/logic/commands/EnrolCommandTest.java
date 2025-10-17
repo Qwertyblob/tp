@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import seedu.address.testutil.PersonBuilder;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,12 +18,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
 
 public class EnrolCommandTest {
@@ -55,7 +53,8 @@ public class EnrolCommandTest {
         ).collect(Collectors.toSet());
 
         Lesson expectedLesson = new LessonBuilder(lessonInModel)
-                .withStudents(newStudentIds.stream().map(IdentificationNumber::toString).toArray(String[]::new)).build();
+                .withStudents(newStudentIds.stream()
+                .map(IdentificationNumber::toString).toArray(String[]::new)).build();
         expectedModel.setLesson(lessonInModel, expectedLesson);
 
         // Update the person's lessons as well

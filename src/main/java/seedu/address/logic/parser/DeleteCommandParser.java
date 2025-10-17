@@ -18,12 +18,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        String[] argsSplitNameFlag = args.split("n/");
-        String[] argsSplitSpace = args.split(" ");
+        String trimmedArgs = args.trim();
 
-        if (argsSplitNameFlag.length == 2) {
+        // Check if it's a name-based delete (starts with n/)
+        if (trimmedArgs.startsWith("n/")) {
             try {
-                Name name = ParserUtil.parseName(argsSplitNameFlag[1]);
+                Name name = ParserUtil.parseName(trimmedArgs.substring(2));
                 return new DeleteCommand(name);
             } catch (ParseException pe) {
                 throw new ParseException(
@@ -31,9 +31,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             }
         }
 
-        if (argsSplitSpace.length == 2 && argsSplitSpace[1].matches("^[0-9]*[1-9][0-9]*$")) {
+        // Check if it's an index-based delete (numeric)
+        if (trimmedArgs.matches("^[0-9]+$")) {
             try {
-                Index index = ParserUtil.parseIndex(args);
+                Index index = ParserUtil.parseIndex(trimmedArgs);
                 return new DeleteCommand(index);
             } catch (ParseException pe) {
                 throw new ParseException(
@@ -41,6 +42,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             }
         }
 
-        throw new ParseException(DeleteCommand.MESSAGE_USAGE);
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -1,11 +1,5 @@
 package seedu.address.logic;
 
-import javafx.collections.ObservableList;
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -21,11 +15,15 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -59,8 +57,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        ObservableList<Person> People = model.getAddressBook().getPersonList();
-        for (Person person : People) {
+        ObservableList<Person> people = model.getAddressBook().getPersonList();
+        for (Person person : people) {
             logger.info("Default: " + person);
         }
         logic = new LogicManager(model, storage);
@@ -180,8 +178,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
 
-        ObservableList<Person> People = model.getAddressBook().getPersonList();
-        for (Person person : People) {
+        ObservableList<Person> people = model.getAddressBook().getPersonList();
+        for (Person person : people) {
             logger.info("Default: " + person);
         }
 
@@ -191,9 +189,6 @@ public class LogicManagerTest {
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         logger.info("Person: " + expectedPerson);
-
-
-
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

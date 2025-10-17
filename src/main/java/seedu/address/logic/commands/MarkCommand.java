@@ -18,6 +18,9 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 
+/**
+ * Marks a student to be present in the specified class.
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
@@ -39,6 +42,10 @@ public class MarkCommand extends Command {
     private final IdentificationNumber studentId;
     private final ClassName className;
 
+    /**
+     * @param studentId of the student to be arked present.
+     * @param className of the target student.
+     */
     public MarkCommand(IdentificationNumber studentId, ClassName className) {
         this.studentId = requireNonNull(studentId);
         this.className = requireNonNull(className);

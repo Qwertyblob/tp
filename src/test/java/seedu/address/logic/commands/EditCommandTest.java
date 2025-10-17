@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,13 +28,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Role;
 import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-
 
 
 /**
@@ -197,7 +193,7 @@ public class EditCommandTest {
         // Build expected person with new role and a new ID
         Person editedPerson = new PersonBuilder(lastPerson)
                 .withRole("tutor")
-                .withId(new IdentificationNumber("T0000005")) // new ID for tutor
+                .withId("T0000005") // new ID for tutor
                 .build();
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,

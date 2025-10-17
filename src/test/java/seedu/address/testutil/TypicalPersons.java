@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -42,7 +41,7 @@ public class TypicalPersons {
             .withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
-            .withId(new IdentificationNumber("S0000002"))
+            .withId("S0000002")
             .build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
@@ -51,7 +50,7 @@ public class TypicalPersons {
             .withEmail("johnd@example.com")
             .withPhone("98765432")
             .withTags("owesMoney", "friends")
-            .withId(new IdentificationNumber("S0000003"))
+            .withId("S0000003")
             .build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
@@ -59,7 +58,7 @@ public class TypicalPersons {
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street")
-            .withId(new IdentificationNumber("T0000002"))
+            .withId("T0000002")
             .build();
 
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
@@ -68,7 +67,7 @@ public class TypicalPersons {
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withTags("friends")
-            .withId(new IdentificationNumber("T0000003"))
+            .withId("T0000003")
             .build();
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
@@ -76,7 +75,7 @@ public class TypicalPersons {
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
-            .withId(new IdentificationNumber("S0000004"))
+            .withId("S0000004")
             .build();
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
@@ -84,7 +83,7 @@ public class TypicalPersons {
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
-            .withId(new IdentificationNumber("T0000004"))
+            .withId("T0000004")
             .build();
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
@@ -92,7 +91,7 @@ public class TypicalPersons {
             .withPhone("9482442")
             .withEmail("anna@example.com")
             .withAddress("4th street")
-            .withId(new IdentificationNumber("S0000005"))
+            .withId("S0000005")
             .build();
 
     // Manually added
@@ -101,7 +100,7 @@ public class TypicalPersons {
             .withPhone("8482424")
             .withEmail("stefan@example.com")
             .withAddress("little india")
-            .withId(new IdentificationNumber("S0000006"))
+            .withId("S0000006")
             .build();
 
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
@@ -109,7 +108,7 @@ public class TypicalPersons {
             .withPhone("8482131")
             .withEmail("hans@example.com")
             .withAddress("chicago ave")
-            .withId(new IdentificationNumber("T0000005"))
+            .withId("T0000005")
             .build();
 
     // Person for adding
@@ -120,7 +119,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_JAMES)
             .withAddress(VALID_ADDRESS_JAMES)
             .withTags(VALID_TAG_CLASSREP)
-            .withId(new IdentificationNumber(VALID_ID_JAMES))
+            .withId(VALID_ID_JAMES)
             .build();
 
     // Persons from CommandTestUtil
@@ -130,7 +129,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_AMY)
             .withAddress(VALID_ADDRESS_AMY)
             .withTags(VALID_TAG_FRIEND)
-            .withId(new IdentificationNumber(VALID_ID_AMY))
+            .withId(VALID_ID_AMY)
             .build();
 
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB)
@@ -139,7 +138,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB)
             .withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .withId(new IdentificationNumber(VALID_ID_BOB))
+            .withId(VALID_ID_BOB)
             .build();
 
 

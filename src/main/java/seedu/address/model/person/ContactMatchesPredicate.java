@@ -107,7 +107,6 @@ public class ContactMatchesPredicate implements Predicate<Person> {
                 }
             }
         }
-
         return matches;
     }
 
@@ -126,10 +125,10 @@ public class ContactMatchesPredicate implements Predicate<Person> {
         return id.equals(otherContactMatchesPredicate.id)
                 && name.equals(otherContactMatchesPredicate.name)
                 && role.equals(otherContactMatchesPredicate.role)
+                && lesson.equals(otherContactMatchesPredicate.lesson)
                 && phone.equals(otherContactMatchesPredicate.phone)
                 && email.equals(otherContactMatchesPredicate.email)
                 && address.equals(otherContactMatchesPredicate.address)
-                && lesson.equals(otherContactMatchesPredicate.lesson)
                 && tags.equals(otherContactMatchesPredicate.tags);
     }
 
@@ -139,10 +138,10 @@ public class ContactMatchesPredicate implements Predicate<Person> {
                 .add("id", id)
                 .add("name", name)
                 .add("role", role)
+                .add("lessons", lesson)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("lessons", lesson)
                 .add("tags", tags)
                 .toString();
     }

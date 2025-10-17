@@ -74,7 +74,7 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new ContactMatchesPredicate(
-                "foo bar baz", "", "", "", "", "")), command);
+                "", "foo bar baz", "", "", "", "", "", "")), command);
     }
 
     @Test
