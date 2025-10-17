@@ -35,11 +35,17 @@ public class DeleteCommand extends ConfirmableCommand {
     private final Index targetIndex;
     private final Name targetName;
 
+    /**
+     * @param targetIndex of the contact/lesson to delete.
+     */
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.targetName = null;
     }
 
+    /**
+     * @param name of the contact/lesson to delete.
+     */
     public DeleteCommand(Name name) {
         requireNonNull(name);
         this.targetName = name;
