@@ -11,6 +11,11 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -20,10 +25,6 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EnrolCommandTest {
 
