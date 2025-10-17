@@ -113,8 +113,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && id.equals(otherPerson.id)
                 && name.equals(otherPerson.name)
+                && role.equals(otherPerson.role)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email);
     }

@@ -109,7 +109,7 @@ public class ContactMatchesPredicateTest {
                         "alice@email.com", "Main Street", "friend");
 
         String expected = ContactMatchesPredicate.class.getCanonicalName()
-                + "{id=S0000001, name=Alice, role=student, lessons=M2a, phone=12345, email=alice@email.com,"
+                + "{id=S0000001, name=Alice, role=student, lessons=M2a, phone=12345, email=alice@email.com, "
                 + "address=Main Street, tags=friend}";
         assertEquals(expected, predicate.toString());
     }
