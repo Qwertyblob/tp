@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.ConfirmationManager.MESSAGE_ACTION_CANCELLED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmableCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmationRequested;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -13,9 +12,6 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -205,7 +201,8 @@ public class DeleteCommandTest {
         Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withStudents().build(); // Lesson is now empty
         expectedModel.setLesson(lessonToUpdate, updatedLesson);
 
-        assertConfirmableCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT), expectedModel, confirmationManager);
+        assertConfirmableCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage,
+                CommandResult.DisplayType.DEFAULT), expectedModel, confirmationManager);
 
     }
 

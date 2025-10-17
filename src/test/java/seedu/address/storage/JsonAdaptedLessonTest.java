@@ -109,7 +109,7 @@ public class JsonAdaptedLessonTest {
     public void toModelType_nullTime_throwsIllegalValueException() {
         JsonAdaptedLesson lesson =
                 new JsonAdaptedLesson(VALID_CLASSNAME, VALID_DAY, null,
-                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE,VALID_TAGS);
+                        VALID_TUTOR, VALID_IDS, VALID_ATTENDANCE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Time.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, lesson::toModelType);
