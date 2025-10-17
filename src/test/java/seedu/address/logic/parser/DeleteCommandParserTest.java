@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -34,6 +36,19 @@ public class DeleteCommandParserTest {
 
         // Large index
         assertParseSuccess(parser, "999", new DeleteCommand(Index.fromOneBased(999)));
+    }
+
+    @Test
+    public void parse_validNameArgs_returnsDeleteCommand() throws ParseException {
+        // Test that parsing succeeds for valid names
+        DeleteCommand result1 = parser.parse("n/Alice");
+        assertNotNull(result1);
+
+        DeleteCommand result2 = parser.parse("n/Alice Bob");
+        assertNotNull(result2);
+
+        DeleteCommand result3 = parser.parse("n/Alice123");
+        assertNotNull(result3);
     }
 
     @Test
