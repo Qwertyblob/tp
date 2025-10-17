@@ -13,6 +13,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LESSON;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
 import seedu.address.model.Model;
@@ -23,12 +30,6 @@ import seedu.address.model.person.IdentificationNumber;
 import seedu.address.testutil.EditLessonDescriptorBuilder;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditLessonCommand.
