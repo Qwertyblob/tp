@@ -9,12 +9,12 @@ import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -53,7 +53,8 @@ public class EnrolCommandTest {
         ).collect(Collectors.toSet());
 
         Lesson expectedLesson = new LessonBuilder(lessonInModel)
-                .withStudents(newStudentIds.stream().map(IdentificationNumber::toString).toArray(String[]::new)).build();
+                .withStudents(newStudentIds.stream()
+                .map(IdentificationNumber::toString).toArray(String[]::new)).build();
         expectedModel.setLesson(lessonInModel, expectedLesson);
 
         // Update the person's lessons as well

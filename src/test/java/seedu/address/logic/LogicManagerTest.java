@@ -17,8 +17,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -40,6 +38,8 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+
+import javafx.collections.ObservableList;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -179,8 +179,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
 
-        ObservableList<Person> People = model.getAddressBook().getPersonList();
-        for (Person person : People) {
+        ObservableList<Person> Persons = model.getAddressBook().getPersonList();
+        for (Person person : Persons) {
             logger.info("Default: " + person);
         }
 
@@ -190,9 +190,6 @@ public class LogicManagerTest {
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         logger.info("Person: " + expectedPerson);
-
-
-
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
