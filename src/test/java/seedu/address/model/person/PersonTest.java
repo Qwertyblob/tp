@@ -91,6 +91,93 @@ public class PersonTest {
     }
 
     @Test
+    public void hasSameIdentity() {
+        // same object -> returns true
+        assertTrue(ALICE.hasSameIdentity(ALICE));
+
+        // null -> returns false
+        assertFalse(ALICE.hasSameIdentity(null));
+
+        // same identity fields, different data fields -> returns true
+        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.hasSameIdentity(editedAlice));
+
+        // different name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.hasSameIdentity(editedAlice));
+
+        // different phone -> returns false
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.hasSameIdentity(editedAlice));
+
+        // different email -> returns false
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.hasSameIdentity(editedAlice));
+
+        // different role -> returns false
+        editedAlice = new PersonBuilder(ALICE).withRole("tutor").build();
+        assertFalse(ALICE.hasSameIdentity(editedAlice));
+    }
+
+    @Test
+    public void equals_comprehensive() {
+        // Test all field comparisons in equals method
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        assertTrue(ALICE.equals(aliceCopy));
+
+        // Test different role
+        Person editedAlice = new PersonBuilder(ALICE).withRole("tutor").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different lessons
+        editedAlice = new PersonBuilder(ALICE).withLessons("M2a").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different id
+        editedAlice = new PersonBuilder(ALICE).withId("T0000001").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different name
+        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different phone
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different email
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different address
+        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // Test different tags
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void getLessons() {
+        Person person = new PersonBuilder().build();
+        assertTrue(person.getLessons().isEmpty());
+
+        // Test that returned set is immutable
+        assertThrows(UnsupportedOperationException.class, () -> person.getLessons().add(null));
+    }
+
+    @Test
+    public void testHashCode() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
+
+        Person differentPerson = new PersonBuilder(BOB).build();
+        assertFalse(ALICE.hashCode() == differentPerson.hashCode());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{id=" + ALICE.getId() + ", name=" + ALICE.getName()
                 + ", role=" + ALICE.getRole() + ", lessons=" + ALICE.getLessons() + ", phone=" + ALICE.getPhone()
