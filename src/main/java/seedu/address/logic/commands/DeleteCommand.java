@@ -137,13 +137,31 @@ public class DeleteCommand extends ConfirmableCommand {
         }
 
         DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+
+        // Compare targetIndex if both are not null
+        if (targetIndex != null && otherDeleteCommand.targetIndex != null) {
+            return targetIndex.equals(otherDeleteCommand.targetIndex);
+        }
+
+        // Compare targetName if both are not null
+        if (targetName != null && otherDeleteCommand.targetName != null) {
+            return targetName.equals(otherDeleteCommand.targetName);
+        }
+
+        // If one is null and the other is not, they're not equal
+        return targetIndex == null && otherDeleteCommand.targetIndex == null
+                && targetName == null && otherDeleteCommand.targetName == null;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
+        ToStringBuilder builder = new ToStringBuilder(this);
+        if (targetIndex != null) {
+            builder.add("targetIndex", targetIndex);
+        }
+        if (targetName != null) {
+            builder.add("targetName", targetName);
+        }
+        return builder.toString();
     }
 }
