@@ -117,7 +117,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         modelManager.updateFilteredPersonList(
-                new ContactMatchesPredicate(ALICE.getName().fullName, "", "", "", "", ""));
+                new ContactMatchesPredicate("", ALICE.getName().fullName, "", "", "", "", "", ""));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
