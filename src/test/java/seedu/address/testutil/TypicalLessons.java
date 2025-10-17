@@ -71,6 +71,7 @@ public class TypicalLessons {
     }
 
     public static List<Lesson> getTypicalLessons() {
-        return new ArrayList<>(Arrays.asList(MATH_A1A, SCIENCE_B2B, ENGLISH_C3C, PHYSICS_D4D, CHEMISTRY_E5E, CHINESE_D6F));
+        return new ArrayList<>(Arrays.asList(MATH_A1A, SCIENCE_B2B, ENGLISH_C3C,
+                PHYSICS_D4D, CHEMISTRY_E5E, CHINESE_D6F));
     }
 }
