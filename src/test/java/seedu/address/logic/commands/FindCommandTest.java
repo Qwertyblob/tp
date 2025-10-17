@@ -84,6 +84,6 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code ContactMatchesPredicate}.
      */
     private ContactMatchesPredicate preparePredicate(String userInput) {
-        return new ContactMatchesPredicate(userInput.trim(), "", "", "", "", "", "", "");
+        return new ContactMatchesPredicate("", userInput.trim(), "", "", "", "", "", "");
     }
 }
