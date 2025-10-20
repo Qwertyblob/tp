@@ -84,7 +84,9 @@ public class UnmarkCommandParserTest {
     @Test
     public void parse_duplicatePrefixes_failure() {
         String userInput = STUDENT_ID_DESC_AMY + STUDENT_ID_DESC_AMY + CLASS_DESC_MATH;
-        assertParseFailure(parser, userInput, "Multiple values specified for the following single-valued field(s): " + PREFIX_ID);
+        assertParseFailure(parser,
+                userInput,
+                "Multiple values specified for the following single-valued field(s): " + PREFIX_ID);
     }
 
 }

@@ -89,7 +89,10 @@ public class UnmarkCommand extends Command {
         Set<IdentificationNumber> presentStudentsToday = newAttendanceMap.getOrDefault(attendanceDate, new HashSet<>());
 
         if (!presentStudentsToday.remove(studentId)) {
-            throw new CommandException(String.format(MESSAGE_NOT_MARKED, studentToUnmark.getName().fullName, className.fullClassName, attendanceDate));
+            throw new CommandException(String.format(MESSAGE_NOT_MARKED,
+                    studentToUnmark.getName().fullName,
+                    className.fullClassName,
+                    attendanceDate));
         }
 
         newAttendanceMap.put(attendanceDate, presentStudentsToday);
@@ -105,7 +108,8 @@ public class UnmarkCommand extends Command {
         model.setLesson(lessonToUnmark, updatedLesson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                studentToUnmark.getName().fullName, className.fullClassName, attendanceDate), CommandResult.DisplayType.RECENT);
+                studentToUnmark.getName().fullName, className.fullClassName, attendanceDate),
+                CommandResult.DisplayType.RECENT);
     }
 
     @Override

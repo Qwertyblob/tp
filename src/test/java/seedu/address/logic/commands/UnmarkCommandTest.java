@@ -103,7 +103,9 @@ public class UnmarkCommandTest {
         ClassName nonExistentClassName = new ClassName("Z9z");
         UnmarkCommand command = new UnmarkCommand(AMY.getId(), nonExistentClassName, Optional.empty());
 
-        assertCommandFailure(command, model, String.format(UnmarkCommand.MESSAGE_LESSON_NOT_FOUND, nonExistentClassName));
+        assertCommandFailure(command,
+                model,
+                String.format(UnmarkCommand.MESSAGE_LESSON_NOT_FOUND, nonExistentClassName));
     }
 
     @Test
@@ -112,7 +114,9 @@ public class UnmarkCommandTest {
         IdentificationNumber nonExistentStudentId = new IdentificationNumber("S9999999");
         UnmarkCommand command = new UnmarkCommand(nonExistentStudentId, className, Optional.empty());
 
-        assertCommandFailure(command, model, String.format(UnmarkCommand.MESSAGE_PERSON_NOT_FOUND, nonExistentStudentId));
+        assertCommandFailure(command,
+                model,
+                String.format(UnmarkCommand.MESSAGE_PERSON_NOT_FOUND, nonExistentStudentId));
     }
 
     @Test
