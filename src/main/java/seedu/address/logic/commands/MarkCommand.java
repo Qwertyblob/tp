@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.ClassName;
@@ -25,10 +26,10 @@ public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks a student's attendance for a class on the current day. "
+            + ": Marks a student's attendance for a class on the current day.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
-            + PREFIX_CLASS + "CLASS "
+            + PREFIX_CLASS + "CLASS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "S0000001"
             + PREFIX_CLASS + "M2a";
@@ -88,7 +89,8 @@ public class MarkCommand extends Command {
 
         // Check for duplicates and add the student if not present
         if (!presentStudentsToday.add(studentId)) {
-            throw new CommandException(MESSAGE_ALREADY_MARKED);
+            throw new CommandException(String.format(MESSAGE_ALREADY_MARKED,
+                    Messages.shortenedFormatPerson(studentToMark), Messages.shortenedFormatLesson(lessonToMark)));
         }
 
         // Update the map with the modified set for today's date
@@ -106,7 +108,8 @@ public class MarkCommand extends Command {
         model.setLesson(lessonToMark, updatedLesson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                studentToMark.getName().fullName, className.fullClassName), CommandResult.DisplayType.RECENT);
+                Messages.shortenedFormatPerson(studentToMark), Messages.shortenedFormatLesson(lessonToMark)),
+                CommandResult.DisplayType.RECENT);
     }
 
     @Override
