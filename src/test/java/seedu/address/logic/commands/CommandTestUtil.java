@@ -124,6 +124,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_MATH = " " + PREFIX_TAG + VALID_TAG_MATH;
     public static final String TAG_DESC_SCIENCE = " " + PREFIX_TAG + VALID_TAG_SCIENCE;
 
+    public static final String INVALID_STUDENT_ID_DESC = " " + PREFIX_ID + "a100";
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "teacher"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
 
-public class MarkCommandTest {
+public class UnmarkCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -36,49 +37,55 @@ public class MarkCommandTest {
         model = getTypicalModelManager();
         expectedModel = getTypicalModelManager();
 
-        // Set up a pre-condition: Enrol AMY in the MATH class ("A1a") for testing.
+        // Pre-condition: Enrol AMY in the MATH class ("A1a") for testing.
         try {
             ClassName className = new ClassName(VALID_CLASS_MATH);
             IdentificationNumber studentId = AMY.getId();
             new EnrolCommand(studentId, className).execute(model);
             new EnrolCommand(studentId, className).execute(expectedModel);
         } catch (CommandException e) {
-            throw new AssertionError("Setup for MarkCommandTest should not fail.");
+            throw new AssertionError("Setup for UnmarkCommandTest should not fail.");
         }
     }
 
     @Test
-    public void execute_validStudentAndLesson_success() {
+    public void execute_validStudentAndLesson_success() throws CommandException {
         ClassName className = new ClassName(VALID_CLASS_MATH);
-        Person studentToMark = AMY;
-        MarkCommand markAttendanceCommand = new MarkCommand(studentToMark.getId(), className);
+        Person studentToUnmark = AMY;
+        LocalDate today = LocalDate.now();
+
+        // Mark attendance first to set up the state for unmarking
+        new MarkCommand(studentToUnmark.getId(), className).execute(model);
+        new MarkCommand(studentToUnmark.getId(), className).execute(expectedModel);
+
+        UnmarkCommand unmarkCommand = new UnmarkCommand(studentToUnmark.getId(), className, Optional.of(today));
 
         Lesson lessonToUpdate = expectedModel.getFilteredLessonList().stream()
                 .filter(l -> l.getClassName().equals(className)).findFirst().get();
 
         Map<LocalDate, Set<IdentificationNumber>> updatedAttendance = new HashMap<>(lessonToUpdate.getAttendance());
-        updatedAttendance.computeIfAbsent(LocalDate.now(), k -> new HashSet<>()).add(studentToMark.getId());
+        updatedAttendance.get(today).remove(studentToUnmark.getId());
 
         Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withAttendance(updatedAttendance).build();
         expectedModel.setLesson(lessonToUpdate, updatedLesson);
 
-        String expectedMessage = String.format(MarkCommand.MESSAGE_SUCCESS,
-                studentToMark.getName().fullName, className.fullClassName);
+        String expectedMessage = String.format(UnmarkCommand.MESSAGE_SUCCESS,
+                studentToUnmark.getName().fullName, className.fullClassName, today);
 
-        assertCommandSuccess(markAttendanceCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unmarkCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateAttendance_throwsCommandException() throws CommandException {
+    public void execute_studentNotMarked_throwsCommandException() {
+        // Amy is enrolled but not marked present
         ClassName className = new ClassName(VALID_CLASS_MATH);
-        Person studentToMark = AMY;
+        Person studentToUnmark = AMY;
+        UnmarkCommand unmarkCommand = new UnmarkCommand(studentToUnmark.getId(), className, Optional.empty());
 
-        // Mark attendance once to set up the state
-        new MarkCommand(studentToMark.getId(), className).execute(model);
+        String expectedMessage = String.format(UnmarkCommand.MESSAGE_NOT_MARKED,
+                studentToUnmark.getName().fullName, className.fullClassName, LocalDate.now());
 
-        // Try to mark it a second time
-        MarkCommand duplicateCommand = new MarkCommand(studentToMark.getId(), className);
-        assertCommandFailure(duplicateCommand, model, MarkCommand.MESSAGE_ALREADY_MARKED);
+        assertCommandFailure(unmarkCommand, model, expectedMessage);
     }
 
     @Test
@@ -86,26 +93,26 @@ public class MarkCommandTest {
         // BOB is not enrolled in the Math class
         ClassName className = new ClassName(VALID_CLASS_MATH);
         Person studentNotEnrolled = BOB;
-        MarkCommand command = new MarkCommand(studentNotEnrolled.getId(), className);
+        UnmarkCommand command = new UnmarkCommand(studentNotEnrolled.getId(), className, Optional.empty());
 
-        assertCommandFailure(command, model, MarkCommand.MESSAGE_STUDENT_NOT_ENROLLED);
+        assertCommandFailure(command, model, UnmarkCommand.MESSAGE_STUDENT_NOT_ENROLLED);
     }
 
     @Test
     public void execute_lessonNotFound_throwsCommandException() {
         ClassName nonExistentClassName = new ClassName("Z9z");
-        MarkCommand command = new MarkCommand(AMY.getId(), nonExistentClassName);
+        UnmarkCommand command = new UnmarkCommand(AMY.getId(), nonExistentClassName, Optional.empty());
 
-        assertCommandFailure(command, model, MarkCommand.MESSAGE_LESSON_NOT_FOUND);
+        assertCommandFailure(command, model, String.format(UnmarkCommand.MESSAGE_LESSON_NOT_FOUND, nonExistentClassName));
     }
 
     @Test
     public void execute_studentNotFound_throwsCommandException() {
         ClassName className = new ClassName(VALID_CLASS_MATH);
         IdentificationNumber nonExistentStudentId = new IdentificationNumber("S9999999");
-        MarkCommand command = new MarkCommand(nonExistentStudentId, className);
+        UnmarkCommand command = new UnmarkCommand(nonExistentStudentId, className, Optional.empty());
 
-        assertCommandFailure(command, model, MarkCommand.MESSAGE_PERSON_NOT_FOUND);
+        assertCommandFailure(command, model, String.format(UnmarkCommand.MESSAGE_PERSON_NOT_FOUND, nonExistentStudentId));
     }
 
     @Test
@@ -114,11 +121,12 @@ public class MarkCommandTest {
         final ClassName scienceClass = new ClassName("B2b");
         final IdentificationNumber amyId = AMY.getId();
         final IdentificationNumber bobId = BOB.getId();
+        final Optional<LocalDate> today = Optional.of(LocalDate.now());
 
-        final MarkCommand standardCommand = new MarkCommand(amyId, mathClass);
+        final UnmarkCommand standardCommand = new UnmarkCommand(amyId, mathClass, Optional.empty());
 
         // same values -> returns true
-        MarkCommand commandWithSameValues = new MarkCommand(amyId, mathClass);
+        UnmarkCommand commandWithSameValues = new UnmarkCommand(amyId, mathClass, Optional.empty());
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -131,9 +139,12 @@ public class MarkCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different class name -> returns false
-        assertFalse(standardCommand.equals(new MarkCommand(amyId, scienceClass)));
+        assertFalse(standardCommand.equals(new UnmarkCommand(amyId, scienceClass, Optional.empty())));
 
         // different student id -> returns false
-        assertFalse(standardCommand.equals(new MarkCommand(bobId, mathClass)));
+        assertFalse(standardCommand.equals(new UnmarkCommand(bobId, mathClass, Optional.empty())));
+
+        // different date -> returns false
+        assertFalse(standardCommand.equals(new UnmarkCommand(amyId, mathClass, today)));
     }
 }
