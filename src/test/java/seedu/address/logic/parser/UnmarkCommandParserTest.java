@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASS_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.STUDENT_ID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASS_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STUDENT_ID_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.STUDENT_ID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASS_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
