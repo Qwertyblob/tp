@@ -147,4 +147,5 @@ public class UnmarkCommandTest {
         // different date -> returns false
         assertFalse(standardCommand.equals(new UnmarkCommand(amyId, mathClass, today)));
     }
+
 }
