@@ -20,5 +20,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("tm/");
     public static final Prefix PREFIX_TUTOR = new Prefix("tt/");
 
+    /* For unmark*/
+    public static final Prefix PREFIX_DATE = new Prefix("dt/");
+
 
 }
