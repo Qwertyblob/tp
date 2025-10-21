@@ -116,14 +116,27 @@ Examples:
 
 ### Enrolling a person to a class: `enrol`
 
-Edits an existing person in the address book.
+Enrols an existing person in the address book to an existing class.
 
 Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 
 Examples:
-*  `enrol p/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
+*  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
+
+### Marking a person's attendance in a class: `mark`
+
+Marks an existing person's attendance in the address book in an existing class on the current day.
+
+Format: `mark id/STUDENT_ID class/CLASS_NAME`
+
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
+* The student will be marked present only for he current day.
+
+Examples:
+*  `mark id/S0000001 c/M2a` Marks the student with the student ID `S0000001` present in the class `M2a` on the current day.
 
 ### Locating persons by name: `find`
 
