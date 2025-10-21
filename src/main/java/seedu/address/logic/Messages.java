@@ -39,6 +39,10 @@ public class Messages {
     public static String formatPerson(Person person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
+                .append("; ")
+                .append(person.getRole())
+                .append("; ID: ")
+                .append(person.getId())
                 .append("; Phone: ")
                 .append(person.getPhone())
                 .append("; Email: ")
@@ -47,6 +51,17 @@ public class Messages {
                 .append(person.getAddress())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code person} in the shortened format for display to the user.
+     */
+    public static String shortenedFormatPerson(Person person) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(person.getName())
+                .append("; ID: ")
+                .append(person.getId());
         return builder.toString();
     }
 
@@ -64,6 +79,15 @@ public class Messages {
                 .append(lesson.getTutor())
                 .append("; Tags: ");
         lesson.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code lesson} in the shortened format for display to the user.
+     */
+    public static String shortenedFormatLesson(Lesson lesson) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(lesson.getClassName());
         return builder.toString();
     }
 

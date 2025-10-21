@@ -67,7 +67,7 @@ public class EnrolCommandTest {
         expectedModel.setPerson(AMY, expectedPerson);
 
         String expectedMessage = String.format(EnrolCommand.MESSAGE_ENROL_SUCCESS,
-                Messages.formatPerson(AMY), Messages.formatLesson(expectedLesson));
+                Messages.shortenedFormatPerson(AMY), Messages.shortenedFormatLesson(expectedLesson));
 
         assertCommandSuccess(enrolCommand, model, expectedMessage, expectedModel);
     }

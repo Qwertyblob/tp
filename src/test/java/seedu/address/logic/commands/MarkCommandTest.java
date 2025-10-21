@@ -18,6 +18,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.ClassName;
@@ -63,7 +64,7 @@ public class MarkCommandTest {
         expectedModel.setLesson(lessonToUpdate, updatedLesson);
 
         String expectedMessage = String.format(MarkCommand.MESSAGE_SUCCESS,
-                studentToMark.getName().fullName, className.fullClassName);
+                Messages.shortenedFormatPerson(studentToMark), Messages.shortenedFormatLesson(lessonToUpdate));
 
         assertCommandSuccess(markAttendanceCommand, model, expectedMessage, expectedModel);
     }
@@ -78,7 +79,8 @@ public class MarkCommandTest {
 
         // Try to mark it a second time
         MarkCommand duplicateCommand = new MarkCommand(studentToMark.getId(), className);
-        assertCommandFailure(duplicateCommand, model, MarkCommand.MESSAGE_ALREADY_MARKED);
+        assertCommandFailure(duplicateCommand, model, String.format(MarkCommand.MESSAGE_ALREADY_MARKED,
+                Messages.shortenedFormatPerson(studentToMark), className.fullClassName));
     }
 
     @Test

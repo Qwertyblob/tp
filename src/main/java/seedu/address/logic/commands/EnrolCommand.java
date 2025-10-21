@@ -108,7 +108,7 @@ public class EnrolCommand extends Command {
         model.setPerson(studentToEnrol, enrolledStudent);
 
         return new CommandResult(String.format(MESSAGE_ENROL_SUCCESS,
-                Messages.formatPerson(studentToEnrol), Messages.formatLesson(newLesson)),
+                Messages.shortenedFormatPerson(studentToEnrol), Messages.shortenedFormatLesson(newLesson)),
                 CommandResult.DisplayType.CLASS_LIST);
     }
 
