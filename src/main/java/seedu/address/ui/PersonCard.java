@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,14 +75,14 @@ public class PersonCard extends UiPart<Region> {
         // Lessons with weekly attendance-based coloring
         for (Lesson lesson : person.getLessons()) {
             Label lessonLabel = new Label(lesson.getClassName().fullClassName);
-            
+
             // Check if student is present for this lesson this week (resets every Monday)
             if (allLessons != null && isStudentPresentForLesson(lesson, person.getId(), allLessons)) {
                 lessonLabel.getStyleClass().add("lesson_label_present");
             } else {
                 lessonLabel.getStyleClass().add("lesson_label");
             }
-            
+
             roleAndLessons.getChildren().add(lessonLabel);
         }
 
@@ -99,16 +98,17 @@ public class PersonCard extends UiPart<Region> {
      * Checks if the student is present for the given lesson this week.
      * Attendance resets every Monday at 00:00.
      */
-    private boolean isStudentPresentForLesson(Lesson studentLesson, IdentificationNumber studentId, ObservableList<Lesson> allLessons) {
+    private boolean isStudentPresentForLesson(Lesson studentLesson, IdentificationNumber studentId,
+                                              ObservableList<Lesson> allLessons) {
         // Find the corresponding lesson in the full lesson list to get attendance data
         for (Lesson fullLesson : allLessons) {
             if (fullLesson.getClassName().equals(studentLesson.getClassName())) {
                 Map<LocalDate, Set<IdentificationNumber>> attendance = fullLesson.getAttendance();
-                
+
                 // Get the start of the current week (Monday)
                 LocalDate today = LocalDate.now();
                 LocalDate startOfWeek = today.with(java.time.DayOfWeek.MONDAY);
-                
+
                 // Check if student was present on any day from Monday to today
                 for (LocalDate date = startOfWeek; !date.isAfter(today); date = date.plusDays(1)) {
                     Set<IdentificationNumber> presentStudents = attendance.get(date);
