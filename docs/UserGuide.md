@@ -114,6 +114,17 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+### Enrolling a person to a class: `enrol`
+
+Edits an existing person in the address book.
+
+Format: `enrol id/STUDENT_ID class/CLASS_NAME`
+
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+
+Examples:
+*  `enrol p/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
+
 ### Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
