@@ -1,18 +1,13 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,13 +50,6 @@ public class PersonCard extends UiPart<Region> {
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
-        this(person, displayedIndex, null);
-    }
-
-    /**
-     * Creates a {@code PersonCode} with the given {@code Person}, index, and lesson list for attendance checking.
-     */
-    public PersonCard(Person person, int displayedIndex, ObservableList<Lesson> allLessons) {
         super(FXML);
         this.person = person;
         index.setText(displayedIndex + ". ");
@@ -72,17 +60,10 @@ public class PersonCard extends UiPart<Region> {
         roleLabel.getStyleClass().add("role_label"); // define style in CSS
         roleAndLessons.getChildren().add(roleLabel);
 
-        // Lessons with weekly attendance-based coloring
+        // Lessons (assuming person has a getLessons() method returning a list)
         for (Lesson lesson : person.getLessons()) {
             Label lessonLabel = new Label(lesson.getClassName().fullClassName);
-
-            // Check if student is present for this lesson this week (resets every Monday)
-            if (allLessons != null && isStudentPresentForLesson(lesson, person.getId(), allLessons)) {
-                lessonLabel.getStyleClass().add("lesson_label_present");
-            } else {
-                lessonLabel.getStyleClass().add("lesson_label");
-            }
-
+            lessonLabel.getStyleClass().add("lesson_label");
             roleAndLessons.getChildren().add(lessonLabel);
         }
 
@@ -92,33 +73,5 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    /**
-     * Checks if the student is present for the given lesson this week.
-     * Attendance resets every Monday at 00:00.
-     */
-    private boolean isStudentPresentForLesson(Lesson studentLesson, IdentificationNumber studentId,
-                                              ObservableList<Lesson> allLessons) {
-        // Find the corresponding lesson in the full lesson list to get attendance data
-        for (Lesson fullLesson : allLessons) {
-            if (fullLesson.getClassName().equals(studentLesson.getClassName())) {
-                Map<LocalDate, Set<IdentificationNumber>> attendance = fullLesson.getAttendance();
-
-                // Get the start of the current week (Monday)
-                LocalDate today = LocalDate.now();
-                LocalDate startOfWeek = today.with(java.time.DayOfWeek.MONDAY);
-
-                // Check if student was present on any day from Monday to today
-                for (LocalDate date = startOfWeek; !date.isAfter(today); date = date.plusDays(1)) {
-                    Set<IdentificationNumber> presentStudents = attendance.get(date);
-                    if (presentStudents != null && presentStudents.contains(studentId)) {
-                        return true; // Student was present at least once this week
-                    }
-                }
-                return false;
-            }
-        }
-        return false;
     }
 }
