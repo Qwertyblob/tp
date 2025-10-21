@@ -91,6 +91,25 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+### Adding a class: `addc`
+
+Adds a class to the address book.
+
+Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
+
+* `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.)
+* `DAY` is case-insensitive.
+* `TUTOR` must exist in the address book.
+
+<box type="tip" seamless>
+
+**Tip:** A class can have any number of tags (including 0)
+</box>
+
+Examples:
+* `addc c/M2a d/Monday tm/1200 tt/T1234567` 
+* `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
+
 ### Listing all persons: `list`
 
 Shows a list of all persons in the address book.
@@ -138,7 +157,7 @@ Format: `mark id/STUDENT_ID class/CLASS_NAME`
 Examples:
 *  `mark id/S0000001 c/M2a` Marks the student with the student ID `S0000001` present in the class `M2a` on the current day.
 
-### UnMarking a person's attendance in a class: `unmark`
+### Unmarking a person's attendance in a class: `unmark`
 
 Unmarks an existing person's attendance in the address book in an existing class on a particular day.
 
