@@ -23,6 +23,10 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.PersonBuilder;
 
+/**
+ * Tests for PersonCard weekly attendance functionality.
+ * Note: These tests focus on logic coverage rather than UI testing due to JavaFX initialization issues.
+ */
 public class PersonCardTest {
 
     private Person testPerson;
@@ -40,63 +44,12 @@ public class PersonCardTest {
     }
 
     @Test
-    public void testWeeklyAttendanceLogic_studentPresentThisWeek_returnsTrue() {
-        // Create lesson with student present this week
-        LocalDate monday = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
-        LocalDate tuesday = monday.plusDays(1);
-
-        Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
-        Set<IdentificationNumber> presentStudents = new HashSet<>();
-        presentStudents.add(testPerson.getId());
-        attendance.put(tuesday, presentStudents);
-
-        Lesson lessonWithAttendance = new LessonBuilder(MATH_A1A)
-                .withAttendance(attendance)
-                .build();
-
-        testLessons.add(lessonWithAttendance);
-
-        // Test the weekly attendance logic
-        boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
-                testPerson.getId(), testLessons);
-
-        assertTrue(isPresent, "Student should be present this week");
-    }
-
-    @Test
-    public void testWeeklyAttendanceLogic_studentAbsentThisWeek_returnsFalse() {
-        // Create lesson with different student present
-        LocalDate monday = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
-        LocalDate tuesday = monday.plusDays(1);
-
-        Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
-        Set<IdentificationNumber> presentStudents = new HashSet<>();
-        presentStudents.add(BOB.getId()); // Different student
-        attendance.put(tuesday, presentStudents);
-
-        Lesson lessonWithAttendance = new LessonBuilder(MATH_A1A)
-                .withAttendance(attendance)
-                .build();
-
-        testLessons.add(lessonWithAttendance);
-
-        // Test the weekly attendance logic
-        boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
-                testPerson.getId(), testLessons);
-
-        assertFalse(isPresent, "Student should not be present this week");
-    }
-
-    @Test
-    public void testWeeklyAttendanceLogic_studentPresentEarlierInWeek_returnsTrue() {
-        // Create lesson with student present earlier in the week
+    public void testWeeklyAttendanceLogic_studentPresentThisWeek() {
+        // Test the weekly attendance logic without requiring JavaFX UI components
         LocalDate today = LocalDate.now();
         LocalDate monday = today.with(java.time.DayOfWeek.MONDAY);
-
-        // Use Tuesday (yesterday or earlier) to ensure it's in the past
         LocalDate tuesday = monday.plusDays(1);
         if (tuesday.isAfter(today)) {
-            // If Tuesday is in the future, use Monday instead
             tuesday = monday;
         }
 
@@ -111,7 +64,63 @@ public class PersonCardTest {
 
         testLessons.add(lessonWithAttendance);
 
-        // Test the weekly attendance logic
+        // Test the weekly attendance logic directly
+        boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
+                testPerson.getId(), testLessons);
+
+        assertTrue(isPresent, "Student should be present this week");
+    }
+
+    @Test
+    public void testWeeklyAttendanceLogic_studentAbsentThisWeek() {
+        // Test when student is not present
+        LocalDate today = LocalDate.now();
+        LocalDate monday = today.with(java.time.DayOfWeek.MONDAY);
+        LocalDate tuesday = monday.plusDays(1);
+        if (tuesday.isAfter(today)) {
+            tuesday = monday;
+        }
+
+        Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
+        Set<IdentificationNumber> presentStudents = new HashSet<>();
+        presentStudents.add(BOB.getId()); // Different student
+        attendance.put(tuesday, presentStudents);
+
+        Lesson lessonWithAttendance = new LessonBuilder(MATH_A1A)
+                .withAttendance(attendance)
+                .build();
+
+        testLessons.add(lessonWithAttendance);
+
+        // Test the weekly attendance logic directly
+        boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
+                testPerson.getId(), testLessons);
+
+        assertFalse(isPresent, "Student should not be present this week");
+    }
+
+    @Test
+    public void testWeeklyAttendanceLogic_studentPresentEarlierInWeek() {
+        // Test when student was present earlier in the week
+        LocalDate today = LocalDate.now();
+        LocalDate monday = today.with(java.time.DayOfWeek.MONDAY);
+        LocalDate wednesday = monday.plusDays(2);
+        if (wednesday.isAfter(today)) {
+            wednesday = monday;
+        }
+
+        Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
+        Set<IdentificationNumber> presentStudents = new HashSet<>();
+        presentStudents.add(testPerson.getId());
+        attendance.put(wednesday, presentStudents);
+
+        Lesson lessonWithAttendance = new LessonBuilder(MATH_A1A)
+                .withAttendance(attendance)
+                .build();
+
+        testLessons.add(lessonWithAttendance);
+
+        // Test the weekly attendance logic directly
         boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
                 testPerson.getId(), testLessons);
 
@@ -119,8 +128,8 @@ public class PersonCardTest {
     }
 
     @Test
-    public void testWeeklyAttendanceLogic_studentPresentLastWeek_returnsFalse() {
-        // Create lesson with student present last week (not this week)
+    public void testWeeklyAttendanceLogic_studentPresentLastWeek() {
+        // Test when student was present last week (not this week)
         LocalDate lastMonday = LocalDate.now().with(java.time.DayOfWeek.MONDAY).minusWeeks(1);
         LocalDate lastTuesday = lastMonday.plusDays(1);
 
@@ -135,7 +144,7 @@ public class PersonCardTest {
 
         testLessons.add(lessonWithAttendance);
 
-        // Test the weekly attendance logic
+        // Test the weekly attendance logic directly
         boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
                 testPerson.getId(), testLessons);
 
@@ -143,40 +152,18 @@ public class PersonCardTest {
     }
 
     @Test
-    public void testWeeklyAttendanceLogic_studentPresentMultipleDays_returnsTrue() {
-        // Create lesson with student present multiple days this week
-        LocalDate today = LocalDate.now();
-        LocalDate monday = today.with(java.time.DayOfWeek.MONDAY);
-
-        // Use days that are definitely in the past or today
-        LocalDate tuesday = monday.plusDays(1);
-        LocalDate wednesday = monday.plusDays(2);
-
-        // Adjust dates to ensure they're not in the future
-        if (tuesday.isAfter(today)) {
-            tuesday = monday;
-        }
-        if (wednesday.isAfter(today)) {
-            wednesday = tuesday;
-        }
-
-        Map<LocalDate, Set<IdentificationNumber>> attendance = new HashMap<>();
-        Set<IdentificationNumber> presentStudents = new HashSet<>();
-        presentStudents.add(testPerson.getId());
-        attendance.put(tuesday, presentStudents);
-        attendance.put(wednesday, presentStudents);
-
-        Lesson lessonWithAttendance = new LessonBuilder(MATH_A1A)
-                .withAttendance(attendance)
+    public void testWeeklyAttendanceLogic_lessonNotFound() {
+        // Test when the lesson is not found in allLessons
+        Lesson differentLesson = new LessonBuilder()
+                .withClassName("Z0q")
                 .build();
+        testLessons.add(differentLesson);
 
-        testLessons.add(lessonWithAttendance);
-
-        // Test the weekly attendance logic
+        // Test the weekly attendance logic directly
         boolean isPresent = testWeeklyAttendanceLogic(testPerson.getLessons().iterator().next(),
                 testPerson.getId(), testLessons);
 
-        assertTrue(isPresent, "Student should be present this week (was present multiple days)");
+        assertFalse(isPresent, "Student should not be present when lesson is not found");
     }
 
     /**
@@ -206,5 +193,4 @@ public class PersonCardTest {
         }
         return false;
     }
-
 }
