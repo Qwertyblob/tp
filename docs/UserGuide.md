@@ -165,6 +165,7 @@ Enrols an existing person in the address book to an existing class.
 Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* Cannot enrol a student who is already enrolled into the specified class.
 
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
@@ -178,6 +179,7 @@ Format: `mark id/STUDENT_ID class/CLASS_NAME`
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
 * The student will be marked present only for the current day.
+* Cannot mark a student who is already marked as present for the specified class on the same day.
 
 Examples:
 *  `mark id/S0000001 c/M2a` Marks the student with the student ID `S0000001` present in the class `M2a` on the current day.
@@ -192,6 +194,7 @@ Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
 * `DATE` format must be `yyyy-MM-dd`.
 * If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
+* Cannot unmark a student who is not marked as present for the specified class on the specified day.
 
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
