@@ -118,7 +118,7 @@ Examples:
 
 Edits an existing class in the address book.
 
-Format: `edit INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`
+Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`
 
 * Edits the class at the specified `INDEX`. The index refers to the index number shown in the displayed class list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
