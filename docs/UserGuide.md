@@ -35,6 +35,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
+   * `listc` : Lists all classes
+
+   * `addc c/M2a d/Monday tm/1200 tt/T1234567` : Adds a class named M2a to the address book
+
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
