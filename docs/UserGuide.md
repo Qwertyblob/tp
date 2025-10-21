@@ -186,12 +186,12 @@ Examples:
 
 Unmarks an existing person's attendance in the address book in an existing class on a particular day.
 
-Format: `unmark id/STUDENT_ID class/CLASS_NAME dt/DATE`
+Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
 * `DATE` format must be `yyyy-MM-dd`.
-* The student will be unmarked only for the specified day.
+* If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
 
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
