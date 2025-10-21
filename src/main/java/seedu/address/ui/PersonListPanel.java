@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -21,7 +20,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Person> personListView;
-    
+
     private ObservableList<Lesson> allLessons;
 
     /**
@@ -39,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
         this.allLessons = allLessons;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        
+
         // Add listener to refresh the person list when lessons change
         if (allLessons != null) {
             allLessons.addListener((javafx.collections.ListChangeListener.Change<? extends Lesson> change) -> {
