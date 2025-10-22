@@ -110,7 +110,8 @@ public class EditCommand extends Command {
 
         IdentificationNumber id = EditCommand.getNewId(personToEdit.getRole(), updatedRole, personToEdit.getId());
 
-        return new Person(id, updatedName, updatedRole, updatedLessons, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(id, updatedName, updatedRole, updatedLessons, updatedPhone,
+                updatedEmail, updatedAddress, updatedTags);
     }
 
     /**
