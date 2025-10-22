@@ -11,7 +11,7 @@ import seedu.address.model.person.ContactMatchesPredicate;
 
 public class FindCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private final FindCommandParser parser = new FindCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -29,5 +29,4 @@ public class FindCommandParserTest {
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n n/Alice \n \t Bob  \t r/student", expectedFindCommand);
     }
-
 }
