@@ -78,6 +78,11 @@ public class DeleteCommand extends ConfirmableCommand {
     }
 
     @Override
+    public void validate(Model model) throws CommandException {
+        getPersonToDelete(model);
+    }
+
+    @Override
     public String getConfirmationMessage(Model model) throws CommandException {
         Person personToDelete = getPersonToDelete(model);
         return String.format(MESSAGE_CONFIRM_DELETE, Messages.formatPerson(personToDelete));
