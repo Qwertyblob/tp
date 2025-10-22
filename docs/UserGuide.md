@@ -264,8 +264,23 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: What is this application used for?<br>
+**A**: This app helps manage students, tutors, and classes efficiently. You can store contact details, track attendance, and search for specific people or classes through simple text commands.
+
+**Q** Is my data automatically saved?<br>
+**A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. The data file can be found at `data/addressbook.json`.
+
+**Q**: Can there be multiple persons with the same name?<br>
+**A**: Yes, as each person has a unique ID (e.g. `S0000001`).
+
+**Q**: Why isn't my command working?<br>
+**A**: Double-check the following:
+* You used the correct prefixes (n/, r/, id/, etc.).
+* There’s a space between parameters.
+* Your command matches the **exact format** shown in the User Guide examples.
 
 --------------------------------------------------------------------------------------------------------------------
 
