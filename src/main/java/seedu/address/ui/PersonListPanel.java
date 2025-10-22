@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,13 +21,31 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> personListView;
 
+    private ObservableList<Lesson> allLessons;
+
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
     public PersonListPanel(ObservableList<Person> personList) {
+        this(personList, null);
+    }
+
+    /**
+     * Creates a {@code PersonListPanel} with the given {@code ObservableList} and lesson list for attendance checking.
+     */
+    public PersonListPanel(ObservableList<Person> personList, ObservableList<Lesson> allLessons) {
         super(FXML);
+        this.allLessons = allLessons;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+
+        // Add listener to refresh the person list when lessons change
+        if (allLessons != null) {
+            allLessons.addListener((javafx.collections.ListChangeListener.Change<? extends Lesson> change) -> {
+                // Refresh the person list view to update attendance colors
+                personListView.refresh();
+            });
+        }
     }
 
     /**
@@ -41,7 +60,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1, allLessons).getRoot());
             }
         }
     }

@@ -366,3 +366,11 @@
     -fx-background-radius: 10;
     -fx-font-size: 11;
 }
+
+.lesson_label_present {
+    -fx-background-color: #00aa00;
+    -fx-text-fill: white;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 10;
+    -fx-font-size: 11;
+}
