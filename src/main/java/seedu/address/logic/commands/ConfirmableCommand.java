@@ -14,6 +14,15 @@ public abstract class ConfirmableCommand extends Command implements Confirmable 
         isConfirmed = true;
     }
 
+    /**
+     * Validates the command using the given model, ensuring that all references
+     * (e.g. indexes, names) are valid before requesting confirmation.
+     *
+     * @throws CommandException if validation fails.
+     */
+    public void validate(Model model) throws CommandException {
+    }
+
     protected abstract CommandResult executeConfirmed(Model model) throws CommandException;
 
     @Override
