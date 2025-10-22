@@ -158,12 +158,13 @@ Deletes a class from the address book, but does not delete the people in the cla
 
 You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
 
-Format: `deletec c/CLASS_NAME`
+Format: `deletec INDEX` or `deletec c/CLASS_NAME`
 
-* Deletes the class with the specified `NAME`.
+* Deletes the class with the specified `INDEX` or `NAME`.
 * To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
 
 Examples:
+* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
 * `deletec c/M2a` followed by `Y` deletes the class "M2a".
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 
