@@ -36,7 +36,7 @@ public class DeleteCommand extends ConfirmableCommand {
     private final Name targetName;
 
     /**
-     * @param targetIndex of the contact/lesson to delete.
+     * @param targetIndex of the contact to delete.
      */
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -44,7 +44,7 @@ public class DeleteCommand extends ConfirmableCommand {
     }
 
     /**
-     * @param name of the contact/lesson to delete.
+     * @param name of the contact to delete.
      */
     public DeleteCommand(Name name) {
         requireNonNull(name);
