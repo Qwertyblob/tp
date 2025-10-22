@@ -77,6 +77,12 @@ public class DeleteLessonCommand extends ConfirmableCommand {
     }
 
     @Override
+    public void validate(Model model) throws CommandException {
+        // If the lesson to delete cannot be found, the command is invalid and will throw
+        getLessonToDelete(model);
+    }
+
+    @Override
     public String getConfirmationMessage(Model model) throws CommandException {
         Lesson lessonToDelete = getLessonToDelete(model);
         return String.format(MESSAGE_CONFIRM_DELETE, Messages.formatLesson(lessonToDelete));
