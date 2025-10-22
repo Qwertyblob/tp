@@ -112,7 +112,7 @@ public class UnenrolCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UNENROL_SUCCESS,
                 Messages.shortenedFormatPerson(student), Messages.shortenedFormatLesson(newLesson)),
-                CommandResult.DisplayType.CLASS_LIST);
+                CommandResult.DisplayType.DEFAULT);
     }
 
     @Override
