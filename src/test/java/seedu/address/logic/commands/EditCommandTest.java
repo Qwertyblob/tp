@@ -17,6 +17,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,9 +30,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.IdentificationNumberGenerator;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -87,6 +91,22 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
 
+    }
+
+    @Test
+    public void editPersonDescriptor_setLessonsAndGetLessons_success() {
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+
+        // Test setLessons with null
+        descriptor.setLessons(null);
+        assertFalse(descriptor.getLessons().isPresent()); // line 224: return Optional.empty()
+
+        // Test setLessons with valid lessons
+        Set<Lesson> testLessons = new HashSet<>();
+        testLessons.add(new LessonBuilder().withClassName("A1a").build());
+        descriptor.setLessons(testLessons);
+        assertTrue(descriptor.getLessons().isPresent());
+        assertEquals(testLessons.size(), descriptor.getLessons().get().size());
     }
 
     @Test
