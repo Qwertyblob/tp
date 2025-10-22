@@ -222,7 +222,7 @@ Example: `find c/M2a` Finds students in class M2a.
 
 ### Searching of Classes: `findc`
 
-Finds persons matching the given criteria.
+Finds classes matching the given criteria.
 
 Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]…​`
 
