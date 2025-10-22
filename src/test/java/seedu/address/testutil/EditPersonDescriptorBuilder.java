@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -35,6 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
         descriptor.setRole(person.getRole());
+        descriptor.setLessons((person.getLessons()));
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
@@ -54,6 +56,16 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withRole(String role) {
         descriptor.setRole(new Role(role));
+        return this;
+    }
+
+    /**
+     * Parses the {@code lessons} into a {@code Set<Lesson>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withLessons(String... lessons) {
+        Set<Lesson> lessonSet = Stream.of(lessons).map(Lesson::makeLessonTest).collect(Collectors.toSet());
+        descriptor.setLessons(lessonSet);
         return this;
     }
 

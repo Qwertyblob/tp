@@ -109,7 +109,7 @@ public class EnrolCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_ENROL_SUCCESS,
                 Messages.shortenedFormatPerson(studentToEnrol), Messages.shortenedFormatLesson(newLesson)),
-                CommandResult.DisplayType.CLASS_LIST);
+                CommandResult.DisplayType.DEFAULT);
     }
 
     @Override
