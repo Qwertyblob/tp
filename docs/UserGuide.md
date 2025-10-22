@@ -18,26 +18,31 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
+   ![Ui2](images/Ui2.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `list` : Lists all contacts.
+   * `list` : Lists all contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-    * `clear` : Deletes all contacts.
+   * `listc` : Lists all classes
 
-    * `exit` : Exits the app.
+   * `addc c/M2a d/Monday tm/1200 tt/T1234567` : Adds a class named M2a to the address book
+
+   * `clear` : Deletes all contacts.
+
+   * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -65,7 +70,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
+</box>
 
 ### Viewing help : `help`
 
@@ -109,7 +114,7 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
 </box>
 
 Examples:
-* `addc c/M2a d/Monday tm/1200 tt/T1234567`
+* `addc c/M2a d/Monday tm/1200 tt/T1234567` 
 * `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
 
 ### Listing all persons: `list`
@@ -135,7 +140,7 @@ Format: `edit INDEX [n/NAME] [r/ROLE] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-  specifying any tags after it.
+    specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -143,7 +148,7 @@ Examples:
 
 ### Editing a class: `editc`
 
-Edits an existing person in the address book.
+Edits an existing class in the address book.
 
 Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`
 
@@ -165,6 +170,7 @@ Enrols an existing person in the address book to an existing class.
 Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* Cannot enrol a student who is already enrolled into the specified class.
 
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
@@ -178,6 +184,7 @@ Format: `mark id/STUDENT_ID class/CLASS_NAME`
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
 * The student will be marked present only for the current day.
+* Cannot mark a student who is already marked as present for the specified class on the same day.
 
 Examples:
 *  `mark id/S0000001 c/M2a` Marks the student with the student ID `S0000001` present in the class `M2a` on the current day.
@@ -192,6 +199,7 @@ Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
 * `DATE` format must be `yyyy-MM-dd`.
 * If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
+* Cannot unmark a student who is not marked as present for the specified class on the specified day.
 
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
@@ -296,6 +304,8 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **When using commands with index (e.g. edit)**, the index accesses the list of contacts the command is meant to interact with regardless of the current display view (i.e. when executing edit on the class list view, the index accesses the person list). This makes it possible to edit persons on the class list view and vice versa which could be unintended behaviour. This issue will be fixed in the next release, so the current remedy is to only execute such commands on the correct view.
+4. **When deleting using name**, if there are duplicate names, the first entry will always be deleted. This issue will be fixed in the next release, so the current remedy is to delete by index in such a case.
 
 --------------------------------------------------------------------------------------------------------------------
 
