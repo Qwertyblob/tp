@@ -7,10 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -20,9 +16,11 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindLessonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.LessonMatchesPredicate;
 import seedu.address.model.person.ContactMatchesPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -70,11 +68,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        String name = "john";
+        String role = "student";
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")));
+                FindCommand.COMMAND_WORD + " n/" + name + " r/" + role);
         assertEquals(new FindCommand(new ContactMatchesPredicate(
-                "", "foo bar baz", "", "", "", "", "", "")), command);
+                "", "john", "student", "", "", "", "", "")), command);
+    }
+
+    @Test
+    public void parseCommand_findLesson() throws Exception {
+        String className = "A1a";
+        FindLessonCommand command = (FindLessonCommand) parser.parseCommand(
+                FindLessonCommand.COMMAND_WORD + " c/" + className);
+        assertEquals(new FindLessonCommand(new LessonMatchesPredicate(
+                "A1a", "", "", "", "")), command);
     }
 
     @Test

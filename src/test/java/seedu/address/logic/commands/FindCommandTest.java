@@ -62,7 +62,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_oneKeyword_onePersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         ContactMatchesPredicate predicate = preparePredicate("Kurz");
         FindCommand command = new FindCommand(predicate);

@@ -10,11 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.person.IdentificationNumber.VALIDATION_REGEX;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ContactMatchesPredicate;
+import seedu.address.model.person.IdentificationNumber;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -45,8 +45,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         String address = argMultimap.getValue(PREFIX_ADDRESS).orElse("").trim();
         String tags = argMultimap.getValue(PREFIX_TAG).orElse("").trim();
 
-        if (!id.isEmpty() && !id.matches(VALIDATION_REGEX)) {
-            throw new ParseException("Invalid identification number format");
+        if (!id.isEmpty() && !id.matches(IdentificationNumber.VALIDATION_REGEX)) {
+            throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
         }
 
         if (id.isEmpty() && name.isEmpty() && role.isEmpty() && lesson.isEmpty()

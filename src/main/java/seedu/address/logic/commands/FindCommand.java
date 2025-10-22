@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.ContactMatchesPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in address book whose that matches the given criteria.
  * Keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
@@ -33,7 +33,9 @@ public class FindCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " n/John r/student";
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John "
+            + PREFIX_ROLE + "student";
 
     private final ContactMatchesPredicate predicate;
 
@@ -47,7 +49,7 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
-                CommandResult.DisplayType.RECENT);
+                CommandResult.DisplayType.DEFAULT);
     }
 
     @Override

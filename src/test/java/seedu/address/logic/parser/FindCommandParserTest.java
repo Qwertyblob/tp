@@ -11,7 +11,7 @@ import seedu.address.model.person.ContactMatchesPredicate;
 
 public class FindCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private final FindCommandParser parser = new FindCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -30,4 +30,10 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, " \n n/Alice \n \t Bob  \t r/student", expectedFindCommand);
     }
 
+    @Test
+    public void parse_invalidId_throwsParseException() {
+        assertParseFailure(parser,
+                " id/123",
+                "Identification number must start with 'T' or 'S' followed by a 7 digit number");
+    }
 }
