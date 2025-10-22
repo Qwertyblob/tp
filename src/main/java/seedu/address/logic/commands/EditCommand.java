@@ -21,6 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IdentificationNumber;
@@ -101,6 +102,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
+        Set<Lesson> updatedLessons = editPersonDescriptor.getLessons().orElse(personToEdit.getLessons());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
@@ -108,7 +110,7 @@ public class EditCommand extends Command {
 
         IdentificationNumber id = EditCommand.getNewId(personToEdit.getRole(), updatedRole, personToEdit.getId());
 
-        return new Person(id, updatedName, updatedRole, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(id, updatedName, updatedRole, updatedLessons, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     /**
@@ -157,6 +159,7 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private Role role;
+        private Set<Lesson> lessons;
         private Phone phone;
         private Email email;
         private Address address;
@@ -173,6 +176,7 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setRole(toCopy.role);
+            setLessons(toCopy.lessons);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -209,6 +213,14 @@ public class EditCommand extends Command {
 
         public Optional<Role> getRole() {
             return Optional.ofNullable(role);
+        }
+
+        public void setLessons(Set<Lesson> lessons) {
+            this.lessons = (lessons != null) ? new HashSet<>(lessons) : null;
+        }
+
+        public Optional<Set<Lesson>> getLessons() {
+            return (lessons != null) ? Optional.of(Collections.unmodifiableSet(lessons)) : Optional.empty();
         }
 
         public void setPhone(Phone phone) {
