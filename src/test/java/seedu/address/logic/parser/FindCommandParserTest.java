@@ -29,4 +29,11 @@ public class FindCommandParserTest {
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n n/Alice \n \t Bob  \t r/student", expectedFindCommand);
     }
+
+    @Test
+    public void parse_invalidId_throwsParseException() {
+        assertParseFailure(parser,
+                " id/123",
+                "Identification number must start with 'T' or 'S' followed by a 7 digit number");
+    }
 }
