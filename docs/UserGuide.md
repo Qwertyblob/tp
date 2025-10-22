@@ -29,15 +29,15 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -65,7 +65,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</box>
+  </box>
 
 ### Viewing help : `help`
 
@@ -109,7 +109,7 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
 </box>
 
 Examples:
-* `addc c/M2a d/Monday tm/1200 tt/T1234567` 
+* `addc c/M2a d/Monday tm/1200 tt/T1234567`
 * `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
 
 ### Listing all persons: `list`
@@ -135,7 +135,7 @@ Format: `edit INDEX [n/NAME] [r/ROLE] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -196,23 +196,46 @@ Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
 
-### Locating persons by name: `find`
+### Searching of Contacts: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons matching the given criteria.
 
-Format: `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 * At least one of the optional fields must be provided.
+* Multiple parameters are also allowed to narrow down the search.
 * The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* For NAME, CLASS, TAG, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching all criteria will be returned (i.e. `AND` search).
+  e.g. `find n/John r/student` will return `John` with role `student`.
+* Extra/leading/trailing spaces should not affect the search.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find n/John` finds all names that contains `john`.
+* `find n/John c/M2a` finds `John` in class `M2a`.
+* `find id/S1234567` finds contact with id `S1234567`.
+* `find r/student n/John` finds all students with name that contains `John`.
+
+Example: `find c/M2a` Finds students in class M2a.
+![result for 'find c/M2a'](images/findClassM2a.png)
+
+### Searching of Classes: `findc`
+
+Finds persons matching the given criteria.
+
+Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]…​`
+
+* At least one of the optional fields must be provided.
+* Multiple parameters are also allowed to narrow down the search.
+* The search is case-insensitive. e.g `m2a` will match `M2a`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Classes matching all criteria will be returned (i.e. `AND` search).
+  e.g. `findc d/monday tm/1200` will return classes on `Monday` at time `1200`.
+* Extra/leading/trailing spaces should not affect the search.
+
+Example: `findc d/monday` Finds classes on Monday.
+![result for 'findc d/monday'](images/findcDayMonday.png)
 
 ### Deleting a person : `delete`
 
@@ -290,6 +313,7 @@ _Details coming soon ..._
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME dt/DATE` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                       |
 | **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g., `find n/James Jake r/student`                                                             |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200`                                                                                           |
 | **List**              | `list`                                                                                                                                                                                |
 | **List classes**      | `listc`                                                                                                                                                                               |
 | **Help**              | `help`                                                                                                                                                                                |
