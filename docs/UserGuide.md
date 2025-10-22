@@ -224,18 +224,40 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the address book. 
 
-Format: `delete INDEX [n/NAME]`
+You may find this useful for students who have graduated, or tutors who have left the centre.
+
+Format: `delete INDEX` or `delete n/NAME`
 
 * Deletes the person at the specified `INDEX` or `NAME`.
 * The index refers to the index number shown in the displayed person list.
 * The `NAME` must be the full name of the person.
 * The index **must be a positive integer** 1, 2, 3, …​
+* Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
+* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` then `N` cancels the command and does not delete anything.
+* `find Betsy` followed by `delete 1` then `Y` deletes the 1st person in the results of the `find` command.
+* `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
+
+### Deleting a class : `deletec`
+
+Deletes a class from the address book, but does not delete the people in the class. 
+
+You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
+
+Format: `deletec INDEX` or `deletec c/CLASS_NAME`
+
+* Deletes the class with the specified `INDEX` or `NAME`.
+* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+
+Examples:
+* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
+* `deletec c/M2a` followed by `Y` deletes the class "M2a".
+* `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 
 ### Clearing all entries : `clear`
 
