@@ -78,6 +78,12 @@ public class DeleteCommand extends ConfirmableCommand {
     }
 
     @Override
+    public void validate(Model model) throws CommandException {
+        // If the person to delete cannot be found, the command is invalid and will throw
+        getPersonToDelete(model);
+    }
+
+    @Override
     public String getConfirmationMessage(Model model) throws CommandException {
         Person personToDelete = getPersonToDelete(model);
         return String.format(MESSAGE_CONFIRM_DELETE, Messages.formatPerson(personToDelete));
