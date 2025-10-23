@@ -20,7 +20,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
 
-        // Check if it's a name-based delete (starts with n/)
+        // Check if it's a person name-based delete (starts with n/)
         if (trimmedArgs.startsWith("n/")) {
             try {
                 Name name = ParserUtil.parseName(trimmedArgs.substring(2));

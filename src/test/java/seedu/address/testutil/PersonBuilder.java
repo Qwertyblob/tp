@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -128,6 +130,18 @@ public class PersonBuilder {
         this.lessons = SampleDataUtil.getLessonSet(lessons);
         return this;
     }
+
+    /**
+     * Returns a {@code PersonBuilder} with the given {@code lesson} removed from the current lesson set.
+     */
+    public PersonBuilder withoutLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        Set<Lesson> updatedLessons = new HashSet<>(this.lessons);
+        updatedLessons.remove(lesson);
+        this.lessons = updatedLessons;
+        return this;
+    }
+
 
     public Person build() {
         return new Person(id, name, role, lessons, phone, email, address, tags);

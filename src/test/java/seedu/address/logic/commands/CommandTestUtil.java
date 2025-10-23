@@ -17,12 +17,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.ConfirmationManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonMatchesPredicate;
 import seedu.address.model.person.ContactMatchesPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditLessonDescriptorBuilder;
@@ -250,5 +253,28 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the lesson at the given {@code targetIndex}
+     * in the {@code model}'s lesson list.
+     */
+    public static void showLessonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredLessonList().size());
+
+        Lesson lesson = model.getFilteredLessonList().get(targetIndex.getZeroBased());
+
+        model.updateFilteredLessonList(new LessonMatchesPredicate(
+                lesson.getClassName().fullClassName,
+                lesson.getDay().fullDay,
+                lesson.getTime().fullTime,
+                lesson.getTutor().tutorName,
+                lesson.getTags().stream()
+                        .map(tag -> tag.tagName)
+                        .collect(Collectors.joining(" "))
+        ));
+
+        assertEquals(1, model.getFilteredLessonList().size());
+    }
+
 
 }
