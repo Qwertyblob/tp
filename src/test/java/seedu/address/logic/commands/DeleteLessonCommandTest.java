@@ -21,6 +21,7 @@ import seedu.address.logic.ConfirmationManager;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -75,6 +76,21 @@ public class DeleteLessonCommandTest {
 
         String expectedMessage = String.format(MESSAGE_DELETE_LESSON_SUCCESS,
                 Messages.formatLesson(lessonToDelete));
+
+        expectedModel.deleteLesson(lessonToDelete);
+
+        assertConfirmableCommandSuccess(deleteCommand, model,
+                new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT),
+                expectedModel, confirmationManager);
+    }
+
+    @Test
+    public void execute_validClassName_success() throws Exception {
+        Lesson lessonToDelete = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        ClassName className = lessonToDelete.getClassName();
+        DeleteLessonCommand deleteCommand = new DeleteLessonCommand(className);
+
+        String expectedMessage = String.format(MESSAGE_DELETE_LESSON_SUCCESS, Messages.formatLesson(lessonToDelete));
 
         expectedModel.deleteLesson(lessonToDelete);
 
