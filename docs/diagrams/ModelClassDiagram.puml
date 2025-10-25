@@ -57,7 +57,7 @@ Person *--> Address
 Person *-left-> "*" Tag
 
 AddressBook *--> "1" UniqueLessonList
-UniqueLessonList --> "~* all" Lesson
+UniqueLessonList -down-> "~* all" Lesson
 Lesson *--> ClassName
 Lesson *--> Day
 Lesson *--> Time
@@ -65,13 +65,10 @@ Lesson *--> Tutor
 Lesson *--> "*" IdentificationNumber
 Lesson *-right-> "*" Tag
 
-Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
-
 Name -[hidden]right-> Role
 Phone -[hidden]right-> Email
 Email -[hidden]right-> Address
 
-ModelManager -right-> "~* filtered" Person
+ModelManager --> "~* filtered" Person
 ModelManager --> "~* filtered" Lesson
 @enduml
