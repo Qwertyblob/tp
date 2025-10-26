@@ -9,12 +9,16 @@ package Logic as LogicPackage {
 package "Parser Classes" as ParserClasses{
 }
 Class XYZCommand
+Class ConfirmableCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 
 
 Class "<<interface>>\nLogic" as Logic
 Class LogicManager
+
+Class "<<interface>>\nConfirmable" as Confirmable
+Class ConfirmationManager
 }
 
 package Model {
@@ -28,20 +32,29 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .right.|> Logic
-LogicManager -right->"1" ParserClasses
+Logic -right[hidden]- ConfirmationManager
+LogicManager --->"1" ParserClasses
 ParserClasses ..> XYZCommand : <<create>>
+ParserClasses ..> ConfirmableCommand
 
 XYZCommand -up-|> Command
-LogicManager .left.> Command : <<call>>
+XYZCommand -right[hidden]- ConfirmableCommand
+ConfirmableCommand -up|> Command
+ConfirmableCommand .right.|> Confirmable
+LogicManager ..> Command : <<call>>
 
-LogicManager --> Model
-LogicManager --> Storage
-Storage --[hidden] Model
-Command .[hidden]up.> Storage
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+ConfirmationManager -up-> Model
+LogicManager -up-> Model
+LogicManager -up-> Storage
+Storage -right[hidden]- Model
+note bottom of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note bottom of ConfirmableCommand: ConfirmableCommand = DeleteCommand, etc
 
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
+LogicManager ..> CommandResult
+ConfirmationManager ..> CommandResult
 Command .up.> CommandResult : <<create>>
+
+ConfirmationManager ..> ConfirmableCommand : <<call>>
+
 @enduml
