@@ -16,8 +16,19 @@ Class UniquePersonList
 Class Person
 Class Address
 Class Email
+Class IdentificationNumber
 Class Name
 Class Phone
+Class Role
+Class Tag
+
+Class UniqueLessonList
+Class Lesson
+Class ClassName
+Class Day
+Class IdentificationNumber
+Class Time
+Class Tutor
 Class Tag
 
 Class I #FFFFFF
@@ -37,18 +48,27 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
+Person *--> IdentificationNumber
 Person *--> Name
+Person *--> Role
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *--> "*" Tag
+Person *-left-> "*" Tag
 
-Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
+AddressBook *--> "1" UniqueLessonList
+UniqueLessonList -down-> "~* all" Lesson
+Lesson *--> ClassName
+Lesson *--> Day
+Lesson *--> Time
+Lesson *--> Tutor
+Lesson *--> "*" IdentificationNumber
+Lesson *-right-> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Name -[hidden]right-> Role
+Phone -[hidden]right-> Email
+Email -[hidden]right-> Address
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Lesson
 @enduml
