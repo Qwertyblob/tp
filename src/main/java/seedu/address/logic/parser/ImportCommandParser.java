@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ImportCommandParser implements Parser<ImportCommand> {
 
+    @Override
     public ImportCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
