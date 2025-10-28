@@ -18,6 +18,8 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
+        // Update AddressBook state pointer
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayType.DEFAULT);
     }
 }
