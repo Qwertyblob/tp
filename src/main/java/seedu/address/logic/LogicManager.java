@@ -50,20 +50,22 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        CommandResult commandResult = null;
+
         try {
             if (model.getPendingCommand() != null) {
-                return confirmationManager.handleUserResponse(commandText, model);
+                commandResult = confirmationManager.handleUserResponse(commandText, model);
+            } else {
+                Command command = addressBookParser.parseCommand(commandText);
+
+                if (command instanceof ConfirmableCommand confirmable) {
+                    // Perform semantic validation of command before moving on to confirmation step
+                    confirmable.validate(model);
+                    commandResult = confirmationManager.requestConfirmation(confirmable, model);
+                } else {
+                    commandResult = command.execute(model);
+                }
             }
-
-            Command command = addressBookParser.parseCommand(commandText);
-
-            if (command instanceof ConfirmableCommand confirmable) {
-                // Perform semantic validation of command before moving on to confirmation step
-                confirmable.validate(model);
-                return confirmationManager.requestConfirmation(confirmable, model);
-            }
-
-            CommandResult commandResult = command.execute(model);
 
             try {
                 storage.saveAddressBook(model.getAddressBook());
