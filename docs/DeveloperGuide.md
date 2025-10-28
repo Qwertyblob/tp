@@ -158,6 +158,37 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add Feature
+
+The `AddCommand` allows users to create and add a new Person entry into the address book.
+Each person must have a name, role, phone number, email, and address. Optional tags may be included. During execution, the command validates input fields, automatically generates an `IdentificationNumber` based on the user’s role, and prevents duplicates.
+
+Below is an example execution flow:
+
+Step 1. The user enters a command such as:
+```
+add n/John Doe r/student p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney
+```
+Step 2. The `AddCommandParser`:
+
+* Tokenizes input using the `PREFIX_*` constants (e.g. `n/`, `r/`, `p/`).
+* Ensures all required prefixes are present and no duplicates exist.
+* Parses each field (`Name`, `Role`, `Phone`, ...)
+* Assigns a unique ID (e.g. S1234567A for students). 
+* Creates a new `Person` object.
+
+Step 3. The `AddCommand` object is created with the parsed `Person`.
+
+Step 4. The person is then added to the address book.
+
+The following sequence diagram shows how the add operation goes through the Logic component:
+
+<puml src="diagrams/AddSequenceDiagram.puml" alt="AddSequenceDiagram-Logic" />
+
+Similarly, how an add operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/AddSequenceDiagram-Model.puml" alt="AddSequenceDiagram-Model" />
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
