@@ -25,8 +25,9 @@ public class DeleteCommand extends ConfirmableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number or name used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) or n/NAME\n"
-            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " n/Alice";
+            + "The optional -f flag forces execution, skipping the confirmation step.\n"
+            + "Parameters: [-f] INDEX (must be a positive integer) or [-f] n/NAME\n"
+            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -f n/Alice";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "(Y/N) Would you like to delete this item? %1$s";
