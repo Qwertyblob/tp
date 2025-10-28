@@ -73,6 +73,10 @@ public class VersionedAddressBook extends AddressBook {
         return currentStatePointer < addressBookStateList.size() - 1;
     }
 
+    public int getCurrentStatePointer() {
+        return this.currentStatePointer;
+    }
+
     @Override
     public boolean equals(Object other) {
         // Ignore history; compare current AddressBook state only
