@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import seedu.address.commons.util.JsonUtil;
@@ -25,6 +26,8 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Data exported successfully to: %1$s";
     public static final String MESSAGE_EXPORT_ERROR = "Error exporting data to %1$s: %2$s";
+    public static final String MESSAGE_FILE_ALREADY_EXISTS = "File already exists: %1$s\n"
+            + "Please choose a different name or delete the existing file.";
 
     private final Path filePath;
 
@@ -39,6 +42,10 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (Files.exists(filePath)) {
+            throw new CommandException(String.format(MESSAGE_FILE_ALREADY_EXISTS, filePath.getFileName()));
+        }
 
         ReadOnlyAddressBook addressBook = model.getAddressBook();
         JsonSerializableAddressBook serializableAddressBook = new JsonSerializableAddressBook(addressBook);
