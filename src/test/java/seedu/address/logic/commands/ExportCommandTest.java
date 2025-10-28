@@ -65,8 +65,8 @@ public class ExportCommandTest {
 
         // Check that the data in the file is correct
         JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
-        ReadOnlyAddressBook exportedData = storage.readAddressBook().orElseThrow(
-                () -> new DataLoadingException(new Exception("Error reading exported file")));
+        ReadOnlyAddressBook exportedData = storage.readAddressBook()
+                .orElseThrow(() -> new DataLoadingException(new Exception("Error reading exported file")));
 
         assertEquals(expectedModel.getAddressBook(), exportedData);
     }
@@ -95,8 +95,7 @@ public class ExportCommandTest {
 
         assertThrows(CommandException.class,
                 String.format(ExportCommand.MESSAGE_EXPORT_ERROR,
-                        invalidFilePath.getFileName(), invalidFilePath),
-                () -> exportCommand.execute(model));
+                        invalidFilePath.getFileName(), invalidFilePath), () -> exportCommand.execute(model));
     }
 
     @Test
@@ -105,14 +104,14 @@ public class ExportCommandTest {
         Path path2 = Paths.get("b.json");
 
         ExportCommand exportA = new ExportCommand(path1);
-        ExportCommand exportA_copy = new ExportCommand(path1);
+        ExportCommand exportAcopy = new ExportCommand(path1);
         ExportCommand exportB = new ExportCommand(path2);
 
         // same object -> returns true
         assertTrue(exportA.equals(exportA));
 
         // same values -> returns true
-        assertTrue(exportA.equals(exportA_copy));
+        assertTrue(exportA.equals(exportAcopy));
 
         // different types -> returns false
         assertFalse(exportA.equals(1));
