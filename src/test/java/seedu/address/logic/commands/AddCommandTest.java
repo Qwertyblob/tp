@@ -175,6 +175,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commitAddressBook() {
+
+        }
+
+        @Override
+        public void undoAddressBook() {
+
+        }
+
+        @Override
+        public void redoAddressBook() {
+
+        }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            return false;
+        }
+
+        @Override
+        public boolean canRedoAddressBook() {
+            return false;
+        }
+
+        @Override
         public boolean hasLesson(Lesson aLesson) {
             return false;
         }
