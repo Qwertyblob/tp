@@ -75,18 +75,8 @@ public class VersionedAddressBook extends AddressBook {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof VersionedAddressBook)) {
-            return false;
-        }
-
-        VersionedAddressBook otherVersioned = (VersionedAddressBook) other;
-
-        return super.equals(otherVersioned)
-                && addressBookStateList.equals(otherVersioned.addressBookStateList)
-                && currentStatePointer == otherVersioned.currentStatePointer;
+        // Ignore history; compare current AddressBook state only
+        return super.equals(other);
     }
+
 }
