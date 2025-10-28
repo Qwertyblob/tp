@@ -77,6 +77,10 @@ public class VersionedAddressBook extends AddressBook {
         return this.currentStatePointer;
     }
 
+    public List<ReadOnlyAddressBook> getAddressBookStateList() {
+        return this.addressBookStateList;
+    }
+
     @Override
     public boolean equals(Object other) {
         // Ignore history; compare current AddressBook state only
