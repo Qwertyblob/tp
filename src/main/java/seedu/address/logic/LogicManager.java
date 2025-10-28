@@ -56,25 +56,11 @@ public class LogicManager implements Logic {
             if (model.getPendingCommand() != null) {
                 commandResult = confirmationManager.handleUserResponse(commandText, model);
             } else {
-                Command command = addressBookParser.parseCommand(commandText);
-
-                if (command instanceof ConfirmableCommand confirmable) {
-                    // Perform semantic validation of command before moving on to confirmation step
-                    confirmable.validate(model);
-                    commandResult = confirmationManager.requestConfirmation(confirmable, model);
-                } else {
-                    commandResult = command.execute(model);
-                }
+                commandResult = processNewCommand(commandText);
             }
 
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (AccessDeniedException e) {
-                throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
-            } catch (IOException ioe) {
-                throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
-            }
-
+            handleSaveResult();
+            
             return commandResult;
         } catch (ParseException e) {
             throw e; // Re-throw ParseException as-is
@@ -113,5 +99,33 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public CommandResult processNewCommand(String commandText) throws CommandException, ParseException {
+        Command command = addressBookParser.parseCommand(commandText);
+        CommandResult commandResult;
+
+        if (command instanceof ConfirmableCommand confirmable) {
+            // Perform semantic validation of command before moving on to confirmation step
+            confirmable.validate(model);
+            commandResult = confirmationManager.requestConfirmation(confirmable, model);
+        } else {
+            // Not a ConfirmableCommand, move directly to execution
+            commandResult = command.execute(model);
+        }
+
+        return commandResult;
+    }
+
+    @Override
+    public void handleSaveResult() throws CommandException {
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (AccessDeniedException e) {
+            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
+        }
     }
 }
