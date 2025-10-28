@@ -42,7 +42,7 @@ public class UndoCommandTest {
         CommandResult result = new UndoCommand().execute(model);
 
         // verify undo successful
-        assertEquals("Undo successful.", result.getFeedbackToUser());
+        assertEquals("Undo successful!", result.getFeedbackToUser());
         assertEquals(1, model.getAddressBook().getPersonList().size());
     }
 
