@@ -83,4 +83,5 @@ public class ImportCommand extends Command {
         ImportCommand otherImportCommand = (ImportCommand) other;
         return filePath.equals(otherImportCommand.filePath);
     }
+
 }
