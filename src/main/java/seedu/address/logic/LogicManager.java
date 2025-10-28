@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
 
             Command command = addressBookParser.parseCommand(commandText);
 
-            if (command instanceof ConfirmableCommand confirmable) {
+            if (command instanceof ConfirmableCommand confirmable && !confirmable.isForced()) {
                 // Perform semantic validation of command before moving on to confirmation step
                 confirmable.validate(model);
                 return confirmationManager.requestConfirmation(confirmable, model);

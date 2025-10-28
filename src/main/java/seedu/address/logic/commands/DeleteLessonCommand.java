@@ -38,14 +38,24 @@ public class DeleteLessonCommand extends ConfirmableCommand {
      * @param targetIndex of the lesson to delete.
      */
     public DeleteLessonCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-        this.targetClassName = null;
+        this(targetIndex, false);
     }
 
     /**
      * @param className of the lesson to delete.
      */
     public DeleteLessonCommand(ClassName className) {
+        this(className, false);
+    }
+
+    public DeleteLessonCommand(Index targetIndex, boolean isForced) {
+        super(isForced);
+        this.targetIndex = targetIndex;
+        this.targetClassName = null;
+    }
+
+    public DeleteLessonCommand(ClassName className, boolean isForced) {
+        super(isForced);
         requireNonNull(className);
         this.targetClassName = className;
         this.targetIndex = null;

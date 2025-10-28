@@ -9,6 +9,15 @@ import seedu.address.model.Model;
 public abstract class ConfirmableCommand extends Command implements Confirmable {
 
     private boolean isConfirmed = false;
+    private final boolean isForced;
+
+    protected ConfirmableCommand() {
+        this(false);
+    }
+
+    protected ConfirmableCommand(boolean isForced) {
+        this.isForced = isForced;
+    }
 
     public void confirm() {
         isConfirmed = true;
@@ -27,9 +36,18 @@ public abstract class ConfirmableCommand extends Command implements Confirmable 
 
     @Override
     public final CommandResult execute(Model model) throws CommandException {
+        if (isForced) {
+            // Skip confirmation
+            return executeConfirmed(model);
+        }
         if (!isConfirmed) {
             return new CommandResult(getConfirmationMessage(model), CommandResult.DisplayType.CONFIRMATION);
         }
         return executeConfirmed(model);
+    }
+
+    @Override
+    public boolean isForced() {
+        return this.isForced;
     }
 }

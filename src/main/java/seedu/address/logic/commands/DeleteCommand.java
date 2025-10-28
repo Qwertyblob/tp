@@ -39,14 +39,24 @@ public class DeleteCommand extends ConfirmableCommand {
      * @param targetIndex of the contact to delete.
      */
     public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-        this.targetName = null;
+        this(targetIndex, false);
     }
 
     /**
      * @param name of the contact to delete.
      */
     public DeleteCommand(Name name) {
+        this(name, false);
+    }
+
+    public DeleteCommand(Index targetIndex, boolean isForced) {
+        super(isForced);
+        this.targetIndex = targetIndex;
+        this.targetName = null;
+    }
+
+    public DeleteCommand(Name name, boolean isForced) {
+        super(isForced);
         requireNonNull(name);
         this.targetName = name;
         this.targetIndex = null;

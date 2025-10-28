@@ -19,12 +19,21 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        // Handle optional "-f" flag
+        ParseResult result = getRemainingArgs(trimmedArgs);
+        boolean isForced = result.isForced;
+        String remainingArgs = result.remainingArgs;
+
 
         // Check if it's a person name-based delete (starts with n/)
-        if (trimmedArgs.startsWith("n/")) {
+        if (remainingArgs.startsWith("n/")) {
             try {
-                Name name = ParserUtil.parseName(trimmedArgs.substring(2));
-                return new DeleteCommand(name);
+                Name name = ParserUtil.parseName(remainingArgs.substring(2));
+                return new DeleteCommand(name, isForced);
             } catch (ParseException pe) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
@@ -32,10 +41,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         // Check if it's an index-based delete (numeric)
-        if (trimmedArgs.matches("^[0-9]+$")) {
+        if (remainingArgs.matches("^[0-9]+$")) {
             try {
-                Index index = ParserUtil.parseIndex(trimmedArgs);
-                return new DeleteCommand(index);
+                Index index = ParserUtil.parseIndex(remainingArgs);
+                return new DeleteCommand(index, isForced);
             } catch (ParseException pe) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
@@ -43,5 +52,38 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Extracts the "-f" flag (if present) and returns the remaining arguments.
+     */
+    private static ParseResult getRemainingArgs(String trimmedArgs) throws ParseException {
+        // Split arguments by whitespace
+        String[] parts = trimmedArgs.split("\\s+", 2);
+        boolean isForced = false;
+        String remainingArgs;
+
+        if (parts[0].equals("-f")) {
+            isForced = true;
+
+            if (parts.length < 2) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            remainingArgs = parts[1].trim();
+        } else {
+            remainingArgs = trimmedArgs;
+        }
+
+        return new ParseResult(isForced, remainingArgs);
+    }
+
+    private static class ParseResult {
+        final boolean isForced;
+        final String remainingArgs;
+
+        ParseResult(boolean isForced, String remainingArgs) {
+            this.isForced = isForced;
+            this.remainingArgs = remainingArgs;
+        }
     }
 }
