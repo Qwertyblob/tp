@@ -75,4 +75,5 @@ public class ExportCommand extends Command {
         ExportCommand otherExportCommand = (ExportCommand) other;
         return filePath.equals(otherExportCommand.filePath);
     }
+
 }

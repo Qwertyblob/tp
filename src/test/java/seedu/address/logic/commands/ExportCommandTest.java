@@ -123,4 +123,5 @@ public class ExportCommandTest {
         // different person -> returns false
         assertFalse(exportA.equals(exportB));
     }
+
 }
