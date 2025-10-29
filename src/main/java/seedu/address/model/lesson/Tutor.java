@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tutor {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tutors should only contain alphanumeric characters, and it should not be blank";
+            "Tutors should start with the character 'T', followed by 7 digits, and should not be left blank.";
 
     /*
      * The first character of the address must not be a whitespace,
