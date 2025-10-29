@@ -71,7 +71,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (studentToMarkOptional.isEmpty()) {
-            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId.toString()));
         }
         Person studentToMark = studentToMarkOptional.get();
 
