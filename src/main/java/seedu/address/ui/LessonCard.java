@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.lesson.Lesson;
 
+import java.util.Comparator;
+
 /**
  * An UI component that displays information of a {@code Lesson}.
  */
@@ -42,6 +44,9 @@ public class LessonCard extends UiPart<Region> {
         day.setText("Day: " + lesson.getDay());
         time.setText("Time: " + lesson.getTime());
         tutor.setText("Tutor: " + lesson.getTutor());
+        lesson.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
