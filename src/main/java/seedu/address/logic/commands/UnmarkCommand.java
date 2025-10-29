@@ -106,7 +106,8 @@ public class UnmarkCommand extends Command {
         );
 
         model.setLesson(lessonToUnmark, updatedLesson);
-
+        // Update AddressBook state pointer
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 studentToUnmark.getName().fullName, className.fullClassName, attendanceDate),
                 CommandResult.DisplayType.RECENT);

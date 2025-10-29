@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -202,6 +203,35 @@ public class MainWindow extends UiPart<Stage> {
             executeCommand(commandText);
         } catch (CommandException | ParseException e) {
             // The command will throw errors for file not found, bad data, etc.
+            resultDisplay.setFeedbackToUser(e.getMessage());
+        }
+    }
+
+    /**
+     * Opens a FileChooser to let the user save the address book data to a JSON file.
+     */
+    @FXML
+    private void handleExport() {
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        fileChooser.setInitialFileName("backup.json");
+
+        File file = fileChooser.showSaveDialog(primaryStage);
+
+        if (file == null) {
+            // User cancelled the dialog
+            return;
+        }
+
+        String commandText = ExportCommand.COMMAND_WORD + " " + file.getAbsolutePath();
+
+        try {
+            executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
         }
     }

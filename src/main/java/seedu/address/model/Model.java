@@ -130,4 +130,20 @@ public interface Model {
     public void updatePendingCommand(ConfirmableCommand command);
 
     public void clearPendingCommand();
+
+    /** Saves the current AddressBook state for undo/redo. */
+    void commitAddressBook();
+
+    /** Restores the previous AddressBook state. */
+    void undoAddressBook();
+
+    /** Restores the next AddressBook state. */
+    void redoAddressBook();
+
+    /** Returns true if the model has previous AddressBook states to restore. */
+    boolean canUndoAddressBook();
+
+    /** Returns true if the model has undone AddressBook states to restore. */
+    boolean canRedoAddressBook();
+
 }

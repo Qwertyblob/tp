@@ -114,7 +114,7 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
 </box>
 
 Examples:
-* `addc c/M2a d/Monday tm/1200 tt/T1234567` 
+* `addc c/M2a d/Monday tm/1200 tt/T1234567`
 * `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
 
 ### Listing all persons: `list`
@@ -247,7 +247,7 @@ Example: `findc d/monday` Finds classes on Monday.
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book. 
+Deletes the specified person from the address book.
 
 You may find this useful for students who have graduated, or tutors who have left the centre.
 
@@ -268,7 +268,7 @@ Examples:
 
 ### Deleting a class : `deletec`
 
-Deletes a class from the address book, but does not delete the people in the class. 
+Deletes a class from the address book, but does not delete the people in the class.
 
 You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
 

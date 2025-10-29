@@ -60,6 +60,8 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        // Update AddressBook state pointer
+        model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)), CommandResult.DisplayType.DEFAULT);
     }
