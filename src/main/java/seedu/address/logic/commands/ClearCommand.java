@@ -17,6 +17,19 @@ public class ClearCommand extends ConfirmableCommand {
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_CONFIRM_CLEAR = "(Y/N) Are you sure you want to delete ALL people and lessons?";
 
+    /**
+     * Default constructor
+     */
+    public ClearCommand() {
+        this(false);
+    }
+
+    /**
+     * Alternative constructor for forced command
+     */
+    public ClearCommand(boolean isForced) {
+        super(isForced);
+    }
 
     @Override
     public CommandResult executeConfirmed(Model model) {
