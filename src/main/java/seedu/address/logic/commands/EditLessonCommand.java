@@ -30,6 +30,7 @@ import seedu.address.model.lesson.Time;
 import seedu.address.model.lesson.Tutor;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.LessonCascadeUpdater;
 
 /**
  * Edits the details of an existing lesson in the address book.
@@ -90,6 +91,8 @@ public class EditLessonCommand extends Command {
         }
 
         model.setLesson(lessonToEdit, editedLesson);
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(model, lessonToEdit, editedLesson);
+
         model.updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
         // Update AddressBook state pointer
         model.commitAddressBook();
