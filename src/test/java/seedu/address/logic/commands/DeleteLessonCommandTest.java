@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.ConfirmationManager.MESSAGE_ACTION_CANCELLED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmableCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmationRequested;
 import static seedu.address.logic.commands.CommandTestUtil.showLessonAtIndex;
@@ -194,6 +195,34 @@ public class DeleteLessonCommandTest {
         assertConfirmableCommandSuccess(deleteCommand, model,
                 new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT),
                 expectedModel, confirmationManager);
+    }
+
+    @Test
+    public void execute_forcedDeleteByIndex_successWithoutConfirmation() {
+        Lesson lessonToDelete = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        DeleteLessonCommand forcedDeleteCommand = new DeleteLessonCommand(INDEX_FIRST_LESSON, true);
+
+        String expectedMessage = String.format(MESSAGE_DELETE_LESSON_SUCCESS,
+                Messages.formatLesson(lessonToDelete));
+
+        expectedModel.deleteLesson(lessonToDelete);
+
+        CommandResult expectedResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
+        assertCommandSuccess(forcedDeleteCommand, model, expectedResult, expectedModel);
+    }
+
+    @Test
+    public void execute_forcedDeleteByClassName_successWithoutConfirmation() throws Exception {
+        Lesson lessonToDelete = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        ClassName className = lessonToDelete.getClassName();
+
+        DeleteLessonCommand forcedDeleteCommand = new DeleteLessonCommand(className, true);
+
+        String expectedMessage = String.format(MESSAGE_DELETE_LESSON_SUCCESS, Messages.formatLesson(lessonToDelete));
+        expectedModel.deleteLesson(lessonToDelete);
+
+        CommandResult expectedResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
+        assertCommandSuccess(forcedDeleteCommand, model, expectedResult, expectedModel);
     }
 
     @Test

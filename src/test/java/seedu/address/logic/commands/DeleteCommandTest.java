@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.ConfirmationManager.MESSAGE_ACTION_CANCELLED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmableCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmationRequested;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -24,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
 
@@ -162,6 +164,35 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_forcedDeleteByIndex_successWithoutConfirmation() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand forcedDeleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, true);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.formatPerson(personToDelete));
+
+        expectedModel.deletePerson(personToDelete);
+
+        CommandResult expectedResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
+        assertCommandSuccess(forcedDeleteCommand, model, expectedResult, expectedModel);
+    }
+
+    @Test
+    public void execute_forcedDeleteByName_successWithoutConfirmation() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Name name = personToDelete.getName();
+
+        DeleteCommand forcedDeleteCommand = new DeleteCommand(name, true);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.formatPerson(personToDelete));
+        expectedModel.deletePerson(personToDelete);
+
+        CommandResult expectedResult = new CommandResult(expectedMessage, CommandResult.DisplayType.DEFAULT);
+        assertCommandSuccess(forcedDeleteCommand, model, expectedResult, expectedModel);
     }
 
     @Test
