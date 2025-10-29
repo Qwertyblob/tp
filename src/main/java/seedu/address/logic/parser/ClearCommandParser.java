@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ClearCommandParser implements Parser<ClearCommand> {
     /**
-     * Parse if the -f flag is present and return a ClearCommand object for execution
+     * Parses if the -f flag is present and returns a ClearCommand object for execution
      */
     public ClearCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
