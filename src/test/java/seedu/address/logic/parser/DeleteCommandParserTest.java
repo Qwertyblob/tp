@@ -52,6 +52,21 @@ public class DeleteCommandParserTest {
     }
 
     @Test
+    public void parse_forcedDeleteByIndex_returnsDeleteCommandWithForcedTrue() {
+        assertParseSuccess(parser, "-f 1", new DeleteCommand(INDEX_FIRST_PERSON, true));
+        assertParseSuccess(parser, "-f 2", new DeleteCommand(INDEX_SECOND_PERSON, true));
+    }
+
+    @Test
+    public void parse_forcedFlagWithoutArgument_throwsParseException() {
+        assertParseFailure(parser, "-f",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "-f   ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_invalidNameArgs_throwsParseException() {
         // Test the catch block
         assertParseFailure(parser, "n/",
