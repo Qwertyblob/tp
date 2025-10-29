@@ -334,15 +334,26 @@ Examples:
 
 ### Importing data: `import`
 
-Imports the person and class lists from a JSON file.
+Imports existing person and class lists from a JSON file.
 
 Format `import FILE_PATH`
 
 * The user can also click the File button on the GUI, then click Import to execute this command.
 * This command overwrites whatever data is currently in the address book with the JSON data.
+* FILE_PATH must exist.
 * The JSON file must be in the appropriate format for the address book.
   * All people and classes must have their compulsory attributes.
 * The JSON file cannot be empty.
+
+### Exporting data: `export`
+
+Exports the person and class lists into a JSON file for backup.
+
+Format `export FILE_PATH`
+
+* The user can also click the File button on the GUI, then click Export to execute this command.
+* FILE_PATH must exist.
+* Cannot have a JSON file with a duplicate name in the target location.
 
 ### Exiting the program : `exit`
 
