@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# Rollcall User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+**Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff. With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software.
 
 <!-- * Table of Contents -->
 <page-nav-print />
