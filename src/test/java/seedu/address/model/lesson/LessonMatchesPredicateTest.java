@@ -13,16 +13,16 @@ public class LessonMatchesPredicateTest {
     @Test
     public void equals() {
         LessonMatchesPredicate firstPredicate =
-                new LessonMatchesPredicate("A1a", "Monday", "1000", "T1234567", "Math");
+                new LessonMatchesPredicate("A1a", "Monday", "1000-1200", "T1234567", "Math");
         LessonMatchesPredicate secondPredicate =
-                new LessonMatchesPredicate("B2b", "Tuesday", "1400", "T1234567", "Science");
+                new LessonMatchesPredicate("B2b", "Tuesday", "1400-1600", "T1234567", "Science");
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         LessonMatchesPredicate firstPredicateCopy =
-                new LessonMatchesPredicate("A1a", "Monday", "1000", "T1234567", "Math");
+                new LessonMatchesPredicate("A1a", "Monday", "1000-1200", "T1234567", "Math");
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -38,11 +38,11 @@ public class LessonMatchesPredicateTest {
     @Test
     public void test_allFieldsMatch_returnsTrue() {
         LessonMatchesPredicate predicate =
-                new LessonMatchesPredicate("A1a", "Monday", "1000", "T1234567", "Math");
+                new LessonMatchesPredicate("A1a", "Monday", "1000-1200", "T1234567", "Math");
         assertTrue(predicate.test(new LessonBuilder()
                 .withClassName("A1a")
                 .withDay("Monday")
-                .withTime("1000")
+                .withTime("1000-1200")
                 .withTutor("T1234567")
                 .withTags("Math")
                 .build()));
@@ -56,7 +56,7 @@ public class LessonMatchesPredicateTest {
         assertTrue(predicate.test(new LessonBuilder()
                 .withClassName("A1a")
                 .withDay("Friday")
-                .withTime("1400")
+                .withTime("1400-1600")
                 .withTutor("T1234567")
                 .withTags("Math", "Calculus")
                 .build()));
@@ -66,7 +66,7 @@ public class LessonMatchesPredicateTest {
         assertTrue(predicate.test(new LessonBuilder()
                 .withClassName("D4d")
                 .withDay("Wednesday")
-                .withTime("0900")
+                .withTime("0900-1100")
                 .withTutor("T1234567")
                 .build()));
     }
@@ -74,11 +74,11 @@ public class LessonMatchesPredicateTest {
     @Test
     public void test_noFieldsMatch_returnsFalse() {
         LessonMatchesPredicate predicate =
-                new LessonMatchesPredicate("B2b", "Monday", "1200", "T1234567", "Science");
+                new LessonMatchesPredicate("B2b", "Monday", "1200-1400", "T1234567", "Science");
         assertFalse(predicate.test(new LessonBuilder()
                 .withClassName("A1a")
                 .withDay("Friday")
-                .withTime("1000")
+                .withTime("1000-1200")
                 .withTutor("T7654321")
                 .withTags("Math")
                 .build()));
@@ -113,11 +113,11 @@ public class LessonMatchesPredicateTest {
     @Test
     public void test_caseInsensitiveMatching_returnsTrue() {
         LessonMatchesPredicate predicate =
-                new LessonMatchesPredicate("a1a", "monday", "1000", "t1234567", "Math");
+                new LessonMatchesPredicate("a1a", "monday", "1000-1200", "t1234567", "Math");
         assertTrue(predicate.test(new LessonBuilder()
                 .withClassName("A1a")
                 .withDay("Monday")
-                .withTime("1000")
+                .withTime("1000-1200")
                 .withTutor("T1234567")
                 .withTags("MATH")
                 .build()));
@@ -126,9 +126,9 @@ public class LessonMatchesPredicateTest {
     @Test
     public void toStringMethod() {
         LessonMatchesPredicate predicate =
-                new LessonMatchesPredicate("A1a", "Monday", "1000", "T1234567", "Math");
+                new LessonMatchesPredicate("A1a", "Monday", "1000-1200", "T1234567", "Math");
         String expected = LessonMatchesPredicate.class.getCanonicalName()
-                + "{className=A1a, day=Monday, time=1000, tutor=T1234567, tags=Math}";
+                + "{className=A1a, day=Monday, time=1000-1200, tutor=T1234567, tags=Math}";
         assertEquals(expected, predicate.toString());
     }
 }

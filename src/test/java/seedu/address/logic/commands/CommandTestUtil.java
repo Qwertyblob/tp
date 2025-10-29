@@ -67,14 +67,14 @@ public class CommandTestUtil {
     // Lesson test data
     public static final String VALID_CLASS_MATH = "A1a";
     public static final String VALID_DAY_MONDAY = "monday";
-    public static final String VALID_TIME_1200 = "1200";
+    public static final String VALID_TIME_1200 = "1200-1400";
     public static final String VALID_TUTOR_T1234567 = "t1234567";
     public static final String VALID_TAG_MATH = "Math";
     public static final String VALID_TAG_SCIENCE = "Science";
 
     public static final String VALID_CLASS_SCIENCE = "B2b";
     public static final String VALID_DAY_TUESDAY = "tuesday";
-    public static final String VALID_TIME_1400 = "1400";
+    public static final String VALID_TIME_1400 = "1400-1600";
     public static final String VALID_TUTOR_T7654321 = "t7654321";
 
 
