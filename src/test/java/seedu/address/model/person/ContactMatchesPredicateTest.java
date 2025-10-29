@@ -13,10 +13,10 @@ public class ContactMatchesPredicateTest {
     @Test
     public void equals() {
         ContactMatchesPredicate firstPredicate =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate secondPredicate =
-                new ContactMatchesPredicate("T0000001", "Bob", "tutor", "M2a", "67890",
+                new ContactMatchesPredicate("T0000001", "Bob", "tutor", "M2a", "98765432",
                         "bob@email.com", "Second Street", "");
 
         // same object -> returns true
@@ -24,7 +24,7 @@ public class ContactMatchesPredicateTest {
 
         // same values -> returns true
         ContactMatchesPredicate firstPredicateCopy =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
@@ -41,14 +41,14 @@ public class ContactMatchesPredicateTest {
     @Test
     public void test_allFieldsMatch_returnsTrue() {
         ContactMatchesPredicate predicate =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         assertTrue(predicate.test(new PersonBuilder()
                 .withId("S0000001")
                 .withName("Alice")
                 .withRole("student")
                 .withLessons("M2a")
-                .withPhone("12345")
+                .withPhone("87654321")
                 .withEmail("alice@email.com")
                 .withAddress("Main Street")
                 .withTags("friend")
@@ -65,7 +65,7 @@ public class ContactMatchesPredicateTest {
                 .withName("Alice")
                 .withRole("tutor")
                 .withLessons("M2a")
-                .withPhone("67890")
+                .withPhone("98765432")
                 .withEmail("bob@email.com")
                 .withAddress("Second Street")
                 .withTags("friend", "colleague")
@@ -78,7 +78,7 @@ public class ContactMatchesPredicateTest {
                 .withName("Bob")
                 .withRole("tutor")
                 .withLessons("M2a")
-                .withPhone("67890")
+                .withPhone("98765432")
                 .withEmail("bob@email.com")
                 .withAddress("Second Street")
                 .withTags("colleague")
@@ -88,14 +88,14 @@ public class ContactMatchesPredicateTest {
     @Test
     public void test_noFieldsMatch_returnsFalse() {
         ContactMatchesPredicate predicate =
-                new ContactMatchesPredicate("S1234567", "Carol", "student", "S3b", "11111",
+                new ContactMatchesPredicate("S1234567", "Carol", "student", "S3b", "88888888",
                         "carol@email.com", "Third Street", "family");
         assertFalse(predicate.test(new PersonBuilder()
                 .withId("S0000001")
                 .withName("Alice")
                 .withRole("tutor")
                 .withLessons("M2a")
-                .withPhone("12345")
+                .withPhone("87654321")
                 .withEmail("alice@email.com")
                 .withAddress("Main Street")
                 .withTags("friend")
@@ -113,34 +113,34 @@ public class ContactMatchesPredicateTest {
     @Test
     public void test_equals_comprehensive() {
         ContactMatchesPredicate predicate1 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate2 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate3 =
-                new ContactMatchesPredicate("T0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("T0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate4 =
-                new ContactMatchesPredicate("S0000001", "Bob", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Bob", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate5 =
-                new ContactMatchesPredicate("S0000001", "Alice", "tutor", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "tutor", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate6 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "S3b", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "S3b", "87654321",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate7 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "67890",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "98765432",
                         "alice@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate8 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "bob@email.com", "Main Street", "friend");
         ContactMatchesPredicate predicate9 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Second Street", "friend");
         ContactMatchesPredicate predicate10 =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "colleague");
 
         // Test all field comparisons in equals method
@@ -182,11 +182,11 @@ public class ContactMatchesPredicateTest {
     @Test
     public void toStringMethod() {
         ContactMatchesPredicate predicate =
-                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "12345",
+                new ContactMatchesPredicate("S0000001", "Alice", "student", "M2a", "87654321",
                         "alice@email.com", "Main Street", "friend");
 
         String expected = ContactMatchesPredicate.class.getCanonicalName()
-                + "{id=S0000001, name=Alice, role=student, lessons=M2a, phone=12345, email=alice@email.com, "
+                + "{id=S0000001, name=Alice, role=student, lessons=M2a, phone=87654321, email=alice@email.com, "
                 + "address=Main Street, tags=friend}";
         assertEquals(expected, predicate.toString());
     }

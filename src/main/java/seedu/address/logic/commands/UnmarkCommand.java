@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
             + "[" + PREFIX_DATE + "DATE]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "S0000001 "
-            + PREFIX_CLASS + "M2a"
+            + PREFIX_CLASS + "M2a "
             + PREFIX_DATE + "2023-10-28";
 
     public static final String MESSAGE_SUCCESS = "Unmarked %1$s as present for class %2$s on %3$s.";

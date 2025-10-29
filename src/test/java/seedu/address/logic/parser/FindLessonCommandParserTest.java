@@ -26,15 +26,15 @@ public class FindLessonCommandParserTest {
     public void parse_validArgs_returnsFindLessonCommand() {
         // no leading and trailing whitespaces
         FindLessonCommand expectedCommand = new FindLessonCommand(
-                new LessonMatchesPredicate("A1a", "Monday", "1000", "T1234567", "Math"));
+                new LessonMatchesPredicate("A1a", "Monday", "1000 - 1200", "T1234567", "Math"));
 
         assertParseSuccess(parser,
-                " c/A1a d/Monday tm/1000 tt/T1234567 t/Math",
+                " c/A1a d/Monday tm/1000 - 1200 tt/T1234567 t/Math",
                 expectedCommand);
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser,
-                " \n c/A1a \n d/Monday \t tm/1000 \n tt/T1234567 \t t/Math",
+                " \n c/A1a \n d/Monday \t tm/1000 - 1200 \n tt/T1234567 \t t/Math",
                 expectedCommand);
     }
 
@@ -42,6 +42,6 @@ public class FindLessonCommandParserTest {
     public void parse_invalidTutorFormat_throwsParseException() {
         assertParseFailure(parser,
                 " tt/Alice",
-                "Tutors should only contain alphanumeric characters, and it should not be blank");
+                "Tutors should start with the character 'T', followed by 7 digits, and should not be left blank.");
     }
 }
