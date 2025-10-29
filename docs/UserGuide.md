@@ -310,10 +310,27 @@ Format: `undo`
   * `clear`
 
 Examples:
+
+* `undo` only executes if an undoable command has been executed before.
 * User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
 * `undo` undoes `clear`, restoring the address book before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
 * Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
+
+### Redoing an undone command: `redo`
+
+Redoes the most recent undo command.
+
+Format: `redo`
+
+* `redo` only executes if the most recent command is `undo`.
+* Chaining redos executes redo on the next most recent `undo` command.
+
+Examples:
+* User executes commands in this order: `undo`, `list`, `undo`, `undo`
+* `redo` redoes the most recent `undo`.
+* Executing another `redo` redoes the next `undo`.
+* Executing another `redo` throws an error as the most recent command is now `list`.
 
 ### Exiting the program : `exit`
 
