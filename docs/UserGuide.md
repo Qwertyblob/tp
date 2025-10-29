@@ -288,6 +288,33 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+### Undoing a command : `undo`
+
+Undoes the most recent command that is undoable.
+
+Format: `undo`
+
+* Chaining undos executes undo on the next most recent undoable command.
+* Undoable commands are those that alter the state of the address book.
+* List of undoable commands:
+  * `add`
+  * `addc`
+  * `edit`
+  * `editc`
+  * `enrol`
+  * `mark`
+  * `unmark`
+  * `delete`
+  * `deletec`
+  * `redo`
+  * `clear`
+
+Examples:
+* User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
+* `undo` undoes `clear`, restoring the address book before it was cleared.
+* Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
+* Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -308,10 +335,6 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
