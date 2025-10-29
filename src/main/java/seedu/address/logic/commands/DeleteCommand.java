@@ -144,6 +144,8 @@ public class DeleteCommand extends ConfirmableCommand {
         }
 
         model.deletePerson(personToDelete);
+        // Update AddressBook state pointer
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)),
                 CommandResult.DisplayType.RECENT);
     }

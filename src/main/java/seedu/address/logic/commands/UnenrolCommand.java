@@ -109,7 +109,8 @@ public class UnenrolCommand extends Command {
         );
 
         model.setPerson(student, updatedStudent);
-
+        // Update AddressBook state pointer
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_UNENROL_SUCCESS,
                 Messages.shortenedFormatPerson(student), Messages.shortenedFormatLesson(newLesson)),
                 CommandResult.DisplayType.DEFAULT);
