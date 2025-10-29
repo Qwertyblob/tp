@@ -114,7 +114,6 @@ public class Person {
 
         return otherPerson != null
                 && name.equals(otherPerson.name)
-                && role.equals(otherPerson.role)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email);
     }
