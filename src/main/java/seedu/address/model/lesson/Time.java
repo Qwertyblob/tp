@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time should only contain numerical characters, and it should not be blank";
+            "Time should only contain 4 numerical characters in 24 hour time format, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^\\d+$";
+    public static final String VALIDATION_REGEX = "^(?:[01]\\d|2[0-3])[0-5]\\d$";
 
     public final String fullTime;
 
