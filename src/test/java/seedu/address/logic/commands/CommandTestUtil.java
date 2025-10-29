@@ -48,8 +48,8 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BOB = "tutor";
     public static final String VALID_ROLE_JAMES = "student";
 
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "88888888";
+    public static final String VALID_PHONE_BOB = "99999999";
     public static final String VALID_PHONE_JAMES = "93334444";
 
     public static final String VALID_EMAIL_AMY = "amy@example.com";

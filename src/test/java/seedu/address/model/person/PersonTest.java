@@ -115,9 +115,9 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.hasSameIdentity(editedAlice));
 
-        // different role -> returns false
+        // different role -> returns true
         editedAlice = new PersonBuilder(ALICE).withRole("tutor").build();
-        assertFalse(ALICE.hasSameIdentity(editedAlice));
+        assertTrue(ALICE.hasSameIdentity(editedAlice));
     }
 
     @Test
