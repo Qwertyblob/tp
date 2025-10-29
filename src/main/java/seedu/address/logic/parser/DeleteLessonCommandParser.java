@@ -74,7 +74,7 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
 
         return new ParseResult(isForced, remainingArgs);
     }
-    
+
     private static class ParseResult {
         final boolean isForced;
         final String remainingArgs;
