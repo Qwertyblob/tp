@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Day {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Days should only contain alphabetical characters, and it should not be blank";
+            "Days should only be the full name of valid days of the week, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
