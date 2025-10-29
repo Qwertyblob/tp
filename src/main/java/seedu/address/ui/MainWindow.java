@@ -17,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -172,6 +173,38 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Opens a FileChooser to let the user open a JSON file to import data from.
+     */
+    @FXML
+    private void handleImport() {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show open file dialog (this opens the file explorer)
+        File file = fileChooser.showOpenDialog(primaryStage);
+
+        if (file == null) {
+            // User cancelled the dialog
+            return;
+        }
+
+        // Build the command string
+        String commandText = ImportCommand.COMMAND_WORD + " " + file.getAbsolutePath();
+
+        try {
+            // Execute the command
+            executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
+            // The command will throw errors for file not found, bad data, etc.
+            resultDisplay.setFeedbackToUser(e.getMessage());
+        }
     }
 
     /**
