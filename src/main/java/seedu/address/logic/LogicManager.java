@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
             }
 
             handleSaveResult();
-            
+
             return commandResult;
         } catch (ParseException e) {
             throw e; // Re-throw ParseException as-is
