@@ -51,4 +51,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Process a new Command when there is no pending Command
+     */
+    CommandResult processNewCommand(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Handles saving of the new state of the AddressBook after the execution of a Command
+     */
+    void handleSaveResult() throws CommandException;
 }
