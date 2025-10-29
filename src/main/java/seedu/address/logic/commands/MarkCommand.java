@@ -61,7 +61,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (lessonOptional.isEmpty()) {
-            throw new CommandException(MESSAGE_LESSON_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_LESSON_NOT_FOUND, className.toString()));
         }
 
         Lesson lessonToMark = lessonOptional.get();
