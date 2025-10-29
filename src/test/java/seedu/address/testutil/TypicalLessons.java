@@ -5,6 +5,8 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.ModelManager;
 import seedu.address.model.lesson.Lesson;
@@ -61,7 +63,16 @@ public class TypicalLessons {
         ModelManager model = new ModelManager();
 
         for (Person person : TypicalPersons.getTypicalPersons()) {
-            model.addPerson(person);
+            // attach lessons they are enrolled in
+            Set<Lesson> enrolledLessons = getTypicalLessons().stream()
+                    .filter(lesson -> lesson.getStudents().contains(person.getId()))
+                    .collect(Collectors.toSet());
+
+            Person updatedPerson = new Person(person.getId(), person.getName(), person.getRole(),
+                    enrolledLessons, person.getPhone(), person.getEmail(),
+                    person.getAddress(), person.getTags());
+
+            model.addPerson(updatedPerson);
         }
 
         for (Lesson lesson : getTypicalLessons()) {
@@ -69,6 +80,7 @@ public class TypicalLessons {
         }
         return model;
     }
+
 
     public static List<Lesson> getTypicalLessons() {
         return new ArrayList<>(Arrays.asList(MATH_A1A, SCIENCE_B2B, ENGLISH_C3C,

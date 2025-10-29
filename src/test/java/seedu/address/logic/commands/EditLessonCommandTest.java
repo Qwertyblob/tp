@@ -27,6 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
+import seedu.address.model.util.LessonCascadeUpdater;
 import seedu.address.testutil.EditLessonDescriptorBuilder;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
@@ -52,7 +53,11 @@ public class EditLessonCommandTest {
         String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, editedLesson);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setLesson(model.getFilteredLessonList().get(0), editedLesson);
+        Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        expectedModel.setLesson(lessonToEdit, editedLesson);
+
+        // cascade update students enrolled in the lesson
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lessonToEdit, editedLesson);
 
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
     }
@@ -62,8 +67,9 @@ public class EditLessonCommandTest {
         Index indexLastLesson = Index.fromOneBased(model.getFilteredLessonList().size());
         Lesson lastLesson = model.getFilteredLessonList().get(indexLastLesson.getZeroBased());
 
-        LessonBuilder lessonInList = new LessonBuilder(lastLesson);
-        Lesson editedLesson = lessonInList.withTags("Science").build();
+        Lesson editedLesson = new LessonBuilder(lastLesson)
+                .withTags("Science")
+                .build();
 
         EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder()
                 .withTags("Science")
@@ -74,6 +80,8 @@ public class EditLessonCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setLesson(lastLesson, editedLesson);
+
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lastLesson, editedLesson);
 
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
     }
@@ -88,6 +96,7 @@ public class EditLessonCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
+        // No edits, so cascade does not change anything
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
     }
 
@@ -113,7 +122,6 @@ public class EditLessonCommandTest {
 
     @Test
     public void execute_preservesStudentIdsAndAttendance() {
-        // Arrange: pick the first lesson and store its students and attendance
         Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
         Set<IdentificationNumber> originalStudents = new HashSet<>(lessonToEdit.getStudents());
         Map<LocalDate, Set<IdentificationNumber>> originalAttendance = new HashMap<>();
@@ -121,32 +129,27 @@ public class EditLessonCommandTest {
                 originalAttendance.put(date, new HashSet<>(ids))
         );
 
-        // Build a descriptor that edits only the tags
         EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder()
                 .withTags("EditedTag")
                 .build();
         EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_FIRST_LESSON, descriptor);
 
-        // Act
-        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
-                new LessonBuilder(lessonToEdit).withTags("EditedTag").build());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         Lesson editedLesson = new LessonBuilder(lessonToEdit)
                 .withTags("EditedTag")
                 .build();
-        expectedModel.setLesson(lessonToEdit, editedLesson);
 
-        // Assert: command succeeds
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setLesson(lessonToEdit, editedLesson);
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lessonToEdit, editedLesson);
+
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, editedLesson);
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
 
-        // Assert: student IDs are unchanged
+        // Verify student IDs and attendance are unchanged
         Lesson updatedLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
         assertEquals(originalStudents, updatedLesson.getStudents(), "Student IDs should be preserved");
-
-        // Assert: attendance map is unchanged
         assertEquals(originalAttendance, updatedLesson.getAttendance(), "Attendance should be preserved");
     }
-
 
     @Test
     public void equals() {
