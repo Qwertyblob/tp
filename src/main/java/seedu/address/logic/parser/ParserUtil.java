@@ -203,6 +203,14 @@ public class ParserUtil {
         if (!Time.isValidTime(trimmedName)) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
+        String[] parts = name.split("\\s*-\\s*");
+        String start = parts[0];
+        String dash = "-";
+        String end = parts[1];
+        trimmedName = start.trim() + dash.trim() + end.trim();
+        if (!Time.isValidDuration(trimmedName)) {
+            throw new ParseException(Time.TIME_CONSTRAINTS);
+        }
         return new Time(trimmedName);
     }
 
