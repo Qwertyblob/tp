@@ -65,7 +65,8 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
             isForced = true;
 
             if (parts.length < 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
             }
             remainingArgs = parts[1].trim();
         } else {

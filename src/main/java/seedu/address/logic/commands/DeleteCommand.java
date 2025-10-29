@@ -50,12 +50,18 @@ public class DeleteCommand extends ConfirmableCommand {
         this(name, false);
     }
 
+    /**
+     * Alternative constructor for forced command
+     */
     public DeleteCommand(Index targetIndex, boolean isForced) {
         super(isForced);
         this.targetIndex = targetIndex;
         this.targetName = null;
     }
 
+    /**
+     * Alternative constructor for forced command
+     */
     public DeleteCommand(Name name, boolean isForced) {
         super(isForced);
         requireNonNull(name);
