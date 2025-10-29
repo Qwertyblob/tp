@@ -18,6 +18,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.commands.EnrolCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindLessonCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -116,6 +117,9 @@ public class AddressBookParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
