@@ -106,6 +106,8 @@ public class EnrolCommand extends Command {
         );
 
         model.setPerson(studentToEnrol, enrolledStudent);
+        // Update AddressBook state pointer
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_ENROL_SUCCESS,
                 Messages.shortenedFormatPerson(studentToEnrol), Messages.shortenedFormatLesson(newLesson)),

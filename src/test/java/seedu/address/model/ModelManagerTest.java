@@ -128,4 +128,32 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
+    @Test
+    public void commitAddressBook_success() {
+        ModelManager modelManager = new ModelManager();
+        modelManager.addPerson(ALICE);
+        modelManager.commitAddressBook();
+        assertTrue(modelManager.canUndoAddressBook());
+    }
+
+    @Test
+    public void undoAddressBook_success() {
+        ModelManager modelManager = new ModelManager();
+        modelManager.addPerson(ALICE);
+        modelManager.commitAddressBook();
+
+        modelManager.addPerson(BENSON);
+        modelManager.commitAddressBook();
+
+        assertEquals(2, modelManager.getAddressBook().getPersonList().size());
+
+        modelManager.undoAddressBook();
+
+        // Undo should revert to state with only ALICE
+        assertEquals(1, modelManager.getAddressBook().getPersonList().size());
+        assertTrue(modelManager.getAddressBook().getPersonList().contains(ALICE));
+        assertFalse(modelManager.getAddressBook().getPersonList().contains(BENSON));
+    }
+
 }
