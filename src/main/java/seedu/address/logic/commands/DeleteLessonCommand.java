@@ -24,8 +24,9 @@ public class DeleteLessonCommand extends ConfirmableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the class identified by the index number or class name used in the displayed class list.\n"
-            + "Parameters: INDEX (must be a positive integer) or c/CLASSNAME\n"
-            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " c/M2a";
+            + "The optional -f flag forces execution, skipping the confirmation step.\n"
+            + "Parameters: [-f] INDEX (must be a positive integer) or [-f] c/CLASSNAME\n"
+            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -f c/M2a";
 
     public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Deleted Class: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "(Y/N) Would you like to delete this item? %1$s";
@@ -38,14 +39,30 @@ public class DeleteLessonCommand extends ConfirmableCommand {
      * @param targetIndex of the lesson to delete.
      */
     public DeleteLessonCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-        this.targetClassName = null;
+        this(targetIndex, false);
     }
 
     /**
      * @param className of the lesson to delete.
      */
     public DeleteLessonCommand(ClassName className) {
+        this(className, false);
+    }
+
+    /**
+     * Alternative constructor for forced command
+     */
+    public DeleteLessonCommand(Index targetIndex, boolean isForced) {
+        super(isForced);
+        this.targetIndex = targetIndex;
+        this.targetClassName = null;
+    }
+
+    /**
+     * Alternative constructor for forced command
+     */
+    public DeleteLessonCommand(ClassName className, boolean isForced) {
+        super(isForced);
         requireNonNull(className);
         this.targetClassName = className;
         this.targetIndex = null;

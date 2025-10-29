@@ -19,12 +19,20 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
      */
     public DeleteLessonCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+        }
+
+        // Handle optional "-f" flag
+        ParseResult result = getRemainingArgs(trimmedArgs);
+        boolean isForced = result.isForced;
+        String remainingArgs = result.remainingArgs;
 
         // Check if it's a class name-based delete (starts with c/)
-        if (trimmedArgs.startsWith("c/")) {
+        if (remainingArgs.startsWith("c/")) {
             try {
-                ClassName name = ParserUtil.parseClassName(trimmedArgs.substring(2));
-                return new DeleteLessonCommand(name);
+                ClassName className = ParserUtil.parseClassName(remainingArgs.substring(2));
+                return new DeleteLessonCommand(className, isForced);
             } catch (ParseException pe) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
@@ -32,10 +40,10 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
         }
 
         // Check if it's an index-based delete (numeric)
-        if (trimmedArgs.matches("^[0-9]+$")) {
+        if (remainingArgs.matches("^[0-9]+$")) {
             try {
-                Index index = ParserUtil.parseIndex(trimmedArgs);
-                return new DeleteLessonCommand(index);
+                Index index = ParserUtil.parseIndex(remainingArgs);
+                return new DeleteLessonCommand(index, isForced);
             } catch (ParseException pe) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
@@ -43,5 +51,38 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Extracts the "-f" flag (if present) and returns the remaining arguments.
+     */
+    private static ParseResult getRemainingArgs(String trimmedArgs) throws ParseException {
+        String[] parts = trimmedArgs.split("\\s+", 2);
+        boolean isForced = false;
+        String remainingArgs;
+
+        if (parts[0].equals("-f")) {
+            isForced = true;
+
+            if (parts.length < 2) {
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+            }
+            remainingArgs = parts[1].trim();
+        } else {
+            remainingArgs = trimmedArgs;
+        }
+
+        return new ParseResult(isForced, remainingArgs);
+    }
+
+    private static class ParseResult {
+        final boolean isForced;
+        final String remainingArgs;
+
+        ParseResult(boolean isForced, String remainingArgs) {
+            this.isForced = isForced;
+            this.remainingArgs = remainingArgs;
+        }
     }
 }

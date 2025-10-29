@@ -49,6 +49,21 @@ public class DeleteLessonCommandParserTest {
     }
 
     @Test
+    public void parse_forcedDeleteByIndex_returnsDeleteLessonCommandWithForcedTrue() {
+        assertParseSuccess(parser, "-f 1", new DeleteLessonCommand(INDEX_FIRST_LESSON, true));
+        assertParseSuccess(parser, "-f 2", new DeleteLessonCommand(INDEX_SECOND_LESSON, true));
+    }
+
+    @Test
+    public void parse_forcedFlagWithoutArgument_throwsParseException() {
+        assertParseFailure(parser, "-f",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "-f   ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_invalidClassNameArgs_throwsParseException() {
         // Empty class name
         assertParseFailure(parser, "c/",
