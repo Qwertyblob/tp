@@ -47,7 +47,7 @@ public class DeleteCommandParserTest {
         DeleteCommand result2 = parser.parse("n/Alice Bob");
         assertNotNull(result2);
 
-        DeleteCommand result3 = parser.parse("n/Alice123");
+        DeleteCommand result3 = parser.parse("n/AliceBob");
         assertNotNull(result3);
     }
 

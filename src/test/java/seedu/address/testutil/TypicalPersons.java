@@ -72,7 +72,7 @@ public class TypicalPersons {
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
             .withRole("student")
-            .withPhone("9482224")
+            .withPhone("94822244")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
             .withId("S0000004")
@@ -80,7 +80,7 @@ public class TypicalPersons {
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
             .withRole("tutor")
-            .withPhone("9482427")
+            .withPhone("94824275")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
             .withId("T0000004")
@@ -88,7 +88,7 @@ public class TypicalPersons {
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
             .withRole("student")
-            .withPhone("9482442")
+            .withPhone("94824422")
             .withEmail("anna@example.com")
             .withAddress("4th street")
             .withId("S0000005")
@@ -97,7 +97,7 @@ public class TypicalPersons {
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
             .withRole("student")
-            .withPhone("8482424")
+            .withPhone("84824242")
             .withEmail("stefan@example.com")
             .withAddress("little india")
             .withId("S0000006")
@@ -105,7 +105,7 @@ public class TypicalPersons {
 
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
             .withRole("tutor")
-            .withPhone("8482131")
+            .withPhone("84821314")
             .withEmail("hans@example.com")
             .withAddress("chicago ave")
             .withId("T0000005")
