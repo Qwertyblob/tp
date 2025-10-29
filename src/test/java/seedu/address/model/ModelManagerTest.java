@@ -156,4 +156,36 @@ public class ModelManagerTest {
         assertFalse(modelManager.getAddressBook().getPersonList().contains(BENSON));
     }
 
+    @Test
+    public void redoAddressBook_success() {
+        ModelManager modelManager = new ModelManager();
+        modelManager.addPerson(ALICE);
+        modelManager.commitAddressBook();
+
+        modelManager.addPerson(BENSON);
+        modelManager.commitAddressBook();
+
+        modelManager.undoAddressBook();
+        assertEquals(1, modelManager.getAddressBook().getPersonList().size());
+
+        modelManager.redoAddressBook();
+        assertEquals(2, modelManager.getAddressBook().getPersonList().size());
+    }
+
+    @Test
+    public void canUndoRedoAddressBook_checksCorrectly() {
+        ModelManager modelManager = new ModelManager();
+        assertFalse(modelManager.canUndoAddressBook());
+        assertFalse(modelManager.canRedoAddressBook());
+
+        modelManager.addPerson(ALICE);
+        modelManager.commitAddressBook();
+        assertTrue(modelManager.canUndoAddressBook());
+        assertFalse(modelManager.canRedoAddressBook());
+
+        modelManager.undoAddressBook();
+        assertFalse(modelManager.canUndoAddressBook());
+        assertTrue(modelManager.canRedoAddressBook());
+    }
+
 }
