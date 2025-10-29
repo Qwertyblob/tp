@@ -294,6 +294,7 @@ Undoes the most recent command that is undoable.
 
 Format: `undo`
 
+* `undo` only executes if an undoable command has been executed before.
 * Chaining undos executes undo on the next most recent undoable command.
 * Undoable commands are those that alter the state of the address book.
 * List of undoable commands:
@@ -311,7 +312,6 @@ Format: `undo`
 
 Examples:
 
-* `undo` only executes if an undoable command has been executed before.
 * User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
 * `undo` undoes `clear`, restoring the address book before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
@@ -331,6 +331,18 @@ Examples:
 * `redo` redoes the most recent `undo`.
 * Executing another `redo` redoes the next `undo`.
 * Executing another `redo` throws an error as the most recent command is now `list`.
+
+### Importing data: `import`
+
+Imports the person and class lists from a JSON file.
+
+Format `import FILE_PATH`
+
+* The user can also click the File button on the GUI, then click Import to execute this command.
+* This command overwrites whatever data is currently in the address book with the JSON data.
+* The JSON file must be in the appropriate format for the address book.
+  * All people and classes must have their compulsory attributes.
+* The JSON file cannot be empty.
 
 ### Exiting the program : `exit`
 
