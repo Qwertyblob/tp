@@ -14,6 +14,7 @@ import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.CommandDisplayPermissionChecker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.lesson.Lesson;
@@ -36,6 +37,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
 
     private final ConfirmationManager confirmationManager = new ConfirmationManager();
+    private CommandResult.DisplayType currentDisplayType = CommandResult.DisplayType.DEFAULT;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -54,8 +56,16 @@ public class LogicManager implements Logic {
 
         try {
             if (model.getPendingCommand() != null) {
+                String commandWord = commandText.trim().split("\\s+")[0];
+                if (CommandDisplayPermissionChecker.isNotAllowed(commandWord, currentDisplayType)) {
+                    throw new CommandException("You cannot use this command in the current view.");
+                }
                 commandResult = confirmationManager.handleUserResponse(commandText, model);
             } else {
+                String commandWord = commandText.trim().split("\\s+")[0];
+                if (CommandDisplayPermissionChecker.isNotAllowed(commandWord, currentDisplayType)) {
+                    throw new CommandException("You cannot use this command in the current view.");
+                }
                 commandResult = processNewCommand(commandText);
             }
 
@@ -99,6 +109,11 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void setCurrentDisplayType(CommandResult.DisplayType displayType) {
+        this.currentDisplayType = displayType;
     }
 
     @Override

@@ -26,6 +26,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -99,6 +100,98 @@ public class LogicManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
+
+    @Test
+    public void execute_disallowedCommandInPersonView_throwsCommandException() {
+        String disallowedCommand = "addc";
+        assertThrows(CommandException.class,
+                "You cannot use this command in the current view.", ()
+                        -> logic.execute(disallowedCommand));
+    }
+
+    @Test
+    public void execute_allowedCommandInClassView_succeeds() throws Exception {
+        java.lang.reflect.Field displayField = logic.getClass().getDeclaredField("currentDisplayType");
+        displayField.setAccessible(true);
+        displayField.set(logic, seedu.address.logic.commands.CommandResult.DisplayType.CLASS_LIST);
+
+        assertThrows(ParseException.class, () -> logic.execute("addc"));
+    }
+
+    @Test
+    public void execute_unknownCommandAllowed_noPermissionError() {
+        String unknownCommand = "foobar";
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> logic.execute(unknownCommand));
+    }
+
+    @Test
+    public void execute_confirmableCommandAllowed_succeedsAfterConfirmation() throws Exception {
+        DummyConfirmableCommand dummy = new DummyConfirmableCommand();
+
+        java.lang.reflect.Field pendingField = model.getClass().getDeclaredField("pendingCommand");
+        pendingField.setAccessible(true);
+        pendingField.set(model, dummy);
+
+        java.lang.reflect.Field displayField = logic.getClass().getDeclaredField("currentDisplayType");
+        displayField.setAccessible(true);
+        displayField.set(logic, CommandResult.DisplayType.CLASS_LIST);
+
+        CommandResult result = logic.execute("y");
+
+        assertEquals("Confirmed command executed", result.getFeedbackToUser());
+        assertEquals(CommandResult.DisplayType.RECENT, result.getDisplayType());
+    }
+
+    @Test
+    public void execute_confirmableCommandDisallowed_throwsCommandException() throws Exception {
+        DummyConfirmableCommand dummy = new DummyConfirmableCommand();
+
+        java.lang.reflect.Field pendingField = model.getClass().getDeclaredField("pendingCommand");
+        pendingField.setAccessible(true);
+        pendingField.set(model, dummy);
+
+        java.lang.reflect.Field displayField = logic.getClass().getDeclaredField("currentDisplayType");
+        displayField.setAccessible(true);
+        displayField.set(logic, CommandResult.DisplayType.DEFAULT);
+
+        assertThrows(CommandException.class,
+                "You cannot use this command in the current view.", ()
+                        -> logic.execute("addc"));
+    }
+
+    /**
+     * Test stub for ConfirmableCommand coverage
+     */
+    class DummyConfirmableCommand extends ConfirmableCommand {
+        private boolean executed = false;
+
+        @Override
+        public void validate(Model model) {
+            // Simulate successful validation
+        }
+
+        @Override
+        protected CommandResult executeConfirmed(Model model) throws CommandException {
+            executed = true;
+            // Use the correct constructor (String + DisplayType)
+            return new CommandResult("Confirmed command executed", CommandResult.DisplayType.RECENT);
+        }
+
+        public boolean wasExecuted() {
+            return executed;
+        }
+
+        @Override
+        public String getConfirmationMessage(Model model) throws CommandException {
+            return "";
+        }
+
+        @Override
+        public boolean isForced() {
+            return false; // normal confirmable command
+        }
+    }
+
 
     /**
      * Executes the command and confirms that
