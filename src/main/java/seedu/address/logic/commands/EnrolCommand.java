@@ -37,6 +37,7 @@ public class EnrolCommand extends Command {
     public static final String MESSAGE_LESSON_NOT_FOUND = "This class does not exist in the address book.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "This student ID does not exist in the address book.";
     public static final String MESSAGE_PERSON_NOT_STUDENT = "Only students can be enrolled.";
+    public static final String MESSAGE_TIMING_CLASH = "This class clashes with one of the student's classes: %1$s";
 
     private final IdentificationNumber studentId;
     private final ClassName className;
@@ -85,6 +86,13 @@ public class EnrolCommand extends Command {
         // HashSet::add returns false if the element is already present.
         if (!newStudentIdSet.add(studentToEnrol.getId())) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        }
+
+        for (Lesson existingLesson : studentToEnrol.getLessons()) {
+            if (lessonToEnrolIn.hasOverlapsWith(existingLesson)) {
+                throw new CommandException(String.format(MESSAGE_TIMING_CLASH,
+                        Messages.shortenedFormatLesson(existingLesson)));
+            }
         }
 
         Lesson newLesson = new Lesson(

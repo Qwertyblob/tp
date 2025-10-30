@@ -24,7 +24,7 @@ public class TypicalLessons {
             .withTags("math").build();
 
     public static final Lesson SCIENCE_B2B = new LessonBuilder().withClassName("B2b")
-            .withDay("tuesday")
+            .withDay("monday")
             .withTime("1300-1500")
             .withTutor("t1234567")
             .withTags("science").build();

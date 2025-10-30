@@ -107,6 +107,35 @@ public class EnrolCommandTest {
     }
 
     @Test
+    public void execute_clashingLesson_throwsCommandException() {
+        ClassName firstClassName = new ClassName(VALID_CLASS_MATH); // "M2a"
+        IdentificationNumber studentId = AMY.getId();
+        EnrolCommand initialEnrolCommand = new EnrolCommand(studentId, firstClassName);
+
+        Model tempModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        Lesson firstLesson;
+        try {
+            initialEnrolCommand.execute(tempModel);
+            // Get the updated lesson object from the model
+            firstLesson = tempModel.getFilteredLessonList().stream()
+                    .filter(l -> l.getClassName().equals(firstClassName))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Lesson not found in temp model"));
+        } catch (Exception e) {
+            throw new AssertionError("First enrol command should not fail.", e);
+        }
+
+        ClassName clashingClassName = new ClassName("B2b");
+        EnrolCommand clashingEnrolCommand = new EnrolCommand(studentId, clashingClassName);
+
+        String expectedMessage = String.format(EnrolCommand.MESSAGE_TIMING_CLASH,
+                Messages.shortenedFormatLesson(firstLesson));
+
+        assertCommandFailure(clashingEnrolCommand, tempModel, expectedMessage);
+    }
+
+    @Test
     public void equals() {
         final ClassName mathClass = new ClassName(VALID_CLASS_MATH);
         final ClassName scienceClass = new ClassName("B2b"); // Assuming a second class
