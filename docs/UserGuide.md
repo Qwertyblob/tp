@@ -208,7 +208,7 @@ Examples:
 
 Finds persons matching the given criteria.
 
-Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
@@ -232,14 +232,14 @@ Example: `find c/M2a` Finds students in class M2a.
 
 Finds classes matching the given criteria.
 
-Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]…​`
+Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
 * The search is case-insensitive. e.g `m2a` will match `M2a`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Classes matching all criteria will be returned (i.e. `AND` search).
-  e.g. `findc d/monday tm/1200` will return classes on `Monday` at time `1200`.
+  e.g. `findc d/monday tm/1200-1400` will return classes on `Monday` at time `1200-1400`.
 * Extra/leading/trailing spaces should not affect the search.
 
 Example: `findc d/monday` Finds classes on Monday.
@@ -359,8 +359,8 @@ _Details coming soon ..._
 | **Enrol**             | `enrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `enrol id/S0000001 c/M2a`                                                                                                               |
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME dt/DATE` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                       |
-| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g., `find n/James Jake r/student`                                                             |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200`                                                                                           |
+| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Jake r/student`                                                              |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                       |
 | **List**              | `list`                                                                                                                                                                                |
 | **List classes**      | `listc`                                                                                                                                                                               |
 | **Help**              | `help`                                                                                                                                                                                |
