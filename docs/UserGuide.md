@@ -38,9 +38,9 @@
 
    * `listc` : Lists all classes
 
-   * `addc c/M2a d/Monday tm/1200 tt/T1234567` : Adds a class named M2a to the address book
+   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to the address book
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all contacts and classes.
 
    * `exit` : Exits the app.
 
@@ -104,7 +104,7 @@ Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 Examples:
 * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe r/Student t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe r/Student e/betsycrowe@example.com a/123 Bukit Timah Road p/81234567 t/owesMoney`
 
 ### Adding a class: `addc`
 
@@ -144,7 +144,7 @@ Format: `listc`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [r/ROLE] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -152,6 +152,11 @@ Format: `edit INDEX [n/NAME] [r/ROLE] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+
+<box type="warning" seamless>
+
+**Warning:** Roles are not allowed to be edited. If you need to change the role of a person, please use `delete` and `add`.
+</box>
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -182,6 +187,8 @@ Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot enrol a student who is already enrolled into the specified class.
+* Cannot enrol a student if they are already enrolled in another class that overlaps with the `TIME`.
+  * e.g. If a student is already enrolled in `M2a, Monday, 1200-1400`, then they cannot be enrolled into `S3b, Monday, 1300-1500`.
 
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
@@ -235,8 +242,8 @@ Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS] [p/PHONE_NUMBER] [e/EMAIL] [a/
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* For NAME, CLASS, TAG, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`
+* For `NAME`, `CLASS`, `TAG`, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching all criteria will be returned (i.e. `AND` search).
   e.g. `find n/John r/student` will return `John` with role `student`.
@@ -264,6 +271,11 @@ Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 * Classes matching all criteria will be returned (i.e. `AND` search).
   e.g. `findc d/monday tm/1200-1400` will return classes on `Monday` at time `1200-1400`.
 * Extra/leading/trailing spaces should not affect the search.
+
+<box type="warning" seamless>
+
+**Warning:** For `TIME`, there should not be any spaces in between the start and end time. e.g. Use `tm/1200-1400` instead of `tm/1200 - 1400`.
+</box>
 
 Example: `findc d/monday` Finds classes on Monday.
 ![result for 'findc d/monday'](images/findcDayMonday.png)
@@ -313,9 +325,10 @@ Examples:
 
 Clears all entries (people and classes) from the address book.
 
-Format: `clear`
+Format: `clear [-f]`
 
 * To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* `-f` flag forces the command to execute without confirmation.
 
 ### Undoing a command : `undo`
 
@@ -444,7 +457,8 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 **A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. The data file can be found at `data/addressbook.json`.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. The data file can be found at `data/addressbook.json`.<br>
+Alternatively, use `import` and `export` commands to transfer your data.
 
 **Q**: Can there be multiple persons with the same name?<br>
 **A**: Yes, as each person has a unique ID (e.g. `S0000001`).
@@ -461,8 +475,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **When using commands with index (e.g. edit)**, the index accesses the list of contacts the command is meant to interact with regardless of the current display view (i.e. when executing edit on the class list view, the index accesses the person list). This makes it possible to edit persons on the class list view and vice versa which could be unintended behaviour. This issue will be fixed in the next release, so the current remedy is to only execute such commands on the correct view.
-4. **When deleting using name**, if there are duplicate names, the first entry will always be deleted. This issue will be fixed in the next release, so the current remedy is to delete by index in such a case.
+3. **When deleting using name**, if there are duplicate names, the first entry will always be deleted. This issue will be fixed in the next release, so the current remedy is to delete by index in such a case.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -472,7 +485,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add person**        | `add n/NAME r/ ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/tutor p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
 | **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`                                                                     |
-| **Clear**             | `clear`                                                                                                                                                                               |
+| **Clear**             | `clear [-f]`                                                                                                                                                                          |
 | **Delete**            | `delete [-f] INDEX` or `delete [-f] n/NAME`<br> e.g., `delete 3`, `delete -f n/John`                                                                                                  |
 | **Delete class**      | `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`<br> e.g., `deletec 3`, `deletec -f c/M2a`                                                                                         |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                          |
@@ -481,7 +494,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                           |
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                     |
-| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Jake r/student`                                                              |
+| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                               |
 | **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                      |
 | **Undo**              | `undo`                                                                                                                                                                                |
 | **Redo**              | `redo`                                                                                                                                                                                |
