@@ -116,6 +116,8 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 * `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
 * `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
 * `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
+* If another class has the same `TUTOR_ID`, the `TIME` cannot overlap.
+  * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in the address book, `S3b, Monday, 1300-1500, T0000001` cannot be added.
 
 <box type="tip" seamless>
 
