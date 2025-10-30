@@ -24,7 +24,7 @@ public class UnenrolCommand extends Command {
     public static final String COMMAND_WORD = "unenrol";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes a student from a lesson using student ID and class name.\n"
+            + ": Removes a student from a class using student ID and class name.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS_NAME\n"
@@ -32,10 +32,10 @@ public class UnenrolCommand extends Command {
             + PREFIX_ID + "S1234567 "
             + PREFIX_CLASS + "M2a ";
 
-    public static final String MESSAGE_UNENROL_SUCCESS = "Removed student %1$s from lesson %2$s";
-    public static final String MESSAGE_LESSON_NOT_FOUND = "This lesson does not exist in the address book.";
+    public static final String MESSAGE_UNENROL_SUCCESS = "Removed student %1$s from class %2$s";
+    public static final String MESSAGE_LESSON_NOT_FOUND = "This class does not exist in the address book.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "This student ID does not exist in the address book.";
-    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in the specified lesson.";
+    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in the specified class.";
 
     private final IdentificationNumber studentId;
     private final ClassName className;
