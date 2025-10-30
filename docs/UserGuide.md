@@ -475,31 +475,30 @@ Alternatively, use `import` and `export` commands to transfer your data.
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **When deleting using name**, if there are duplicate names, the first entry will always be deleted. This issue will be fixed in the next release, so the current remedy is to delete by index in such a case.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-| Action                | Format, Examples                                                                                                                                                                      |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add person**        | `add n/NAME r/ ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/tutor p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`                                                                     |
-| **Clear**             | `clear [-f]`                                                                                                                                                                          |
-| **Delete**            | `delete [-f] INDEX` or `delete [-f] n/NAME`<br> e.g., `delete 3`, `delete -f n/John`                                                                                                  |
-| **Delete class**      | `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`<br> e.g., `deletec 3`, `deletec -f c/M2a`                                                                                         |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                          |
-| **Edit class**        | `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​` <br> e.g., `edit 3 d/Tuesday tt/T7654321`                                                                      |
-| **Enrol**             | `enrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `enrol id/S0000001 c/M2a`                                                                                                               |
-| **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                           |
-| **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
-| **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                     |
-| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                               |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                      |
-| **Undo**              | `undo`                                                                                                                                                                                |
-| **Redo**              | `redo`                                                                                                                                                                                |
-| **Import file**       | `import`                                                                                                                                                                              |
-| **Export file**       | `export`                                                                                                                                                                              |
-| **List**              | `list`                                                                                                                                                                                |
-| **List classes**      | `listc`                                                                                                                                                                               |
-| **Help**              | `help`                                                                                                                                                                                |
+| Action                | Format, Examples                                                                                                                                                                 |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add person**        | `add n/NAME r/ ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/tutor p/82224444 e/jamesho@example.com a/123, Clementi Rd, 123465 t/math t/science` |
+| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`                                                                |
+| **Clear**             | `clear [-f]`                                                                                                                                                                     |
+| **Delete**            | `delete [-f] INDEX` or `delete [-f] n/NAME`<br> e.g., `delete 3`, `delete -f n/John`                                                                                             |
+| **Delete class**      | `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`<br> e.g., `deletec 3`, `deletec -f c/M2a`                                                                                    |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
+| **Edit class**        | `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​` <br> e.g., `edit 3 d/Tuesday tt/T7654321`                                                                 |
+| **Enrol**             | `enrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `enrol id/S0000001 c/M2a`                                                                                                          |
+| **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                      |
+| **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                            |
+| **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                |
+| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                          |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                 |
+| **Undo**              | `undo`                                                                                                                                                                           |
+| **Redo**              | `redo`                                                                                                                                                                           |
+| **Import file**       | `import`                                                                                                                                                                         |
+| **Export file**       | `export`                                                                                                                                                                         |
+| **List**              | `list`                                                                                                                                                                           |
+| **List classes**      | `listc`                                                                                                                                                                          |
+| **Help**              | `help`                                                                                                                                                                           |
