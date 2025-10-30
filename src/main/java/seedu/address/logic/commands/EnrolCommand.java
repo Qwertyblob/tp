@@ -81,18 +81,18 @@ public class EnrolCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_STUDENT);
         }
 
-        for (Lesson existingLesson : studentToEnrol.getLessons()) {
-            if (lessonToEnrolIn.hasOverlapsWith(existingLesson)) {
-                throw new CommandException(String.format(MESSAGE_TIMING_CLASH,
-                        Messages.shortenedFormatLesson(existingLesson)));
-            }
-        }
-
         Set<IdentificationNumber> newStudentIdSet = new HashSet<>(lessonToEnrolIn.getStudents());
 
         // HashSet::add returns false if the element is already present.
         if (!newStudentIdSet.add(studentToEnrol.getId())) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        }
+
+        for (Lesson existingLesson : studentToEnrol.getLessons()) {
+            if (lessonToEnrolIn.hasOverlapsWith(existingLesson)) {
+                throw new CommandException(String.format(MESSAGE_TIMING_CLASH,
+                        Messages.shortenedFormatLesson(existingLesson)));
+            }
         }
 
         Lesson newLesson = new Lesson(
