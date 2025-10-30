@@ -96,7 +96,7 @@ public class EditLessonCommand extends Command {
         model.updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
         // Update AddressBook state pointer
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_LESSON_SUCCESS, editedLesson),
+        return new CommandResult(String.format(MESSAGE_EDIT_LESSON_SUCCESS, Messages.formatLesson(editedLesson)),
                 CommandResult.DisplayType.RECENT);
     }
 
