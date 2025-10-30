@@ -36,4 +36,11 @@ public class FindCommandParserTest {
                 " id/123",
                 "Identification number must start with 'T' or 'S' followed by a 7 digit number");
     }
+
+    @Test
+    public void parse_invalidRole_throwsParseException() {
+        assertParseFailure(parser,
+                " r/teacher",
+                "Roles are only either \"tutor\" or \"student\".");
+    }
 }

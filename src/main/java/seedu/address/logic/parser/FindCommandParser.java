@@ -15,6 +15,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ContactMatchesPredicate;
 import seedu.address.model.person.IdentificationNumber;
+import seedu.address.model.person.Role;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -45,8 +46,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         String address = argMultimap.getValue(PREFIX_ADDRESS).orElse("").trim();
         String tags = argMultimap.getValue(PREFIX_TAG).orElse("").trim();
 
+        // Id must be a valid ID
         if (!id.isEmpty() && !id.matches(IdentificationNumber.VALIDATION_REGEX)) {
             throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+        }
+
+        // Roles should only be student or tutor
+        if (!role.isEmpty() && !role.matches(Role.VALIDATION_REGEX)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
         }
 
         if (id.isEmpty() && name.isEmpty() && role.isEmpty() && lesson.isEmpty()
