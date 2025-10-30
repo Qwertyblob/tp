@@ -114,6 +114,14 @@ public class LessonBuilder {
     }
 
     /**
+     * Parses a {@code Set<IdentificationNumber>} and sets it to the {@code Lesson} that we are building.
+     */
+    public LessonBuilder withStudents(Set<IdentificationNumber> students) {
+        this.studentIds = new HashSet<>(students);
+        return this;
+    }
+
+    /**
      * Sets the attendance map for the {@code Lesson} that we are building.
      *
      * @param attendance The map of attendance data to set.

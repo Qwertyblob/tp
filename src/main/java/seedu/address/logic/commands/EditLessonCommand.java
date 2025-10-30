@@ -58,6 +58,10 @@ public class EditLessonCommand extends Command {
     public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited class: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_LESSON = "This class already exists in the address book.";
+    public static final String MESSAGE_TUTOR_TIME_CLASH =
+            "This tutor already has a class that overlaps with the specified time.";
+    public static final String MESSAGE_STUDENT_TIME_CLASH_START =
+            "Student clash detected for: ";
 
     private final Index index;
     private final EditLessonDescriptor editLessonDescriptor;
@@ -88,6 +92,29 @@ public class EditLessonCommand extends Command {
 
         if (!lessonToEdit.isSameLesson(editedLesson) && model.hasLesson(editedLesson)) {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
+        }
+
+        boolean tutorHasClash = model.getFilteredLessonList().stream()
+                .filter(existing -> !existing.equals(lessonToEdit)) // exclude current lesson being edited
+                .filter(existing -> existing.getTutor().equals(editedLesson.getTutor()))
+                .anyMatch(existing -> existing.hasOverlapsWith(editedLesson));
+
+        if (tutorHasClash) {
+            throw new CommandException(MESSAGE_TUTOR_TIME_CLASH);
+        }
+
+        Set<String> clashingIds = new HashSet<>();
+        for (Lesson existing : model.getFilteredLessonList()) {
+            if (!existing.equals(lessonToEdit) && existing.hasOverlapsWith(editedLesson)) {
+                for (IdentificationNumber id : existing.getStudents()) {
+                    if (editedLesson.getStudents().contains(id)) {
+                        clashingIds.add(id.getValue());
+                    }
+                }
+            }
+        }
+        if (!clashingIds.isEmpty()) {
+            throw new CommandException(MESSAGE_STUDENT_TIME_CLASH_START + String.join(", ", clashingIds));
         }
 
         model.setLesson(lessonToEdit, editedLesson);

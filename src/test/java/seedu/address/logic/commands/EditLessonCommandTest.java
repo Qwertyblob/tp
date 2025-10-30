@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SCIENCE;
@@ -10,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LESSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LESSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_LESSON;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -58,7 +60,6 @@ public class EditLessonCommandTest {
         Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
         expectedModel.setLesson(lessonToEdit, editedLesson);
 
-        // cascade update students enrolled in the lesson
         LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lessonToEdit, editedLesson);
 
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
@@ -92,17 +93,21 @@ public class EditLessonCommandTest {
     @Test
     public void execute_noFieldSpecified_success() {
         EditLessonCommand editLessonCommand =
-                new EditLessonCommand(INDEX_FIRST_LESSON, new EditLessonDescriptor());
-        Lesson editedLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+                new EditLessonCommand(INDEX_THIRD_LESSON, new EditLessonDescriptor());
+        Lesson editedLesson = model.getFilteredLessonList().get(INDEX_THIRD_LESSON.getZeroBased());
 
         String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
                 Messages.formatLesson(editedLesson));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Lesson lessonToEdit = expectedModel.getFilteredLessonList().get(INDEX_THIRD_LESSON.getZeroBased());
 
-        // No edits, so cascade does not change anything
+        // simulate same cascade if your command does it unconditionally
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lessonToEdit, editedLesson);
+
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_duplicateLesson_failure() {
@@ -121,12 +126,63 @@ public class EditLessonCommandTest {
                 .build();
         EditLessonCommand editLessonCommand = new EditLessonCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editLessonCommand, model, "The class index provided is invalid");
+        assertCommandFailure(editLessonCommand, model, MESSAGE_INVALID_LESSON_DISPLAYED_INDEX);
     }
 
     @Test
+    public void execute_tutorClash_failure() {
+        Lesson firstLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        Lesson secondLesson = model.getFilteredLessonList().get(INDEX_SECOND_LESSON.getZeroBased());
+
+        // Make edited lesson share the same tutor and overlapping time as another lesson
+        EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder(secondLesson)
+                .withTutor(firstLesson.getTutor().toString()) // same tutor
+                .withDay(firstLesson.getDay().toString()) // same day
+                .withTime(firstLesson.getTime().toString()) // overlapping time
+                .build();
+
+        EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_SECOND_LESSON, descriptor);
+
+        assertCommandFailure(editLessonCommand, model, EditLessonCommand.MESSAGE_TUTOR_TIME_CLASH);
+    }
+
+    @Test
+    public void execute_studentClash_failure() {
+        Lesson firstLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        Lesson secondLesson = model.getFilteredLessonList().get(INDEX_THIRD_LESSON.getZeroBased());
+
+        // Create a shared student between the two lessons
+        IdentificationNumber sharedStudent = new IdentificationNumber("S6767676");
+
+        // Update first and second lessons to include the shared student
+        Lesson updatedFirstLesson = new LessonBuilder(firstLesson)
+                .withStudents(new HashSet<>(firstLesson.getStudents()) {{ add(sharedStudent); }}).build();
+        model.setLesson(firstLesson, updatedFirstLesson);
+
+        Lesson updatedSecondLesson = new LessonBuilder(secondLesson)
+                .withStudents(new HashSet<>(secondLesson.getStudents()) {{ add(sharedStudent); }}).build();
+        model.setLesson(secondLesson, updatedSecondLesson);
+
+        // Edit second lesson to overlap with first lesson
+        EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder(updatedSecondLesson)
+                .withDay(updatedFirstLesson.getDay().toString())
+                .withTime(updatedFirstLesson.getTime().toString())
+                .build();
+
+        EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_THIRD_LESSON, descriptor);
+
+        // Expected message
+        String expectedMessage = "Student clash detected for: " + sharedStudent.getValue();
+
+        // Verify failure
+        assertCommandFailure(editLessonCommand, model, expectedMessage);
+    }
+
+
+
+    @Test
     public void execute_preservesStudentIdsAndAttendance() {
-        Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_THIRD_LESSON.getZeroBased());
         Set<IdentificationNumber> originalStudents = new HashSet<>(lessonToEdit.getStudents());
         Map<LocalDate, Set<IdentificationNumber>> originalAttendance = new HashMap<>();
         lessonToEdit.getAttendance().forEach((date, ids) ->
@@ -136,7 +192,7 @@ public class EditLessonCommandTest {
         EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder()
                 .withTags("EditedTag")
                 .build();
-        EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_FIRST_LESSON, descriptor);
+        EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_THIRD_LESSON, descriptor);
 
         Lesson editedLesson = new LessonBuilder(lessonToEdit)
                 .withTags("EditedTag")
@@ -151,7 +207,7 @@ public class EditLessonCommandTest {
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
 
         // Verify student IDs and attendance are unchanged
-        Lesson updatedLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
+        Lesson updatedLesson = model.getFilteredLessonList().get(INDEX_THIRD_LESSON.getZeroBased());
         assertEquals(originalStudents, updatedLesson.getStudents(), "Student IDs should be preserved");
         assertEquals(originalAttendance, updatedLesson.getAttendance(), "Attendance should be preserved");
     }

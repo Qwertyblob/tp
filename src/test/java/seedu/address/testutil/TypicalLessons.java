@@ -32,7 +32,7 @@ public class TypicalLessons {
     public static final Lesson ENGLISH_C3C = new LessonBuilder().withClassName("C3c")
             .withDay("wednesday")
             .withTime("1400-1600")
-            .withTutor("t1234567")
+            .withTutor("T6767676")
             .withTags("english").build();
 
     public static final Lesson PHYSICS_D4D = new LessonBuilder().withClassName("D4d")
