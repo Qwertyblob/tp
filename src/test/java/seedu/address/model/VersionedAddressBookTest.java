@@ -30,11 +30,11 @@ public class VersionedAddressBookTest {
     public void commit_addsNewVersion_success() {
         AddressBook initial = new AddressBookBuilder().withPerson(ALICE).build();
         versionedAddressBook.resetData(initial);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(ALICE.toString());
 
         AddressBook next = new AddressBookBuilder(initial).withPerson(BENSON).build();
         versionedAddressBook.resetData(next);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(BENSON.toString());
 
         assertTrue(versionedAddressBook.canUndo());
         assertFalse(versionedAddressBook.canRedo());
@@ -46,9 +46,9 @@ public class VersionedAddressBookTest {
         AddressBook second = new AddressBookBuilder(first).withPerson(BENSON).build();
 
         versionedAddressBook.resetData(first);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(first.toString());
         versionedAddressBook.resetData(second);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(second.toString());
 
         versionedAddressBook.undo();
         assertEquals(first, new AddressBook(versionedAddressBook));
@@ -60,9 +60,9 @@ public class VersionedAddressBookTest {
         AddressBook second = new AddressBookBuilder(first).withPerson(BENSON).build();
 
         versionedAddressBook.resetData(first);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(first.toString());
         versionedAddressBook.resetData(second);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(second.toString());
 
         versionedAddressBook.undo();
         versionedAddressBook.redo();
@@ -86,11 +86,11 @@ public class VersionedAddressBookTest {
         AddressBook third = new AddressBookBuilder(second).withPerson(CARL).build();
 
         versionedAddressBook.resetData(first);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(first.toString());
         versionedAddressBook.resetData(second);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(second.toString());
         versionedAddressBook.resetData(third);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(third.toString());
 
         versionedAddressBook.undo();
         versionedAddressBook.undo();
@@ -98,7 +98,7 @@ public class VersionedAddressBookTest {
         // committing after undo should clear redo history
         AddressBook branched = new AddressBookBuilder().withPerson(ALICE).withPerson(CARL).build();
         versionedAddressBook.resetData(branched);
-        versionedAddressBook.commit();
+        versionedAddressBook.commit(branched.toString());
 
         assertFalse(versionedAddressBook.canRedo());
     }

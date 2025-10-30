@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -33,7 +34,7 @@ public class UndoCommandTest {
     public void execute_undoSuccessful_success() throws Exception {
         // add BENSON and commit
         model.addPerson(BENSON);
-        model.commitAddressBook();
+        model.commitAddressBook(BENSON.toString());
 
         // make sure model actually changed
         assertEquals(2, model.getAddressBook().getPersonList().size());
@@ -42,7 +43,7 @@ public class UndoCommandTest {
         CommandResult result = new UndoCommand().execute(model);
 
         // verify undo successful
-        assertEquals("Undo successful!", result.getFeedbackToUser());
+        assertEquals(String.format("Undo successful!\n(Undo: %s)", BENSON.toString()), result.getFeedbackToUser());
         assertEquals(1, model.getAddressBook().getPersonList().size());
     }
 
@@ -55,9 +56,10 @@ public class UndoCommandTest {
     @Test
     public void execute_multipleUndos_success() throws Exception {
         model.addPerson(BENSON);
-        model.commitAddressBook();
-        model.addPerson(new PersonBuilder().withName("Carl").build());
-        model.commitAddressBook();
+        model.commitAddressBook(BENSON.toString());
+        Person validPerson = new PersonBuilder().withName("Carl").build();
+        model.addPerson(validPerson);
+        model.commitAddressBook(validPerson.toString());
 
         // Undo twice
         new UndoCommand().execute(model);
@@ -69,12 +71,13 @@ public class UndoCommandTest {
     @Test
     public void execute_afterRedoableHistoryCleared_failure() throws Exception {
         model.addPerson(BENSON);
-        model.commitAddressBook();
+        model.commitAddressBook(BENSON.toString());
         new UndoCommand().execute(model);
 
         // commit new change, clearing redo history
-        model.addPerson(new PersonBuilder().withName("Carl").build());
-        model.commitAddressBook();
+        Person validPerson = new PersonBuilder().withName("Carl").build();
+        model.addPerson(validPerson);
+        model.commitAddressBook(validPerson.toString());
 
         // undo should still work
         new UndoCommand().execute(model);
