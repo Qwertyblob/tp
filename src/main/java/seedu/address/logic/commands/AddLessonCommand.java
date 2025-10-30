@@ -38,6 +38,8 @@ public class AddLessonCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASS = "This class already exists in the address book";
     public static final String MESSAGE_TUTOR_NOT_FOUND = "This tutor ID does not exist in the address book.";
+    public static final String MESSAGE_TUTOR_TIME_CLASH =
+            "This tutor already has a class that overlaps with the specified time.";
 
     private final Lesson toAdd;
 
@@ -64,6 +66,14 @@ public class AddLessonCommand extends Command {
 
         if (tutorOfLessonOptional.isEmpty()) {
             throw new CommandException(MESSAGE_TUTOR_NOT_FOUND);
+        }
+
+        boolean hasClash = model.getFilteredLessonList().stream()
+                .filter(existingLesson -> existingLesson.getTutor().equals(toAdd.getTutor()))
+                .anyMatch(existingLesson -> existingLesson.hasOverlapsWith(toAdd));
+
+        if (hasClash) {
+            throw new CommandException(MESSAGE_TUTOR_TIME_CLASH);
         }
 
         model.addLesson(toAdd);
