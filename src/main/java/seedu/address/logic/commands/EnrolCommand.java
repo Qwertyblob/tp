@@ -36,6 +36,7 @@ public class EnrolCommand extends Command {
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student is already enrolled in the lesson.";
     public static final String MESSAGE_LESSON_NOT_FOUND = "This lesson does not exist in the address book.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "This student ID does not exist in the address book.";
+    public static final String MESSAGE_PERSON_NOT_STUDENT = "Only students can be enrolled.";
 
     private final IdentificationNumber studentId;
     private final ClassName className;
@@ -74,6 +75,10 @@ public class EnrolCommand extends Command {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
         Person studentToEnrol = studentToEnrolOptional.get();
+
+        if (!studentToEnrol.getRole().isStudent()) {
+            throw new CommandException(MESSAGE_PERSON_NOT_STUDENT);
+        }
 
         Set<IdentificationNumber> newStudentIdSet = new HashSet<>(lessonToEnrolIn.getStudents());
 
