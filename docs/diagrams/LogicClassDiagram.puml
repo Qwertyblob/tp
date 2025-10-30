@@ -34,14 +34,14 @@ HiddenOutside ..> Logic
 LogicManager .right.|> Logic
 Logic -right[hidden]- ConfirmationManager
 LogicManager --->"1" ParserClasses
-ParserClasses ..> XYZCommand : <<create>>
+ParserClasses ..> XYZCommand : > creates
 ParserClasses ..> ConfirmableCommand
 
 XYZCommand -up-|> Command
 XYZCommand -right[hidden]- ConfirmableCommand
 ConfirmableCommand -up|> Command
 ConfirmableCommand .right.|> Confirmable
-LogicManager ..> Command : <<call>>
+LogicManager ..> Command : > call
 
 ConfirmationManager -up-> Model
 LogicManager -up-> Model
@@ -53,8 +53,8 @@ note bottom of ConfirmableCommand: ConfirmableCommand = DeleteCommand, etc
 Logic ..> CommandResult
 LogicManager ..> CommandResult
 ConfirmationManager ..> CommandResult
-Command .up.> CommandResult : <<create>>
+Command .up.> CommandResult : > creates
 
-ConfirmationManager ..> ConfirmableCommand : <<call>>
+ConfirmationManager ..> ConfirmableCommand : > call
 
 @enduml
