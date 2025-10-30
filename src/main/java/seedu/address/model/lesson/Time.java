@@ -3,6 +3,9 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a Lesson's time in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
@@ -10,14 +13,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time should only contain numerical characters, and it should not be blank";
+            "Time should only contain numerical characters in 24 hour time format, "
+                    + "with start and end times separated by a '-'";
+    public static final String TIME_CONSTRAINTS = "Start time cannot be later than end time.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^\\d+$";
-
+    public static final String VALIDATION_REGEX =
+            "^(?<start>(?:[01]\\d|2[0-3])[0-5]\\d)\\s*-\\s*(?<end>(?:[01]\\d|2[0-3])[0-5]\\d)$";
     public final String fullTime;
 
     /**
@@ -27,8 +32,10 @@ public class Time {
      */
     public Time(String time) {
         requireNonNull(time);
+        checkArgument(isValidDuration(time), TIME_CONSTRAINTS);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        fullTime = time;
+        String[] newTime = time.split("-");
+        fullTime = newTime[0].trim() + "-" + newTime[1].trim();
     }
 
     /**
@@ -38,10 +45,26 @@ public class Time {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if the end time is later than the start time.
+     */
+    public static boolean isValidDuration(String test) {
+        Pattern pattern = Pattern.compile(VALIDATION_REGEX);
+        Matcher matcher = pattern.matcher(test);
+
+        if (matcher.matches()) {
+            int start = Integer.parseInt(matcher.group("start"));
+            int end = Integer.parseInt(matcher.group("end"));
+            return end > start;
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {
-        return fullTime;
+        String[] strings = fullTime.split("-");
+        return strings[0] + " - " + strings[1];
     }
 
     @Override

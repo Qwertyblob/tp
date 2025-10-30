@@ -31,14 +31,14 @@ public class MarkCommand extends Command {
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "S0000001"
+            + PREFIX_ID + "S0000001 "
             + PREFIX_CLASS + "M2a";
 
     public static final String MESSAGE_SUCCESS = "Marked %1$s as present for class %2$s.";
     public static final String MESSAGE_LESSON_NOT_FOUND = "Class %1$s not found.";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Student %1$s not found.";
     public static final String MESSAGE_ALREADY_MARKED = "%1$s has already been marked present for %2$s.";
-    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in this lesson.";
+    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in this class.";
 
     private final IdentificationNumber studentId;
     private final ClassName className;
@@ -61,7 +61,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (lessonOptional.isEmpty()) {
-            throw new CommandException(MESSAGE_LESSON_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_LESSON_NOT_FOUND, className.toString()));
         }
 
         Lesson lessonToMark = lessonOptional.get();
@@ -71,7 +71,7 @@ public class MarkCommand extends Command {
                 .findFirst();
 
         if (studentToMarkOptional.isEmpty()) {
-            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId.toString()));
         }
         Person studentToMark = studentToMarkOptional.get();
 

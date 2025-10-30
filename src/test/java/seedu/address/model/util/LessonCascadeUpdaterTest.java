@@ -67,7 +67,7 @@ public class LessonCascadeUpdaterTest {
         Lesson unrelatedLesson = new LessonBuilder()
                 .withClassName("X1z")
                 .withDay("sunday")
-                .withTime("0900")
+                .withTime("0900-1100")
                 .withTutor("t9999999")
                 .withTags("dummy")
                 .build();

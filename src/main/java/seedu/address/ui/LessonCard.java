@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -42,6 +44,9 @@ public class LessonCard extends UiPart<Region> {
         day.setText("Day: " + lesson.getDay());
         time.setText("Time: " + lesson.getTime());
         tutor.setText("Tutor: " + lesson.getTutor());
+        lesson.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

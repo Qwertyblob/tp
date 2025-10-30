@@ -98,7 +98,7 @@ public class MarkCommandTest {
         ClassName nonExistentClassName = new ClassName("Z9z");
         MarkCommand command = new MarkCommand(AMY.getId(), nonExistentClassName);
 
-        assertCommandFailure(command, model, MarkCommand.MESSAGE_LESSON_NOT_FOUND);
+        assertCommandFailure(command, model, String.format(MarkCommand.MESSAGE_LESSON_NOT_FOUND, nonExistentClassName));
     }
 
     @Test
@@ -107,7 +107,7 @@ public class MarkCommandTest {
         IdentificationNumber nonExistentStudentId = new IdentificationNumber("S9999999");
         MarkCommand command = new MarkCommand(nonExistentStudentId, className);
 
-        assertCommandFailure(command, model, MarkCommand.MESSAGE_PERSON_NOT_FOUND);
+        assertCommandFailure(command, model, String.format(MarkCommand.MESSAGE_PERSON_NOT_FOUND, nonExistentStudentId));
     }
 
     @Test

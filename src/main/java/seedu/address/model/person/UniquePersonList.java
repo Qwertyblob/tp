@@ -140,7 +140,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).hasSameName(persons.get(j))) {
+                if (persons.get(i).hasSameIdentity(persons.get(j))) {
                     return false;
                 }
             }
