@@ -26,10 +26,10 @@ public class FindLessonCommand extends Command {
             + "[" + PREFIX_DAY + "DAY] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TUTOR + "TUTOR] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DAY + "Monday "
-            + PREFIX_TIME + "1200";
+            + PREFIX_TIME + "1200-1400";
 
     private final LessonMatchesPredicate predicate;
 
