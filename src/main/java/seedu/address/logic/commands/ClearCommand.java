@@ -34,7 +34,7 @@ public class ClearCommand extends ConfirmableCommand {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         // Update AddressBook state pointer
-        model.commitAddressBook();
+        model.commitAddressBook(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayType.DEFAULT);
     }
 

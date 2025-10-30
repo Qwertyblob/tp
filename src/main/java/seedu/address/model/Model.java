@@ -132,7 +132,15 @@ public interface Model {
     public void clearPendingCommand();
 
     /** Saves the current AddressBook state for undo/redo. */
+    void commitAddressBook(String command);
+
     void commitAddressBook();
+
+    /** Returns the last undoable command executed */
+    String getLastCommandDescription();
+
+    /** Returns the undoable command to be redone */
+    String getRedoCommandDescription();
 
     /** Restores the previous AddressBook state. */
     void undoAddressBook();

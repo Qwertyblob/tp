@@ -61,9 +61,9 @@ public class AddCommand extends Command {
 
         model.addPerson(toAdd);
         // Update AddressBook state pointer
-        model.commitAddressBook();
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)), CommandResult.DisplayType.DEFAULT);
+        String output = String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd));
+        model.commitAddressBook(output);
+        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
     }
 
     @Override

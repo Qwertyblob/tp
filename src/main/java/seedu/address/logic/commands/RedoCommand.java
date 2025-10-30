@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Redo successful!";
+    public static final String MESSAGE_SUCCESS = "Redo successful!\n(Redo: %s)";
     public static final String MESSAGE_FAILURE = "No actions to redo.";
 
     @Override
@@ -17,8 +17,8 @@ public class RedoCommand extends Command {
         if (!model.canRedoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-
+        String output = String.format(MESSAGE_SUCCESS, model.getRedoCommandDescription());
         model.redoAddressBook();
-        return new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayType.DEFAULT);
+        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
     }
 }

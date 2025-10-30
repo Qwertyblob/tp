@@ -175,8 +175,23 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commitAddressBook(String command) {
+
+        }
+
+        @Override
         public void commitAddressBook() {
 
+        }
+
+        @Override
+        public String getLastCommandDescription() {
+            return "";
+        }
+
+        @Override
+        public String getRedoCommandDescription() {
+            return "";
         }
 
         @Override

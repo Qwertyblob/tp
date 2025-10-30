@@ -86,8 +86,23 @@ public class ModelManager implements Model {
 
 
     @Override
+    public void commitAddressBook(String command) {
+        versionedAddressBook.commit(command);
+    }
+
+    @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public String getLastCommandDescription() {
+        return versionedAddressBook.getLastCommandDescription();
+    }
+
+    @Override
+    public String getRedoCommandDescription() {
+        return versionedAddressBook.getRedoCommandDescription();
     }
 
     @Override

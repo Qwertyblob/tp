@@ -26,10 +26,10 @@ public class RedoCommandTest {
         // Set up a model with a VersionedAddressBook and some persons
         model = new ModelManager();
         model.addPerson(ALICE);
-        model.commitAddressBook();
+        model.commitAddressBook(ALICE.toString());
 
         model.addPerson(BENSON);
-        model.commitAddressBook();
+        model.commitAddressBook(BENSON.toString());
 
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
@@ -43,9 +43,10 @@ public class RedoCommandTest {
         // Expected model after redoing should match model before undo
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(BENSON);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAddressBook(BENSON.toString());
 
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model,
+                String.format("Redo successful!\n(Redo: %s)", BENSON.toString()), expectedModel);
     }
 
     @Test
@@ -57,9 +58,10 @@ public class RedoCommandTest {
 
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(BENSON);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAddressBook(BENSON.toString());
 
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model,
+                String.format("Redo successful!\n(Redo: %s)", BENSON.toString()), expectedModel);
     }
 
     @Test
