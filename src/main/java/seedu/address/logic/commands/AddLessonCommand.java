@@ -32,7 +32,7 @@ public class AddLessonCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASS + "M2a "
             + PREFIX_DAY + "Monday "
-            + PREFIX_TIME + "1200 "
+            + PREFIX_TIME + "1200-1400 "
             + PREFIX_TUTOR + "T1234567";
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
