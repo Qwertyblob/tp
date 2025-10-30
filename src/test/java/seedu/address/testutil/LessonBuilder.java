@@ -113,6 +113,9 @@ public class LessonBuilder {
         return this;
     }
 
+    /**
+     * Parses a {@code Set<IdentificationNumber>} and sets it to the {@code Lesson} that we are building.
+     */
     public LessonBuilder withStudents(Set<IdentificationNumber> students) {
         this.studentIds = new HashSet<>(students);
         return this;

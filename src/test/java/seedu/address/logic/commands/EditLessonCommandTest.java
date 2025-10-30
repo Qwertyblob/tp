@@ -3,13 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SCIENCE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LESSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LESSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_LESSON;
@@ -26,7 +25,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -158,17 +156,11 @@ public class EditLessonCommandTest {
 
         // Update first and second lessons to include the shared student
         Lesson updatedFirstLesson = new LessonBuilder(firstLesson)
-                .withStudents(new HashSet<>(firstLesson.getStudents()) {{
-                    add(sharedStudent);
-                }})
-                .build();
+                .withStudents(new HashSet<>(firstLesson.getStudents()) {{ add(sharedStudent); }}).build();
         model.setLesson(firstLesson, updatedFirstLesson);
 
         Lesson updatedSecondLesson = new LessonBuilder(secondLesson)
-                .withStudents(new HashSet<>(secondLesson.getStudents()) {{
-                    add(sharedStudent);
-                }})
-                .build();
+                .withStudents(new HashSet<>(secondLesson.getStudents()) {{ add(sharedStudent); }}).build();
         model.setLesson(secondLesson, updatedSecondLesson);
 
         // Edit second lesson to overlap with first lesson
