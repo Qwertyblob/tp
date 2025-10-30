@@ -52,6 +52,8 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    void setCurrentDisplayType(CommandResult.DisplayType currentDisplayType);
+
     /**
      * Process a new Command when there is no pending Command
      */

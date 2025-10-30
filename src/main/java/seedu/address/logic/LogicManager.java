@@ -112,6 +112,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setCurrentDisplayType(CommandResult.DisplayType displayType) {
+        this.currentDisplayType = displayType;
+    }
+
+    @Override
     public CommandResult processNewCommand(String commandText) throws CommandException, ParseException {
         Command command = addressBookParser.parseCommand(commandText);
         CommandResult commandResult;

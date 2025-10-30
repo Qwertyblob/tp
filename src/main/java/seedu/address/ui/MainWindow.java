@@ -256,6 +256,8 @@ public class MainWindow extends UiPart<Stage> {
                             ? commandResult.getDisplayType()
                             : currentDisplayType;
 
+            logic.setCurrentDisplayType(displayType);
+
             switch (displayType) {
             case DEFAULT:
                 personListPanelPlaceholder.setVisible(true);
