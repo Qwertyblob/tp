@@ -31,24 +31,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         // Check if it's a person name-based delete (starts with n/)
         if (remainingArgs.startsWith("n/")) {
-            try {
-                Name name = ParserUtil.parseName(remainingArgs.substring(2));
-                return new DeleteCommand(name, isForced);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-            }
+            return handleDeleteByName(remainingArgs, isForced);
         }
 
         // Check if it's an index-based delete (numeric)
         if (remainingArgs.matches("^[0-9]+$")) {
-            try {
-                Index index = ParserUtil.parseIndex(remainingArgs);
-                return new DeleteCommand(index, isForced);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-            }
+            return handleDeleteByIndex(remainingArgs, isForced);
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -84,6 +72,26 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ParseResult(boolean isForced, String remainingArgs) {
             this.isForced = isForced;
             this.remainingArgs = remainingArgs;
+        }
+    }
+
+    private DeleteCommand handleDeleteByName(String remainingArgs, boolean isForced) throws ParseException {
+        try {
+            Name name = ParserUtil.parseName(remainingArgs.substring(2));
+            return new DeleteCommand(name, isForced);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    private DeleteCommand handleDeleteByIndex(String remainingArgs, boolean isForced) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(remainingArgs);
+            return new DeleteCommand(index, isForced);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 }

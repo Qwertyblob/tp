@@ -30,24 +30,12 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
 
         // Check if it's a class name-based delete (starts with c/)
         if (remainingArgs.startsWith("c/")) {
-            try {
-                ClassName className = ParserUtil.parseClassName(remainingArgs.substring(2));
-                return new DeleteLessonCommand(className, isForced);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
-            }
+            return handleDeleteByClassName(remainingArgs, isForced);
         }
 
         // Check if it's an index-based delete (numeric)
         if (remainingArgs.matches("^[0-9]+$")) {
-            try {
-                Index index = ParserUtil.parseIndex(remainingArgs);
-                return new DeleteLessonCommand(index, isForced);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
-            }
+            return handleDeleteByIndex(remainingArgs, isForced);
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE));
@@ -83,6 +71,26 @@ public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
         ParseResult(boolean isForced, String remainingArgs) {
             this.isForced = isForced;
             this.remainingArgs = remainingArgs;
+        }
+    }
+
+    private DeleteLessonCommand handleDeleteByClassName(String remainingArgs, boolean isForced) throws ParseException {
+        try {
+            ClassName className = ParserUtil.parseClassName(remainingArgs.substring(2));
+            return new DeleteLessonCommand(className, isForced);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    private DeleteLessonCommand handleDeleteByIndex(String remainingArgs, boolean isForced) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(remainingArgs);
+            return new DeleteLessonCommand(index, isForced);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteLessonCommand.MESSAGE_USAGE), pe);
         }
     }
 }

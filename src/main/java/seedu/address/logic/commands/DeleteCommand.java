@@ -69,31 +69,6 @@ public class DeleteCommand extends ConfirmableCommand {
         this.targetIndex = null;
     }
 
-    private Person getPersonToDelete(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        // If index is provided, get the person accordingly
-        if (targetIndex != null) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-            return lastShownList.get(targetIndex.getZeroBased());
-        }
-
-        // Else search for matching name in list
-        if (targetName != null) {
-            for (Person person : lastShownList) {
-                String trimmedName = person.getName().fullName.toLowerCase().trim();
-                String trimmedTargetName = targetName.fullName.toLowerCase().trim();
-                if (trimmedName.equals(trimmedTargetName)) {
-                    return person;
-                }
-            }
-        }
-
-        throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
-    }
-
     @Override
     public void validate(Model model) throws CommandException {
         // If the person to delete cannot be found, the command is invalid and will throw
@@ -120,28 +95,7 @@ public class DeleteCommand extends ConfirmableCommand {
         Person personToDelete = getPersonToDelete(model);
         IdentificationNumber personIdToDelete = personToDelete.getId();
 
-        // Create a copy of the lesson list to iterate over, to avoid modification issues.
-        List<Lesson> lessonsToUpdate = new java.util.ArrayList<>(model.getFilteredLessonList());
-
-        for (Lesson lesson : lessonsToUpdate) {
-            // Check if the person to be deleted is enrolled in this lesson.
-            if (lesson.getStudents().contains(personIdToDelete)) {
-                // Create a new set of student IDs without the deleted person's ID.
-                Set<IdentificationNumber> newStudentIdSet = new HashSet<>(lesson.getStudents());
-                newStudentIdSet.remove(personIdToDelete);
-
-                // Create a new lesson with the updated student list.
-                Lesson updatedLesson = new Lesson(
-                        lesson.getClassName(),
-                        lesson.getDay(),
-                        lesson.getTime(),
-                        lesson.getTutor(),
-                        newStudentIdSet, lesson.getAttendance(), lesson.getTags()
-                );
-                // Update the lesson in the model.
-                model.setLesson(lesson, updatedLesson);
-            }
-        }
+        handleAffectedLessons(personIdToDelete, model);
 
         model.deletePerson(personToDelete);
         // Update AddressBook state pointer
@@ -170,5 +124,55 @@ public class DeleteCommand extends ConfirmableCommand {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
                 .toString();
+    }
+
+    private Person getPersonToDelete(Model model) throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        // If index is provided, get the person accordingly
+        if (targetIndex != null) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            return lastShownList.get(targetIndex.getZeroBased());
+        }
+
+        // Else search for matching name in list
+        if (targetName != null) {
+            for (Person person : lastShownList) {
+                String trimmedName = person.getName().fullName.toLowerCase().trim();
+                String trimmedTargetName = targetName.fullName.toLowerCase().trim();
+                if (trimmedName.equals(trimmedTargetName)) {
+                    return person;
+                }
+            }
+        }
+
+        throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+    }
+
+    private void handleAffectedLessons(IdentificationNumber personIdToDelete, Model model) {
+        // Create a copy of the lesson list to iterate over, to avoid modification issues.
+        List<Lesson> lessonsToUpdate = new java.util.ArrayList<>(model.getFilteredLessonList());
+
+        for (Lesson lesson : lessonsToUpdate) {
+            // Check if the person to be deleted is enrolled in this lesson.
+            if (lesson.getStudents().contains(personIdToDelete)) {
+                // Create a new set of student IDs without the deleted person's ID.
+                Set<IdentificationNumber> newStudentIdSet = new HashSet<>(lesson.getStudents());
+                newStudentIdSet.remove(personIdToDelete);
+
+                // Create a new lesson with the updated student list.
+                Lesson updatedLesson = new Lesson(
+                        lesson.getClassName(),
+                        lesson.getDay(),
+                        lesson.getTime(),
+                        lesson.getTutor(),
+                        newStudentIdSet, lesson.getAttendance(), lesson.getTags()
+                );
+                // Update the lesson in the model.
+                model.setLesson(lesson, updatedLesson);
+            }
+        }
     }
 }
