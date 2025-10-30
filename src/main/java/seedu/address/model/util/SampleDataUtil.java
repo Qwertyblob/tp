@@ -61,12 +61,12 @@ public class SampleDataUtil {
 
     public static Lesson[] getSampleLessons() {
         return new Lesson[] {
-                new Lesson(new ClassName("M2a"), new Day("monday"), new Time("1200-1400"), new Tutor("T0000001"),
-                        getTagSet()),
-                new Lesson(new ClassName("S2b"), new Day("tuesday"), new Time("1400-1600"), new Tutor("T0000002"),
-                        getTagSet()),
-                new Lesson(new ClassName("E2c"), new Day("thursday"), new Time("1500-1700"), new Tutor("T0000000"),
-                        getTagSet("temporary")),
+            new Lesson(new ClassName("M2a"), new Day("monday"), new Time("1200-1400"), new Tutor("T0000001"),
+                    getTagSet()),
+            new Lesson(new ClassName("S2b"), new Day("tuesday"), new Time("1400-1600"), new Tutor("T0000002"),
+                    getTagSet()),
+            new Lesson(new ClassName("E2c"), new Day("thursday"), new Time("1500-1700"), new Tutor("T0000000"),
+                    getTagSet("temporary")),
         };
     }
 
