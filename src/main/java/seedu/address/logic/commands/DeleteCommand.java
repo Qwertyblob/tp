@@ -32,9 +32,9 @@ public class DeleteCommand extends ConfirmableCommand {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "(Y/N) Would you like to delete this item? %1$s";
-    private static final String MESSAGE_PERSON_NOT_FOUND = "No person found with the given name.";
     public static final String MESSAGE_MULTIPLE_MATCHING_NAMES =
             "As there are multiple matching names in the address book, please delete using index instead.";
+    private static final String MESSAGE_PERSON_NOT_FOUND = "No person found with the given name.";
 
     private final Index targetIndex;
     private final Name targetName;
