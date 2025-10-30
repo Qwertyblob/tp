@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -31,7 +30,6 @@ import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.util.CommandDisplayPermissionChecker;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -107,8 +105,8 @@ public class LogicManagerTest {
     public void execute_disallowedCommandInPersonView_throwsCommandException() {
         String disallowedCommand = "addc";
         assertThrows(CommandException.class,
-                "You cannot use this command in the current view.",
-                () -> logic.execute(disallowedCommand));
+                "You cannot use this command in the current view.", ()
+                        -> logic.execute(disallowedCommand));
     }
 
     @Test
@@ -157,8 +155,8 @@ public class LogicManagerTest {
         displayField.set(logic, CommandResult.DisplayType.DEFAULT);
 
         assertThrows(CommandException.class,
-                "You cannot use this command in the current view.",
-                () -> logic.execute("addc"));
+                "You cannot use this command in the current view.", ()
+                        -> logic.execute("addc"));
     }
 
     /**
