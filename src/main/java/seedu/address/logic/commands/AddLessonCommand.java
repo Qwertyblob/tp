@@ -78,9 +78,9 @@ public class AddLessonCommand extends Command {
 
         model.addLesson(toAdd);
         // Update AddressBook state pointer
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatLesson(toAdd)),
-                CommandResult.DisplayType.CLASS_LIST);
+        String output = String.format(MESSAGE_SUCCESS, Messages.formatLesson(toAdd));
+        model.commitAddressBook(output);
+        return new CommandResult(output, CommandResult.DisplayType.CLASS_LIST);
     }
 
     @Override

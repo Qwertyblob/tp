@@ -146,9 +146,9 @@ public class DeleteLessonCommand extends ConfirmableCommand {
 
         model.deleteLesson(lessonToDelete);
         // Update AddressBook state pointer
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_LESSON_SUCCESS, Messages.formatLesson(lessonToDelete)),
-                CommandResult.DisplayType.RECENT);
+        String output = String.format(MESSAGE_DELETE_LESSON_SUCCESS, Messages.formatLesson(lessonToDelete));
+        model.commitAddressBook(output);
+        return new CommandResult(output, CommandResult.DisplayType.RECENT);
     }
 
     @Override
