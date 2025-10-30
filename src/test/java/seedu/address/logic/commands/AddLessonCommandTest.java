@@ -54,6 +54,17 @@ public class AddLessonCommandTest {
     }
 
     @Test
+    public void execute_overlapsFound_throwsCommandException() throws Exception {
+        Lesson validLesson = new LessonBuilder().build();
+        Person validPerson = new PersonBuilder(getTypicalPersons().get(4)).build();
+        model.addPerson(validPerson);
+        model.addLesson(validLesson);
+        Lesson newValidLesson = new LessonBuilder().withClassName("M3a").withTutor("T0000002").build();
+        assertCommandFailure(new AddLessonCommand(newValidLesson), model,
+                AddLessonCommand.MESSAGE_TUTOR_TIME_CLASH);
+    }
+
+    @Test
     public void equals() {
         Lesson math = new LessonBuilder().withClassName("A1a").build();
         Lesson science = new LessonBuilder().withClassName("B2b").build();
