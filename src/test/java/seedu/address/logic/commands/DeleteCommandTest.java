@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertConfirmableComm
 import static seedu.address.logic.commands.CommandTestUtil.assertConfirmationRequested;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_MULTIPLE_MATCHING_NAMES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
@@ -25,6 +26,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
@@ -96,6 +100,23 @@ public class DeleteCommandTest {
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void execute_multipleMatchingNames_throwsCommandException() {
+        // Create a different person with the same name
+        Person originalPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person otherPerson = new Person(new IdentificationNumber("T9999999"), originalPerson.getName(),
+                originalPerson.getRole(), originalPerson.getPhone(), new Email("differentperson@gmail.com"),
+                new Address("differentaddress"), originalPerson.getTags());
+
+        model.addPerson(otherPerson);
+        Name duplicateName = originalPerson.getName();
+        DeleteCommand deleteCommand = new DeleteCommand(duplicateName);
+
+        assertCommandFailure(deleteCommand, model,
+                MESSAGE_MULTIPLE_MATCHING_NAMES);
+    }
+
 
     @Test
     public void execute_validIndexFilteredList_requestsConfirmation() {

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +33,8 @@ public class DeleteCommand extends ConfirmableCommand {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "(Y/N) Would you like to delete this item? %1$s";
     private static final String MESSAGE_PERSON_NOT_FOUND = "No person found with the given name.";
+    public static final String MESSAGE_MULTIPLE_MATCHING_NAMES =
+            "As there are multiple matching names in the address book, please delete using index instead.";
 
     private final Index targetIndex;
     private final Name targetName;
@@ -139,12 +142,18 @@ public class DeleteCommand extends ConfirmableCommand {
 
         // Else search for matching name in list
         if (targetName != null) {
+            ArrayList<Person> matches = new ArrayList<>();
             for (Person person : lastShownList) {
                 String trimmedName = person.getName().fullName.toLowerCase().trim();
                 String trimmedTargetName = targetName.fullName.toLowerCase().trim();
                 if (trimmedName.equals(trimmedTargetName)) {
-                    return person;
+                    matches.add(person);
                 }
+            }
+            if (matches.size() == 1) {
+                return matches.get(0);
+            } else if (matches.size() > 1) {
+                throw new CommandException(MESSAGE_MULTIPLE_MATCHING_NAMES);
             }
         }
 
