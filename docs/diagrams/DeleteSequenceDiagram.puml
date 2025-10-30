@@ -4,6 +4,7 @@ skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ConfirmationManager" as ConfirmationManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
@@ -46,7 +47,10 @@ destroy DeleteCommandParser
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> DeleteCommand : execute(m)
+LogicManager -> ConfirmationManager : handleUserResponse("Y", m)
+activate ConfirmationManager
+
+ConfirmationManager -> DeleteCommand : execute(m)
 activate DeleteCommand
 
 DeleteCommand -> Model : deletePerson(1)
@@ -62,8 +66,11 @@ activate CommandResult
 CommandResult --> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : r
+DeleteCommand --> ConfirmationManager : r
 deactivate DeleteCommand
+
+ConfirmationManager -> LogicManager : r
+deactivate ConfirmationManager
 
 [<--LogicManager
 deactivate LogicManager
