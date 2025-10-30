@@ -58,7 +58,7 @@
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/new` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -88,12 +88,12 @@ Adds a person to the address book.
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 * `NAME` must be alphabetical characters only.
-* `ROLE` is only limited to Student or Tutor (case-insensitive).
+* `ROLE` is only limited to "Student" or "Tutor" (case-insensitive).
 * `PHONE_NUMBER` must only be 8-digit numbers starting with either "8" or "9".
 * `EMAIL` must include a "@" followed by a domain name.
 * When added, each person is assigned a unique ID with the following format:
-  * Student: S, followed by 7 numbers. e.g. S0000001.
-  * Tutor: T, followed by 7 numbers. e.g. T0000001.
+  * Student: "S", followed by 7 numbers. e.g. S0000001.
+  * Tutor: "T", followed by 7 numbers. e.g. T0000001.
 * Duplicate people are identified as those with the same `NAME`, `PHONE_NUMBER` and `EMAIL`.
   * i.e. There can exist multiple people with the same `NAME`, they will be uniquely identified by their ID.
 
@@ -114,7 +114,7 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
 * `CLASS_NAME` follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
 * `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
-* `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-".
+* `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
 * `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
 
 <box type="tip" seamless>
@@ -351,14 +351,14 @@ Redoes the most recent undo command.
 
 Format: `redo`
 
-* `redo` only executes if the most recent command is `undo`.
+* `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
 
 Examples:
 * User executes commands in this order: `undo`, `list`, `undo`, `undo`
 * `redo` redoes the most recent `undo`.
 * Executing another `redo` redoes the next `undo`.
-* Executing another `redo` throws an error as the most recent command is now `list`.
+* Executing another `redo` redoes the next `undo`, as `list` is skipped.
 
 ### Importing data: `import`
 
@@ -371,6 +371,33 @@ Format `import FILE_PATH`
 * FILE_PATH must exist.
 * The JSON file must be in the appropriate format for the address book.
   * All people and classes must have their compulsory attributes.
+  * Example: 
+  ```
+  {
+  "persons" : [ {
+    "id" : "S0000003",
+    "name" : "Jarvis",
+    "role" : "Student",
+    "lessons" : [ "M2a", "S2b" ],
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tags" : [ ]
+    } ],
+  "lessons" : [ {
+    "className" : "S2b",
+    "day" : "Monday",
+    "time" : "1200-1400",
+    "tutor" : "T1234567",
+    "students" : [ "S0000003", "S0000004", "S0000005" ],
+    "attendance" : [ {
+      "date" : "2025-10-21",
+      "presentStudents" : [ "S0000001" ]
+    } ],
+    "tags" : [ ]
+    } ]
+  }
+  ```
 * The JSON file cannot be empty.
 
 ### Exporting data: `export`
