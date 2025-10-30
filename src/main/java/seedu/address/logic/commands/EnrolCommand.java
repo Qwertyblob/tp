@@ -29,7 +29,7 @@ public class EnrolCommand extends Command {
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS_NAME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "S1234567"
+            + PREFIX_ID + "S1234567 "
             + PREFIX_CLASS + "M2a ";
 
     public static final String MESSAGE_ENROL_SUCCESS = "Enrolled student %1$s to lesson %2$s";
