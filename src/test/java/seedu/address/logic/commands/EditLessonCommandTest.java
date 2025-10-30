@@ -51,7 +51,8 @@ public class EditLessonCommandTest {
         EditLessonDescriptor descriptor = new EditLessonDescriptorBuilder(editedLesson).build();
         EditLessonCommand editLessonCommand = new EditLessonCommand(INDEX_FIRST_LESSON, descriptor);
 
-        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, Messages.formatLesson(editedLesson));
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
+                Messages.formatLesson(editedLesson));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         Lesson lessonToEdit = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
@@ -77,7 +78,8 @@ public class EditLessonCommandTest {
                 .build();
         EditLessonCommand editLessonCommand = new EditLessonCommand(indexLastLesson, descriptor);
 
-        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, Messages.formatLesson(editedLesson));
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
+                Messages.formatLesson(editedLesson));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setLesson(lastLesson, editedLesson);
@@ -93,7 +95,8 @@ public class EditLessonCommandTest {
                 new EditLessonCommand(INDEX_FIRST_LESSON, new EditLessonDescriptor());
         Lesson editedLesson = model.getFilteredLessonList().get(INDEX_FIRST_LESSON.getZeroBased());
 
-        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, Messages.formatLesson(editedLesson));
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
+                Messages.formatLesson(editedLesson));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
@@ -143,7 +146,8 @@ public class EditLessonCommandTest {
         expectedModel.setLesson(lessonToEdit, editedLesson);
         LessonCascadeUpdater.updateStudentsWithEditedLesson(expectedModel, lessonToEdit, editedLesson);
 
-        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS, Messages.formatLesson(editedLesson));
+        String expectedMessage = String.format(EditLessonCommand.MESSAGE_EDIT_LESSON_SUCCESS,
+                Messages.formatLesson(editedLesson));
         assertCommandSuccess(editLessonCommand, model, expectedMessage, expectedModel);
 
         // Verify student IDs and attendance are unchanged
