@@ -18,7 +18,7 @@ public class LessonTest {
     public void constructor_nullParameters_throwsNullPointerException() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
@@ -33,7 +33,7 @@ public class LessonTest {
     public void constructor_validParameters_success() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
@@ -51,7 +51,7 @@ public class LessonTest {
     public void constructor_emptyTags_success() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
@@ -64,7 +64,7 @@ public class LessonTest {
     public void constructor_multipleTags_success() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
@@ -81,7 +81,7 @@ public class LessonTest {
     public void getTags_returnsImmutableSet() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
@@ -98,12 +98,12 @@ public class LessonTest {
     public void isSameLesson_sameLesson_returnsTrue() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
         Lesson lesson1 = new Lesson(className, day, time, tutor, tags);
-        Lesson lesson2 = new Lesson(className, new Day("Tuesday"), new Time("1300"),
+        Lesson lesson2 = new Lesson(className, new Day("Tuesday"), new Time("1300-1500"),
                 new Tutor("T1234568"), new HashSet<>());
 
         assertTrue(lesson1.isSameLesson(lesson1)); // same object
@@ -115,7 +115,7 @@ public class LessonTest {
         ClassName className1 = new ClassName("A1a");
         ClassName className2 = new ClassName("B2b");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
 
@@ -130,7 +130,7 @@ public class LessonTest {
     public void equals_sameLesson_returnsTrue() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
@@ -148,8 +148,8 @@ public class LessonTest {
         ClassName className2 = new ClassName("B2b");
         Day day1 = new Day("Monday");
         Day day2 = new Day("Tuesday");
-        Time time1 = new Time("1200");
-        Time time2 = new Time("1300");
+        Time time1 = new Time("1200-1400");
+        Time time2 = new Time("1300-1500");
         Tutor tutor1 = new Tutor("T1234567");
         Tutor tutor2 = new Tutor("T1234568");
         Set<Tag> tags = new HashSet<>();
@@ -172,7 +172,7 @@ public class LessonTest {
     public void equals_differentTags_returnsFalse() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags1 = new HashSet<>();
         tags1.add(new Tag("math"));
@@ -189,7 +189,7 @@ public class LessonTest {
     public void toString_containsAllFields() {
         ClassName className = new ClassName("A1a");
         Day day = new Day("Monday");
-        Time time = new Time("1200");
+        Time time = new Time("1200-1400");
         Tutor tutor = new Tutor("T1234567");
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("math"));
@@ -199,7 +199,7 @@ public class LessonTest {
 
         assertTrue(toString.contains("A1a"));
         assertTrue(toString.contains("Monday"));
-        assertTrue(toString.contains("1200"));
+        assertTrue(toString.contains("1200 - 1400"));
         assertTrue(toString.contains("T1234567"));
         assertTrue(toString.contains("math"));
     }

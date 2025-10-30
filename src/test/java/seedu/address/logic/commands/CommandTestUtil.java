@@ -48,8 +48,8 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BOB = "tutor";
     public static final String VALID_ROLE_JAMES = "student";
 
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "88888888";
+    public static final String VALID_PHONE_BOB = "99999999";
     public static final String VALID_PHONE_JAMES = "93334444";
 
     public static final String VALID_EMAIL_AMY = "amy@example.com";
@@ -67,14 +67,14 @@ public class CommandTestUtil {
     // Lesson test data
     public static final String VALID_CLASS_MATH = "A1a";
     public static final String VALID_DAY_MONDAY = "monday";
-    public static final String VALID_TIME_1200 = "1200";
+    public static final String VALID_TIME_1200 = "1200-1400";
     public static final String VALID_TUTOR_T1234567 = "t1234567";
     public static final String VALID_TAG_MATH = "Math";
     public static final String VALID_TAG_SCIENCE = "Science";
 
     public static final String VALID_CLASS_SCIENCE = "B2b";
     public static final String VALID_DAY_TUESDAY = "tuesday";
-    public static final String VALID_TIME_1400 = "1400";
+    public static final String VALID_TIME_1400 = "1400-1600";
     public static final String VALID_TUTOR_T7654321 = "t7654321";
 
 

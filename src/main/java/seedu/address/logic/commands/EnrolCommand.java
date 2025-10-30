@@ -24,7 +24,7 @@ public class EnrolCommand extends Command {
     public static final String COMMAND_WORD = "enrol";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Enrols a student into a lesson using student ID and class name.\n"
+            + ": Enrols a student into a class using student ID and class name.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
             + PREFIX_CLASS + "CLASS_NAME\n"
@@ -32,9 +32,9 @@ public class EnrolCommand extends Command {
             + PREFIX_ID + "S1234567 "
             + PREFIX_CLASS + "M2a ";
 
-    public static final String MESSAGE_ENROL_SUCCESS = "Enrolled student %1$s to lesson %2$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student is already enrolled in the lesson.";
-    public static final String MESSAGE_LESSON_NOT_FOUND = "This lesson does not exist in the address book.";
+    public static final String MESSAGE_ENROL_SUCCESS = "Enrolled student %1$s to class %2$s";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student is already enrolled in the class.";
+    public static final String MESSAGE_LESSON_NOT_FOUND = "This class does not exist in the address book.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "This student ID does not exist in the address book.";
     public static final String MESSAGE_PERSON_NOT_STUDENT = "Only students can be enrolled.";
 

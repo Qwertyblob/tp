@@ -6,7 +6,7 @@
       "name": "Amy Bee",
       "role": "student",
       "lessons": [],
-      "phone": "11111111",
+      "phone": "88888888",
       "email": "amy@example.com",
       "address": "Block 312, Amy Street 1",
       "tags": ["friend"]
@@ -16,7 +16,7 @@
       "name": "Bob Choo",
       "role": "tutor",
       "lessons": [],
-      "phone": "22222222",
+      "phone": "99999999",
       "email": "bob@example.com",
       "address": "Block 123, Bobby Street 3",
       "tags": ["friend", "husband"]
@@ -66,7 +66,7 @@
       "name": "Elle Meyer",
       "role": "student",
       "lessons": [],
-      "phone": "9482224",
+      "phone": "94822244",
       "email": "werner@example.com",
       "address": "michegan ave",
       "tags": []
@@ -76,7 +76,7 @@
       "name": "Fiona Kunz",
       "role": "tutor",
       "lessons": [],
-      "phone": "9482427",
+      "phone": "94824275",
       "email": "lydia@example.com",
       "address": "little tokyo",
       "tags": []
@@ -86,7 +86,7 @@
       "name": "George Best",
       "role": "student",
       "lessons": [],
-      "phone": "9482442",
+      "phone": "94824422",
       "email": "anna@example.com",
       "address": "4th street",
       "tags": []

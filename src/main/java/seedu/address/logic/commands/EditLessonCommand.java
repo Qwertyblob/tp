@@ -39,8 +39,8 @@ public class EditLessonCommand extends Command {
 
     public static final String COMMAND_WORD = "editc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the lesson identified "
-            + "by the index number used in the displayed lesson list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the class identified "
+            + "by the index number used in the displayed class list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "INDEX (must be a positive integer) "
@@ -55,9 +55,9 @@ public class EditLessonCommand extends Command {
             + PREFIX_TIME + "1400 "
             + PREFIX_TUTOR + "T7654321";
 
-    public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited Lesson: %1$s";
+    public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited class: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_LESSON = "This class already exists in the address book.";
 
     private final Index index;
     private final EditLessonDescriptor editLessonDescriptor;
