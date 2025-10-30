@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalLessons.getTypicalLessons;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,9 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddLessonCommandTest {
 
@@ -27,6 +30,8 @@ public class AddLessonCommandTest {
     @Test
     public void execute_lessonAcceptedByModel_addSuccessful() throws Exception {
         Lesson validLesson = new LessonBuilder().build();
+        Person validPerson = new PersonBuilder(getTypicalPersons().get(4)).build();
+        model.addPerson(validPerson);
         CommandResult commandResult = new AddLessonCommand(validLesson).execute(model);
 
         assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, Messages.formatLesson(validLesson)),
@@ -39,6 +44,13 @@ public class AddLessonCommandTest {
         model.addLesson(lessonInList);
         assertCommandFailure(new AddLessonCommand(lessonInList), model,
                 AddLessonCommand.MESSAGE_DUPLICATE_CLASS);
+    }
+
+    @Test
+    public void execute_tutorNotFound_throwsCommandException() throws Exception {
+        Lesson validLesson = new LessonBuilder().build();
+        assertCommandFailure(new AddLessonCommand(validLesson), model,
+                AddLessonCommand.MESSAGE_TUTOR_NOT_FOUND);
     }
 
     @Test

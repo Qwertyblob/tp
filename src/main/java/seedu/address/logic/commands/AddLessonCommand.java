@@ -7,11 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTOR;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a Lesson to the address book.
@@ -34,6 +37,7 @@ public class AddLessonCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New class added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLASS = "This class already exists in the address book";
+    public static final String MESSAGE_TUTOR_NOT_FOUND = "This tutor ID does not exist in the address book.";
 
     private final Lesson toAdd;
 
@@ -51,6 +55,15 @@ public class AddLessonCommand extends Command {
 
         if (model.hasLesson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CLASS);
+        }
+
+        // Find the tutor by IdentificationNumber from the full person list
+        Optional<Person> tutorOfLessonOptional = model.getAddressBook().getPersonList().stream()
+                .filter(person -> person.getId().toString().equals(toAdd.getTutor().tutorName))
+                .findFirst();
+
+        if (tutorOfLessonOptional.isEmpty()) {
+            throw new CommandException(MESSAGE_TUTOR_NOT_FOUND);
         }
 
         model.addLesson(toAdd);
