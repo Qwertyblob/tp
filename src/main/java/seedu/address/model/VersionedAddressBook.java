@@ -9,6 +9,7 @@ import java.util.List;
 public class VersionedAddressBook extends AddressBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
+    private List<String> commandHistory = new ArrayList<>();
     private int currentStatePointer;
 
     /**
@@ -25,10 +26,21 @@ public class VersionedAddressBook extends AddressBook {
      * Saves the current address book state in its history.
      * Removes all states after the current pointer.
      */
-    public void commit() {
+    public void commit(String commandDescription) {
         // Remove all states after current pointer (if any)
         removeStatesAfterPointer();
         // Add a copy of the current state
+        addressBookStateList.add(new AddressBook(this));
+        commandHistory.add(commandDescription == null ? "Unknown change" : commandDescription);
+        currentStatePointer++;
+    }
+
+    /**
+     * Saves the current address book state in its history.
+     * Removes all states after the current pointer.
+     */
+    public void commit() {
+        removeStatesAfterPointer();
         addressBookStateList.add(new AddressBook(this));
         currentStatePointer++;
     }
@@ -79,6 +91,26 @@ public class VersionedAddressBook extends AddressBook {
 
     public List<ReadOnlyAddressBook> getAddressBookStateList() {
         return this.addressBookStateList;
+    }
+
+    /**
+     * Returns the description of the most recently committed command.
+     */
+    public String getLastCommandDescription() {
+        if (currentStatePointer < 0 || currentStatePointer > commandHistory.size()) {
+            return "No previous command";
+        }
+        return commandHistory.get(currentStatePointer - 1);
+    }
+
+    /**
+     * Returns the description of the command being redone.
+     */
+    public String getRedoCommandDescription() {
+        if (currentStatePointer < 0 || currentStatePointer > commandHistory.size()) {
+            return "No command to redo";
+        }
+        return commandHistory.get(currentStatePointer);
     }
 
     @Override
