@@ -300,9 +300,11 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries (people and classes) from the address book.
 
 Format: `clear`
+
+* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
 
 ### Undoing a command : `undo`
 
