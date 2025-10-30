@@ -40,7 +40,7 @@ public class UnmarkCommand extends Command {
     public static final String MESSAGE_LESSON_NOT_FOUND = "Class %1$s not found.";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Student %1$s not found.";
     public static final String MESSAGE_NOT_MARKED = "%1$s has not been marked present for %2$s on %3$s.";
-    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in this lesson.";
+    public static final String MESSAGE_STUDENT_NOT_ENROLLED = "This student is not enrolled in this class.";
 
     private final IdentificationNumber studentId;
     private final ClassName className;
