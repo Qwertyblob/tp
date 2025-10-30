@@ -52,7 +52,7 @@ public class EditLessonCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASS + "M2a "
             + PREFIX_DAY + "monday "
-            + PREFIX_TIME + "1400 "
+            + PREFIX_TIME + "1400-1600 "
             + PREFIX_TUTOR + "T7654321";
 
     public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited class: %1$s";
