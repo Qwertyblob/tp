@@ -3,6 +3,8 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +25,12 @@ public class Time {
      */
     public static final String VALIDATION_REGEX =
             "^(?<start>(?:[01]\\d|2[0-3])[0-5]\\d)\\s*-\\s*(?<end>(?:[01]\\d|2[0-3])[0-5]\\d)$";
+    private static final Pattern TIME_PATTERN = Pattern.compile(VALIDATION_REGEX);
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+
     public final String fullTime;
+    public final LocalTime startTime;
+    public final LocalTime endTime;
 
     /**
      * Constructs a {@code Time}.
@@ -34,8 +41,13 @@ public class Time {
         requireNonNull(time);
         checkArgument(isValidDuration(time), TIME_CONSTRAINTS);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        String[] newTime = time.split("-");
-        fullTime = newTime[0].trim() + "-" + newTime[1].trim();
+        Matcher matcher = TIME_PATTERN.matcher(time);
+        matcher.matches(); // Safe because isValidTime already checked
+
+        this.startTime = LocalTime.parse(matcher.group("start"), TIME_FORMATTER);
+        this.endTime = LocalTime.parse(matcher.group("end"), TIME_FORMATTER);
+        this.fullTime = String.format("%s-%s", matcher.group("start"), matcher.group("end"));
+
     }
 
     /**
@@ -49,8 +61,7 @@ public class Time {
      * Returns true if the end time is later than the start time.
      */
     public static boolean isValidDuration(String test) {
-        Pattern pattern = Pattern.compile(VALIDATION_REGEX);
-        Matcher matcher = pattern.matcher(test);
+        Matcher matcher = TIME_PATTERN.matcher(test);
 
         if (matcher.matches()) {
             int start = Integer.parseInt(matcher.group("start"));
@@ -60,6 +71,13 @@ public class Time {
         return false;
     }
 
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return this.endTime;
+    }
 
     @Override
     public String toString() {
