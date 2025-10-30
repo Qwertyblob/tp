@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# Rollcall User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+**Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff. With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -58,7 +58,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/new` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -87,7 +87,15 @@ Adds a person to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-* `ROLE` is only limited to `Student` or `Tutor` (case-insensitive)
+* `NAME` must be alphabetical characters only.
+* `ROLE` is only limited to "Student" or "Tutor" (case-insensitive).
+* `PHONE_NUMBER` must only be 8-digit numbers starting with either "8" or "9".
+* `EMAIL` must include a "@" followed by a domain name.
+* When added, each person is assigned a unique ID with the following format:
+  * Student: "S", followed by 7 numbers. e.g. S0000001.
+  * Tutor: "T", followed by 7 numbers. e.g. T0000001.
+* Duplicate people are identified as those with the same `NAME`, `PHONE_NUMBER` and `EMAIL`.
+  * i.e. There can exist multiple people with the same `NAME`, they will be uniquely identified by their ID.
 
 <box type="tip" seamless>
 
@@ -102,11 +110,12 @@ Examples:
 
 Adds a class to the address book.
 
-Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
+Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
-* `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.)
-* `DAY` is case-insensitive.
-* `TUTOR` must exist in the address book.
+* `CLASS_NAME` follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
+* `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
+* `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
+* `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
 
 <box type="tip" seamless>
 
@@ -114,8 +123,8 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
 </box>
 
 Examples:
-* `addc c/M2a d/Monday tm/1200 tt/T1234567`
-* `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
+* `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`
+* `addc c/S3b d/Monday tm/1200-1500 tt/T1234567 t/temporary class`
 
 ### Listing all persons: `list`
 
@@ -160,7 +169,7 @@ Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…�
   specifying any tags after it.
 
 Examples:
-*  `edit 1 d/Tuesday tm/1600` Edits the day and time of the 1st class to be `Tuesday` and `1600` respectively.
+*  `edit 1 d/Tuesday tm/1500-1600` Edits the day and time of the 1st class to be `Tuesday` and `1500-1600` respectively.
 *  `edit 2 c/S3b t/` Edits the name of the 2nd class to be `S3b` and clears all existing tags.
 
 ### Enrolling a person to a class: `enrol`
@@ -174,6 +183,18 @@ Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
+
+### Removing a person from a class: `unenrol`
+
+Removes an existing person in the address book from an existing class.
+
+Format: `unenrol id/STUDENT_ID class/CLASS_NAME`
+
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* Cannot remove a student who is not enrolled into the specified class.
+
+Examples:
+*  `unenrol id/S0000001 c/M2a` Removes the student with the student ID `S0000001` from the class `M2a`.
 
 ### Marking a person's attendance in a class: `mark`
 
@@ -232,7 +253,7 @@ Example: `find c/M2a` Finds students in class M2a.
 
 Finds classes matching the given criteria.
 
-Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]​`
+Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
@@ -251,7 +272,7 @@ Deletes the specified person from the address book.
 
 You may find this useful for students who have graduated, or tutors who have left the centre.
 
-Format: `delete INDEX` or `delete n/NAME`
+Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 
 * Deletes the person at the specified `INDEX` or `NAME`.
 * The index refers to the index number shown in the displayed person list.
@@ -259,12 +280,14 @@ Format: `delete INDEX` or `delete n/NAME`
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
 * To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* `-f` flag forces the command to execute without confirmation.
 
 Examples:
 * `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
 * `list` followed by `delete 2` then `N` cancels the command and does not delete anything.
 * `find Betsy` followed by `delete 1` then `Y` deletes the 1st person in the results of the `find` command.
 * `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
+* `delete -f n/Alice Yeo` deletes the person with the name `Alice Yeo` in the current displayed list without confirmation.
 
 ### Deleting a class : `deletec`
 
@@ -272,21 +295,120 @@ Deletes a class from the address book, but does not delete the people in the cla
 
 You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
 
-Format: `deletec INDEX` or `deletec c/CLASS_NAME`
+Format: `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`
 
 * Deletes the class with the specified `INDEX` or `NAME`.
 * To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* `-f` flag forces the command to execute without confirmation.
 
 Examples:
 * `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
 * `deletec c/M2a` followed by `Y` deletes the class "M2a".
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
+* `deletec -f c/S3b` deletes the class "S3b" without confirmation.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries (people and classes) from the address book.
 
 Format: `clear`
+
+* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+
+### Undoing a command : `undo`
+
+Undoes the most recent command that is undoable.
+
+Format: `undo`
+
+* `undo` only executes if an undoable command has been executed before.
+* Chaining undos executes undo on the next most recent undoable command.
+* Undoable commands are those that alter the state of the address book.
+* List of undoable commands:
+  * `add`
+  * `addc`
+  * `edit`
+  * `editc`
+  * `enrol`
+  * `unenrol`
+  * `mark`
+  * `unmark`
+  * `delete`
+  * `deletec`
+  * `redo`
+  * `clear`
+
+Examples:
+
+* User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
+* `undo` undoes `clear`, restoring the address book before it was cleared.
+* Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
+* Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
+
+### Redoing an undone command: `redo`
+
+Redoes the most recent undo command.
+
+Format: `redo`
+
+* `redo` only executes if an `undo` command has been executed before.
+* Chaining redos executes redo on the next most recent `undo` command.
+
+Examples:
+* User executes commands in this order: `undo`, `list`, `undo`, `undo`
+* `redo` redoes the most recent `undo`.
+* Executing another `redo` redoes the next `undo`.
+* Executing another `redo` redoes the next `undo`, as `list` is skipped.
+
+### Importing data: `import`
+
+Imports existing person and class lists from a JSON file.
+
+Format `import FILE_PATH`
+
+* The user can also click the File button on the GUI, then click Import to execute this command.
+* This command overwrites whatever data is currently in the address book with the JSON data.
+* FILE_PATH must exist.
+* The JSON file must be in the appropriate format for the address book.
+  * All people and classes must have their compulsory attributes.
+  * Example: 
+  ```
+  {
+  "persons" : [ {
+    "id" : "S0000003",
+    "name" : "Jarvis",
+    "role" : "Student",
+    "lessons" : [ "M2a", "S2b" ],
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tags" : [ ]
+    } ],
+  "lessons" : [ {
+    "className" : "S2b",
+    "day" : "Monday",
+    "time" : "1200-1400",
+    "tutor" : "T1234567",
+    "students" : [ "S0000003", "S0000004", "S0000005" ],
+    "attendance" : [ {
+      "date" : "2025-10-21",
+      "presentStudents" : [ "S0000001" ]
+    } ],
+    "tags" : [ ]
+    } ]
+  }
+  ```
+* The JSON file cannot be empty.
+
+### Exporting data: `export`
+
+Exports the person and class lists into a JSON file for backup.
+
+Format `export FILE_PATH`
+
+* The user can also click the File button on the GUI, then click Export to execute this command.
+* FILE_PATH must exist.
+* Cannot have a JSON file with a duplicate name in the target location.
 
 ### Exiting the program : `exit`
 
@@ -308,10 +430,6 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -351,16 +469,22 @@ _Details coming soon ..._
 | Action                | Format, Examples                                                                                                                                                                      |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add person**        | `add n/NAME r/ ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/tutor p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200 tt/T1234567`                                                                          |
+| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`                                                                     |
 | **Clear**             | `clear`                                                                                                                                                                               |
-| **Delete**            | `delete INDEX [n/NAME]`<br> e.g., `delete 3`, `delete n/John`                                                                                                                         |
+| **Delete**            | `delete [-f] INDEX` or `delete [-f] n/NAME`<br> e.g., `delete 3`, `delete -f n/John`                                                                                                  |
+| **Delete class**      | `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`<br> e.g., `deletec 3`, `deletec -f c/M2a`                                                                                         |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                          |
 | **Edit class**        | `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​` <br> e.g., `edit 3 d/Tuesday tt/T7654321`                                                                      |
 | **Enrol**             | `enrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `enrol id/S0000001 c/M2a`                                                                                                               |
+| **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                           |
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
-| **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME dt/DATE` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                       |
+| **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                     |
 | **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Jake r/student`                                                              |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                       |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                      |
+| **Undo**              | `undo`                                                                                                                                                                                |
+| **Redo**              | `redo`                                                                                                                                                                                |
+| **Import file**       | `import`                                                                                                                                                                              |
+| **Export file**       | `export`                                                                                                                                                                              |
 | **List**              | `list`                                                                                                                                                                                |
 | **List classes**      | `listc`                                                                                                                                                                               |
 | **Help**              | `help`                                                                                                                                                                                |
