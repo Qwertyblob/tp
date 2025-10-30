@@ -104,7 +104,7 @@ Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 Examples:
 * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe r/Student e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe r/Student e/betsycrowe@example.com a/123 Bukit Timah Road p/81234567 t/owesMoney`
 
 ### Adding a class: `addc`
 
