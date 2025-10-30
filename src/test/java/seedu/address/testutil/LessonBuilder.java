@@ -113,6 +113,11 @@ public class LessonBuilder {
         return this;
     }
 
+    public LessonBuilder withStudents(Set<IdentificationNumber> students) {
+        this.studentIds = new HashSet<>(students);
+        return this;
+    }
+
     /**
      * Sets the attendance map for the {@code Lesson} that we are building.
      *
