@@ -175,6 +175,18 @@ Format: `enrol id/STUDENT_ID class/CLASS_NAME`
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
 
+### Removing a person from a class: `unenrol`
+
+Removes an existing person in the address book from an existing class.
+
+Format: `unenrol id/STUDENT_ID class/CLASS_NAME`
+
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* Cannot remove a student who is not enrolled into the specified class.
+
+Examples:
+*  `unenrol id/S0000001 c/M2a` Removes the student with the student ID `S0000001` from the class `M2a`.
+
 ### Marking a person's attendance in a class: `mark`
 
 Marks an existing person's attendance in the address book in an existing class on the current day.
@@ -307,6 +319,7 @@ Format: `undo`
   * `edit`
   * `editc`
   * `enrol`
+  * `unenrol`
   * `mark`
   * `unmark`
   * `delete`
@@ -425,6 +438,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                          |
 | **Edit class**        | `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​` <br> e.g., `edit 3 d/Tuesday tt/T7654321`                                                                      |
 | **Enrol**             | `enrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `enrol id/S0000001 c/M2a`                                                                                                               |
+| **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                           |
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                                 |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                     |
 | **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g., `find n/James Jake r/student`                                                             |
