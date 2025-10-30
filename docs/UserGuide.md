@@ -58,7 +58,7 @@
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -87,7 +87,15 @@ Adds a person to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-* `ROLE` is only limited to `Student` or `Tutor` (case-insensitive)
+* `NAME` must be alphabetical characters only.
+* `ROLE` is only limited to Student or Tutor (case-insensitive).
+* `PHONE_NUMBER` must only be 8-digit numbers starting with either "8" or "9".
+* `EMAIL` must include a "@" followed by a domain name.
+* When added, each person is assigned a unique ID with the following format:
+  * Student: S, followed by 7 numbers. e.g. S0000001.
+  * Tutor: T, followed by 7 numbers. e.g. T0000001.
+* Duplicate people are identified as those with the same `NAME`, `PHONE_NUMBER` and `EMAIL`.
+  * i.e. There can exist multiple people with the same `NAME`, they will be uniquely identified by their ID.
 
 <box type="tip" seamless>
 
@@ -102,11 +110,12 @@ Examples:
 
 Adds a class to the address book.
 
-Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
+Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
-* `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.)
-* `DAY` is case-insensitive.
-* `TUTOR` must exist in the address book.
+* `CLASS_NAME` follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
+* `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
+* `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-".
+* `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
 
 <box type="tip" seamless>
 
@@ -114,8 +123,8 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR [t/TAG]…​`
 </box>
 
 Examples:
-* `addc c/M2a d/Monday tm/1200 tt/T1234567`
-* `addc c/S3b d/Monday tm/1200 tt/T1234567 t/temporary class`
+* `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`
+* `addc c/S3b d/Monday tm/1200-1500 tt/T1234567 t/temporary class`
 
 ### Listing all persons: `list`
 
@@ -160,7 +169,7 @@ Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…�
   specifying any tags after it.
 
 Examples:
-*  `edit 1 d/Tuesday tm/1600` Edits the day and time of the 1st class to be `Tuesday` and `1600` respectively.
+*  `edit 1 d/Tuesday tm/1500-1600` Edits the day and time of the 1st class to be `Tuesday` and `1500-1600` respectively.
 *  `edit 2 c/S3b t/` Edits the name of the 2nd class to be `S3b` and clears all existing tags.
 
 ### Enrolling a person to a class: `enrol`
@@ -244,14 +253,14 @@ Example: `find c/M2a` Finds students in class M2a.
 
 Finds classes matching the given criteria.
 
-Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [c/CLASS] [t/TAG]…​`
+Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
 * The search is case-insensitive. e.g `m2a` will match `M2a`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Classes matching all criteria will be returned (i.e. `AND` search).
-  e.g. `findc d/monday tm/1200` will return classes on `Monday` at time `1200`.
+  e.g. `findc d/monday tm/1200-1400` will return classes on `Monday` at time `1200-1400`.
 * Extra/leading/trailing spaces should not affect the search.
 
 Example: `findc d/monday` Finds classes on Monday.
@@ -433,7 +442,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | Action                | Format, Examples                                                                                                                                                                      |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add person**        | `add n/NAME r/ ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/tutor p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200 tt/T1234567`                                                                          |
+| **Add class**         | `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​` <br> e.g., `addc c/M2a d/Monday tm/1200-1400 tt/T1234567`                                                                     |
 | **Clear**             | `clear`                                                                                                                                                                               |
 | **Delete**            | `delete [-f] INDEX` or `delete [-f] n/NAME`<br> e.g., `delete 3`, `delete -f n/John`                                                                                                  |
 | **Delete class**      | `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`<br> e.g., `deletec 3`, `deletec -f c/M2a`                                                                                         |
