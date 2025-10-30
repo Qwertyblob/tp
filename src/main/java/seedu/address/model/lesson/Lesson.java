@@ -3,6 +3,7 @@ package seedu.address.model.lesson;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -120,6 +121,23 @@ public class Lesson {
 
         return otherLesson != null
                 && otherLesson.getClassName().equals(getClassName());
+    }
+
+    /**
+     * Returns true if the lesson overlaps with another lesson.
+     */
+    public boolean hasOverlapsWith(Lesson other) {
+        if (!this.day.equals(other.day)) {
+            return false; // Different days — no conflict
+        }
+
+        LocalTime thisStart = this.time.getStartTime();
+        LocalTime thisEnd = this.time.getEndTime();
+        LocalTime otherStart = other.time.getStartTime();
+        LocalTime otherEnd = other.time.getEndTime();
+
+        // Overlap condition: start < otherEnd && otherStart < end
+        return thisStart.isBefore(otherEnd) && otherStart.isBefore(thisEnd);
     }
 
     /**
