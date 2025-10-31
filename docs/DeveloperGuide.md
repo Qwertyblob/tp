@@ -13,7 +13,9 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is based on the AddressBook-Level3 project created by the SE-EDU initiative.
+
+Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
 
