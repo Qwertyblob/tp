@@ -96,13 +96,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void commitAddressBook(String command, seedu.address.logic.commands.CommandResult.DisplayType displayType) {
+        versionedAddressBook.commit(command, displayType);
+    }
+
+    @Override
     public String getLastCommandDescription() {
         return versionedAddressBook.getLastCommandDescription();
     }
 
     @Override
+    public seedu.address.logic.commands.CommandResult.DisplayType getLastCommandDisplayType() {
+        return versionedAddressBook.getLastCommandDisplayType();
+    }
+
+    @Override
     public String getRedoCommandDescription() {
         return versionedAddressBook.getRedoCommandDescription();
+    }
+
+    @Override
+    public seedu.address.logic.commands.CommandResult.DisplayType getRedoCommandDisplayType() {
+        return versionedAddressBook.getRedoCommandDisplayType();
     }
 
     @Override

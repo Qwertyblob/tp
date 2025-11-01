@@ -18,7 +18,8 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
         String output = String.format(MESSAGE_SUCCESS, model.getRedoCommandDescription());
+        CommandResult.DisplayType displayType = model.getRedoCommandDisplayType();
         model.redoAddressBook();
-        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
+        return new CommandResult(output, displayType);
     }
 }

@@ -112,8 +112,8 @@ public class MarkCommand extends Command {
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_SUCCESS,
                 Messages.shortenedFormatPerson(studentToMark), Messages.shortenedFormatLesson(lessonToMark));
-        model.commitAddressBook(output);
-        return new CommandResult(output, CommandResult.DisplayType.RECENT);
+        model.commitAddressBook(output, CommandResult.DisplayType.DEFAULT);
+        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
     }
 
     @Override

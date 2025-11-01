@@ -3,13 +3,36 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.commands.CommandResult;
+
 /**
  * An AddressBook that keeps track of its own history so that it can undo/redo previous states.
  */
 public class VersionedAddressBook extends AddressBook {
 
+    /**
+     * Stores command description and its display type together.
+     */
+    private static class CommandEntry {
+        private final String description;
+        private final CommandResult.DisplayType displayType;
+
+        CommandEntry(String description, CommandResult.DisplayType displayType) {
+            this.description = description;
+            this.displayType = displayType;
+        }
+
+        String getDescription() {
+            return description;
+        }
+
+        CommandResult.DisplayType getDisplayType() {
+            return displayType;
+        }
+    }
+
     private final List<ReadOnlyAddressBook> addressBookStateList;
-    private List<String> commandHistory = new ArrayList<>();
+    private List<CommandEntry> commandHistory = new ArrayList<>();
     private int currentStatePointer;
 
     /**
@@ -27,12 +50,7 @@ public class VersionedAddressBook extends AddressBook {
      * Removes all states after the current pointer.
      */
     public void commit(String commandDescription) {
-        // Remove all states after current pointer (if any)
-        removeStatesAfterPointer();
-        // Add a copy of the current state
-        addressBookStateList.add(new AddressBook(this));
-        commandHistory.add(commandDescription == null ? "Unknown change" : commandDescription);
-        currentStatePointer++;
+        commit(commandDescription, CommandResult.DisplayType.RECENT);
     }
 
     /**
@@ -40,9 +58,21 @@ public class VersionedAddressBook extends AddressBook {
      * Removes all states after the current pointer.
      */
     public void commit() {
+        commit("Unknown change", CommandResult.DisplayType.RECENT);
+    }
+
+    /**
+     * Saves the current address book state in its history with the specified display type.
+     * Removes all states after the current pointer.
+     */
+    public void commit(String commandDescription, CommandResult.DisplayType displayType) {
+        // Remove all states after current pointer (if any)
         removeStatesAfterPointer();
+        // Add a copy of the current state
         addressBookStateList.add(new AddressBook(this));
-        commandHistory.add("Unknown change");
+        commandHistory.add(new CommandEntry(
+                commandDescription == null ? "Unknown change" : commandDescription,
+                displayType != null ? displayType : CommandResult.DisplayType.RECENT));
         currentStatePointer++;
     }
 
@@ -115,7 +145,17 @@ public class VersionedAddressBook extends AddressBook {
         if (currentStatePointer - 1 >= commandHistory.size()) {
             return "No previous command";
         }
-        return commandHistory.get(currentStatePointer - 1);
+        return commandHistory.get(currentStatePointer - 1).getDescription();
+    }
+
+    /**
+     * Returns the display type of the most recently committed command.
+     */
+    public CommandResult.DisplayType getLastCommandDisplayType() {
+        if (currentStatePointer <= 0 || currentStatePointer - 1 >= commandHistory.size()) {
+            return CommandResult.DisplayType.RECENT;
+        }
+        return commandHistory.get(currentStatePointer - 1).getDisplayType();
     }
 
     /**
@@ -125,7 +165,17 @@ public class VersionedAddressBook extends AddressBook {
         if (currentStatePointer < 0 || currentStatePointer >= commandHistory.size()) {
             return "No command to redo";
         }
-        return commandHistory.get(currentStatePointer);
+        return commandHistory.get(currentStatePointer).getDescription();
+    }
+
+    /**
+     * Returns the display type of the command being redone.
+     */
+    public CommandResult.DisplayType getRedoCommandDisplayType() {
+        if (currentStatePointer < 0 || currentStatePointer >= commandHistory.size()) {
+            return CommandResult.DisplayType.RECENT;
+        }
+        return commandHistory.get(currentStatePointer).getDisplayType();
     }
 
     @Override

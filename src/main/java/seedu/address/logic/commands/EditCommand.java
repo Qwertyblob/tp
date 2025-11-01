@@ -90,8 +90,8 @@ public class EditCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
-        model.commitAddressBook(output);
-        return new CommandResult(output, CommandResult.DisplayType.RECENT);
+        model.commitAddressBook(output, CommandResult.DisplayType.DEFAULT);
+        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
     }
 
     /**

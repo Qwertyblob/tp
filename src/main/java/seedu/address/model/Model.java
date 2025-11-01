@@ -136,11 +136,20 @@ public interface Model {
 
     void commitAddressBook();
 
+    /** Saves the current AddressBook state for undo/redo with display type. */
+    void commitAddressBook(String command, seedu.address.logic.commands.CommandResult.DisplayType displayType);
+
     /** Returns the last undoable command executed */
     String getLastCommandDescription();
 
+    /** Returns the display type of the last undoable command executed */
+    seedu.address.logic.commands.CommandResult.DisplayType getLastCommandDisplayType();
+
     /** Returns the undoable command to be redone */
     String getRedoCommandDescription();
+
+    /** Returns the display type of the command to be redone */
+    seedu.address.logic.commands.CommandResult.DisplayType getRedoCommandDisplayType();
 
     /** Restores the previous AddressBook state. */
     void undoAddressBook();

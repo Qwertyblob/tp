@@ -18,7 +18,8 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
         String output = String.format(MESSAGE_SUCCESS, model.getLastCommandDescription());
+        CommandResult.DisplayType displayType = model.getLastCommandDisplayType();
         model.undoAddressBook();
-        return new CommandResult(output, CommandResult.DisplayType.RECENT);
+        return new CommandResult(output, displayType);
     }
 }
