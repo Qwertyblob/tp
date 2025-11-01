@@ -42,11 +42,21 @@ public class VersionedAddressBook extends AddressBook {
     public void commit() {
         removeStatesAfterPointer();
         addressBookStateList.add(new AddressBook(this));
+        commandHistory.add("Unknown change");
         currentStatePointer++;
     }
 
     private void removeStatesAfterPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        int statesToRemove = addressBookStateList.size() - (currentStatePointer + 1);
+        if (statesToRemove > 0) {
+            addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+            if (currentStatePointer + 1 < commandHistory.size()) {
+                commandHistory.subList(currentStatePointer + 1, commandHistory.size()).clear();
+            }
+            while (commandHistory.size() > addressBookStateList.size() - 1) {
+                commandHistory.remove(commandHistory.size() - 1);
+            }
+        }
     }
 
     /**
@@ -97,7 +107,12 @@ public class VersionedAddressBook extends AddressBook {
      * Returns the description of the most recently committed command.
      */
     public String getLastCommandDescription() {
-        if (currentStatePointer < 0 || currentStatePointer > commandHistory.size()) {
+        if (currentStatePointer <= 0) {
+            return "No previous command";
+        }
+        // Ensure commandHistory has the entry we need
+        // commandHistory.size() should be at least currentStatePointer
+        if (currentStatePointer - 1 >= commandHistory.size()) {
             return "No previous command";
         }
         return commandHistory.get(currentStatePointer - 1);
@@ -107,7 +122,7 @@ public class VersionedAddressBook extends AddressBook {
      * Returns the description of the command being redone.
      */
     public String getRedoCommandDescription() {
-        if (currentStatePointer < 0 || currentStatePointer > commandHistory.size()) {
+        if (currentStatePointer < 0 || currentStatePointer >= commandHistory.size()) {
             return "No command to redo";
         }
         return commandHistory.get(currentStatePointer);
