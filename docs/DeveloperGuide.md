@@ -37,7 +37,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -356,8 +356,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to add the desired item with its necessary information
-2.  Rollcall shows a success message and the new item
+1.  User requests to add the desired item with its necessary information.
+2.  Rollcall shows a success message and the new item.
 
     Use case ends.
 
@@ -368,7 +368,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 1b. The given information matches an existing item exactly
+* 1b. The given information matches an existing item exactly.
     * 1b1. Rollcall shows an error message.
 
       Use case resumes at step 1.
@@ -377,8 +377,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to edit the desired item, providing its new information
-2.  Rollcall shows a success message and the edited item
+1.  User requests to edit the desired item, providing its new information.
+2.  Rollcall shows a success message and the edited item.
 
     Use case ends.
 
@@ -389,7 +389,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 1.
 
-* 1b. The given information matches an existing item exactly
+* 1b. The given information matches an existing item exactly.
   * 1b1. Rollcall shows an error message.
 
     Use case resumes at step 1.
@@ -398,8 +398,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to mark a student's attendance
-2.  Rollcall shows a success message
+1.  User requests to mark a student's attendance.
+2.  Rollcall shows a success message.
 
     Use case ends.
 
@@ -414,8 +414,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list students, tutors, or classes
-2. Rollcall shows a list of all students, tutors or classes respectively
+1. User requests to list students, tutors, or classes.
+2. Rollcall shows a list of all students, tutors or classes respectively.
 
     Use case ends.
 
@@ -496,7 +496,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 2.
 
-* 2b. Enrollment is not possible (clashes with existing class/ class is fully enrolled/ student is already enrolled)
+* 2b. Enrollment is not possible (clashes with existing class/ class is fully enrolled/ student is already enrolled).
   * 2b1. Rollcall shows an error message.
 
     Use case resumes at step 2.
@@ -581,7 +581,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Misc**
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -600,7 +600,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder.
 
    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
