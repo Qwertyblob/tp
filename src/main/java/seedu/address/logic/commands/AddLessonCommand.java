@@ -79,7 +79,7 @@ public class AddLessonCommand extends Command {
         model.addLesson(toAdd);
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_SUCCESS, Messages.formatLesson(toAdd));
-        model.commitAddressBook(output);
+        model.commitAddressBook(output, CommandResult.DisplayType.CLASS_LIST);
         return new CommandResult(output, CommandResult.DisplayType.CLASS_LIST);
     }
 

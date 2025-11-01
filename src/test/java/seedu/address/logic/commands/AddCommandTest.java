@@ -185,13 +185,29 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commitAddressBook(String command,
+                                      seedu.address.logic.commands.CommandResult.DisplayType displayType) {
+
+        }
+
+        @Override
         public String getLastCommandDescription() {
             return "";
         }
 
         @Override
+        public seedu.address.logic.commands.CommandResult.DisplayType getLastCommandDisplayType() {
+            return seedu.address.logic.commands.CommandResult.DisplayType.RECENT;
+        }
+
+        @Override
         public String getRedoCommandDescription() {
             return "";
+        }
+
+        @Override
+        public seedu.address.logic.commands.CommandResult.DisplayType getRedoCommandDisplayType() {
+            return seedu.address.logic.commands.CommandResult.DisplayType.RECENT;
         }
 
         @Override

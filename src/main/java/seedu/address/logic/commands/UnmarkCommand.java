@@ -84,7 +84,10 @@ public class UnmarkCommand extends Command {
         }
 
         LocalDate attendanceDate = date.orElse(LocalDate.now());
-        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>(lessonToUnmark.getAttendance());
+        // Create a deep copy of the attendance map with new HashSet copies for each date
+        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>();
+        lessonToUnmark.getAttendance().forEach((date, studentSet) ->
+                newAttendanceMap.put(date, new HashSet<>(studentSet)));
 
         Set<IdentificationNumber> presentStudentsToday = newAttendanceMap.getOrDefault(attendanceDate, new HashSet<>());
 
@@ -109,8 +112,8 @@ public class UnmarkCommand extends Command {
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_SUCCESS,
                 studentToUnmark.getName().fullName, className.fullClassName, attendanceDate);
-        model.commitAddressBook(output);
-        return new CommandResult(output, CommandResult.DisplayType.RECENT);
+        model.commitAddressBook(output, CommandResult.DisplayType.DEFAULT);
+        return new CommandResult(output, CommandResult.DisplayType.DEFAULT);
     }
 
     @Override
