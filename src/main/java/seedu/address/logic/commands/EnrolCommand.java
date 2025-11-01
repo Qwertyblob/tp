@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -95,12 +98,17 @@ public class EnrolCommand extends Command {
             }
         }
 
+        // Create a deep copy of the attendance map with new HashSet copies for each date
+        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>();
+        lessonToEnrolIn.getAttendance().forEach((date, studentSet) ->
+                newAttendanceMap.put(date, new HashSet<>(studentSet)));
+
         Lesson newLesson = new Lesson(
                 lessonToEnrolIn.getClassName(),
                 lessonToEnrolIn.getDay(),
                 lessonToEnrolIn.getTime(),
                 lessonToEnrolIn.getTutor(),
-                newStudentIdSet, lessonToEnrolIn.getAttendance(), lessonToEnrolIn.getTags()
+                newStudentIdSet, newAttendanceMap, lessonToEnrolIn.getTags()
         );
 
         model.setLesson(lessonToEnrolIn, newLesson);

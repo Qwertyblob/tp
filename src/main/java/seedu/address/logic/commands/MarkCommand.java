@@ -82,7 +82,10 @@ public class MarkCommand extends Command {
 
         // --- Logic for HashMap approach ---
         LocalDate today = LocalDate.now();
-        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>(lessonToMark.getAttendance());
+        // Create a deep copy of the attendance map with new HashSet copies for each date
+        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>();
+        lessonToMark.getAttendance().forEach((date, studentSet) ->
+                newAttendanceMap.put(date, new HashSet<>(studentSet)));
 
         // Get the set of present students for today, or create a new set if it's the first record for today.
         Set<IdentificationNumber> presentStudentsToday = newAttendanceMap.getOrDefault(today, new HashSet<>());

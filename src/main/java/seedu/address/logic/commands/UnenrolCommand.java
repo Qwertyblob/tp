@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -81,13 +84,18 @@ public class UnenrolCommand extends Command {
             throw new CommandException(MESSAGE_STUDENT_NOT_ENROLLED);
         }
 
+        // Create a deep copy of the attendance map with new HashSet copies for each date
+        Map<LocalDate, Set<IdentificationNumber>> newAttendanceMap = new HashMap<>();
+        lessonToEdit.getAttendance().forEach((date, studentSet) ->
+                newAttendanceMap.put(date, new HashSet<>(studentSet)));
+
         Lesson newLesson = new Lesson(
                 lessonToEdit.getClassName(),
                 lessonToEdit.getDay(),
                 lessonToEdit.getTime(),
                 lessonToEdit.getTutor(),
                 newStudentIdSet,
-                lessonToEdit.getAttendance(),
+                newAttendanceMap,
                 lessonToEdit.getTags()
         );
 
