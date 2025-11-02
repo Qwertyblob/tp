@@ -353,6 +353,7 @@ Format: `undo`
   * `deletec`
   * `redo`
   * `clear`
+* On successful execution, a success message stating what the undone action was will be shown to the user.
 
 Examples:
 
@@ -369,6 +370,7 @@ Format: `redo`
 
 * `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
+* On successful execution, a success message stating what the redone action was will be shown to the user.
 
 Examples:
 * User executes commands in this order: `undo`, `list`, `undo`, `undo`
