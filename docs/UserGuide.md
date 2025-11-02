@@ -183,7 +183,7 @@ Examples:
 
 Enrols an existing person in the address book to an existing class.
 
-Format: `enrol id/STUDENT_ID class/CLASS_NAME`
+Format: `enrol id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot enrol a student who is already enrolled into the specified class.
@@ -197,7 +197,7 @@ Examples:
 
 Removes an existing person in the address book from an existing class.
 
-Format: `unenrol id/STUDENT_ID class/CLASS_NAME`
+Format: `unenrol id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot remove a student who is not enrolled into the specified class.
@@ -209,7 +209,7 @@ Examples:
 
 Marks an existing person's attendance in the address book in an existing class on the current day.
 
-Format: `mark id/STUDENT_ID class/CLASS_NAME`
+Format: `mark id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
@@ -223,7 +223,7 @@ Examples:
 
 Unmarks an existing person's attendance in the address book in an existing class on a particular day.
 
-Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
+Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
