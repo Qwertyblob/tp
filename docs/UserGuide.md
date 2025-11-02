@@ -32,13 +32,13 @@
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to Rollcall.
+   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the address book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
    * `listc` : Lists all classes.
 
-   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to Rollcall.
+   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to the address book.
 
    * `clear` : Deletes all contacts and classes.
 
@@ -83,7 +83,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to Rollcall.
+Adds a person to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -108,16 +108,16 @@ Examples:
 
 ### Adding a class: `addc`
 
-Adds a class to Rollcall.
+Adds a class to the address book.
 
 Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
 * `CLASS_NAME` is unique and follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
 * `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
 * `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
-* `TUTOR_ID` must follow the ID format stated in `add` and exist in Rollcall.
+* `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
 * If another class has the same `TUTOR_ID`, the `TIME` cannot overlap.
-  * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in Rollcall, `S3b, Monday, 1300-1500, T0000001` cannot be added.
+  * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in the address book, `S3b, Monday, 1300-1500, T0000001` cannot be added.
 * Duplicate classes are classes with the same `CLASS_NAME`.
   * i.e. There cannot exist duplicate classes.
 
@@ -132,19 +132,19 @@ Examples:
 
 ### Listing all persons: `list`
 
-Shows a list of all persons in Rollcall.
+Shows a list of all persons in the address book.
 
 Format: `list`
 
 ### Listing all classes: `listc`
 
-Shows a list of all classes in Rollcall.
+Shows a list of all classes in the address book.
 
 Format: `listc`
 
 ### Editing a person: `edit`
 
-Edits an existing person in Rollcall.
+Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -166,7 +166,7 @@ Examples:
 
 ### Editing a class: `editc`
 
-Edits an existing class in Rollcall.
+Edits an existing class in the address book.
 
 Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`
 
@@ -183,11 +183,11 @@ Examples:
 
 ### Enrolling a person to a class: `enrol`
 
-Enrols an existing person in Rollcall to an existing class.
+Enrols an existing person in the address book to an existing class.
 
 Format: `enrol id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot enrol a student who is already enrolled into the specified class.
 * Cannot enrol a student if they are already enrolled in another class that overlaps with the `TIME`.
   * e.g. If a student is already enrolled in `M2a, Monday, 1200-1400`, then they cannot be enrolled into `S3b, Monday, 1300-1500`.
@@ -197,11 +197,11 @@ Examples:
 
 ### Removing a person from a class: `unenrol`
 
-Removes an existing person in Rollcall from an existing class.
+Removes an existing person in the address book from an existing class.
 
 Format: `unenrol id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot remove a student who is not enrolled into the specified class.
 
 Examples:
@@ -209,11 +209,11 @@ Examples:
 
 ### Marking a person's attendance in a class: `mark`
 
-Marks an existing person's attendance in Rollcall in an existing class on the current day.
+Marks an existing person's attendance in the address book in an existing class on the current day.
 
 Format: `mark id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
 * The student will be marked present only for the current day.
 * Cannot mark a student who is already marked as present for the specified class on the same day.
@@ -223,11 +223,11 @@ Examples:
 
 ### Unmarking a person's attendance in a class: `unmark`
 
-Unmarks an existing person's attendance in Rollcall in an existing class on a particular day.
+Unmarks an existing person's attendance in the address book in an existing class on a particular day.
 
 Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
 * `DATE` format must be `yyyy-MM-dd`.
 * If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
@@ -284,7 +284,7 @@ Example: `findc d/monday` Finds classes on Monday.
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from Rollcall.
+Deletes the specified person from the address book.
 
 You may find this useful for students who have graduated, or tutors who have left the centre.
 
@@ -295,12 +295,12 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * The `NAME` must be the full name of the person.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
-* If there are duplicate names, Rollcall will prevent stop the command from executing and prompt the user to delete using index instead.
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* If there are duplicate names, the system will prevent the command from executing and prompt the user to delete using index instead.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
-* `list` followed by `delete 2` then `Y` deletes the 2nd person in Rollcall.
+* `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
 * `list` followed by `delete 2` then `N` cancels the command and does not delete anything.
 * `find Betsy` followed by `delete 1` then `Y` deletes the 1st person in the results of the `find` command.
 * `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
@@ -308,29 +308,29 @@ Examples:
 
 ### Deleting a class : `deletec`
 
-Deletes a class from Rollcall, but does not delete the people in the class.
+Deletes a class from the address book, but does not delete the people in the class.
 
 You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
 
 Format: `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`
 
 * Deletes the class with the specified `INDEX` or `NAME`.
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
-* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in Rollcall.
+* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
 * `deletec c/M2a` followed by `Y` deletes the class "M2a".
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 * `deletec -f c/S3b` deletes the class "S3b" without confirmation.
 
 ### Clearing all entries : `clear`
 
-Clears all entries (people and classes) from Rollcall.
+Clears all entries (people and classes) from the address book.
 
 Format: `clear [-f]`
 
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 ### Undoing a command : `undo`
@@ -341,7 +341,7 @@ Format: `undo`
 
 * `undo` only executes if an undoable command has been executed before.
 * Chaining undos executes undo on the next most recent undoable command.
-* Undoable commands are those that alter the state of Rollcall.
+* Undoable commands are those that alter the state of the address book.
 * List of undoable commands:
   * `add`
   * `addc`
@@ -360,7 +360,7 @@ Format: `undo`
 Examples:
 
 * User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
-* `undo` undoes `clear`, restoring the state of Rollcall before it was cleared.
+* `undo` undoes `clear`, restoring the state of the address book before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
 * Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
 
@@ -387,9 +387,9 @@ Imports existing person and class lists from a JSON file.
 Format `import FILE_PATH`
 
 * The user can also click the File button on the GUI, then click Import to execute this command.
-* This command overwrites whatever data is currently in Rollcall with the JSON data.
+* This command overwrites whatever data is currently in the address book with the JSON data.
 * FILE_PATH must exist.
-* The JSON file must be in the appropriate format for Rollcall.
+* The JSON file must be in the appropriate format for the address book.
   * All people and classes must have their compulsory attributes.
   * Example: 
   ```
@@ -448,7 +448,7 @@ Rollcall data are saved automatically as a JSON file `[JAR file location]/data/a
 
 **Caution:**
 If your changes to the data file makes its format invalid, Rollcall will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the Rollcall to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause Rollcall to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
