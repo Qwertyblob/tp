@@ -495,7 +495,7 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                            |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                |
 | **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                          |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                 |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                              |
 | **Undo**              | `undo`                                                                                                                                                                           |
 | **Redo**              | `redo`                                                                                                                                                                           |
 | **Import file**       | `import`                                                                                                                                                                         |
