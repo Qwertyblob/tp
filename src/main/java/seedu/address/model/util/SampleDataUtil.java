@@ -71,9 +71,9 @@ public class SampleDataUtil {
 
     public static Lesson[] getSampleLessons() {
         return new Lesson[] {
-                LESSON_M2A,
-                LESSON_S2B,
-                LESSON_E2C
+            LESSON_M2A,
+            LESSON_S2B,
+            LESSON_E2C
         };
     }
 
