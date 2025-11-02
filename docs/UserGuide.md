@@ -20,9 +20,9 @@
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for Rollcall.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar rollcall.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    ![Ui2](images/Ui2.png)
@@ -32,13 +32,13 @@
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to Rollcall.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `listc` : Lists all classes
+   * `listc` : Lists all classes.
 
-   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to the address book
+   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to Rollcall.
 
    * `clear` : Deletes all contacts and classes.
 
@@ -83,7 +83,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a person to Rollcall.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -108,16 +108,16 @@ Examples:
 
 ### Adding a class: `addc`
 
-Adds a class to the address book.
+Adds a class to Rollcall.
 
 Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
 * `CLASS_NAME` follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
 * `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
 * `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
-* `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
+* `TUTOR_ID` must follow the ID format stated in `add` and exist in Rollcall.
 * If another class has the same `TUTOR_ID`, the `TIME` cannot overlap.
-  * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in the address book, `S3b, Monday, 1300-1500, T0000001` cannot be added.
+  * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in Rollcall, `S3b, Monday, 1300-1500, T0000001` cannot be added.
 
 <box type="tip" seamless>
 
@@ -130,19 +130,19 @@ Examples:
 
 ### Listing all persons: `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in Rollcall.
 
 Format: `list`
 
 ### Listing all classes: `listc`
 
-Shows a list of all classes in the address book.
+Shows a list of all classes in Rollcall.
 
 Format: `listc`
 
 ### Editing a person: `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in Rollcall.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -164,7 +164,7 @@ Examples:
 
 ### Editing a class: `editc`
 
-Edits an existing class in the address book.
+Edits an existing class in Rollcall.
 
 Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`
 
@@ -181,11 +181,11 @@ Examples:
 
 ### Enrolling a person to a class: `enrol`
 
-Enrols an existing person in the address book to an existing class.
+Enrols an existing person in Rollcall to an existing class.
 
 Format: `enrol id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
 * Cannot enrol a student who is already enrolled into the specified class.
 * Cannot enrol a student if they are already enrolled in another class that overlaps with the `TIME`.
   * e.g. If a student is already enrolled in `M2a, Monday, 1200-1400`, then they cannot be enrolled into `S3b, Monday, 1300-1500`.
@@ -195,11 +195,11 @@ Examples:
 
 ### Removing a person from a class: `unenrol`
 
-Removes an existing person in the address book from an existing class.
+Removes an existing person in Rollcall from an existing class.
 
 Format: `unenrol id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
 * Cannot remove a student who is not enrolled into the specified class.
 
 Examples:
@@ -207,11 +207,11 @@ Examples:
 
 ### Marking a person's attendance in a class: `mark`
 
-Marks an existing person's attendance in the address book in an existing class on the current day.
+Marks an existing person's attendance in Rollcall in an existing class on the current day.
 
 Format: `mark id/STUDENT_ID c/CLASS_NAME`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
 * The student will be marked present only for the current day.
 * Cannot mark a student who is already marked as present for the specified class on the same day.
@@ -221,11 +221,11 @@ Examples:
 
 ### Unmarking a person's attendance in a class: `unmark`
 
-Unmarks an existing person's attendance in the address book in an existing class on a particular day.
+Unmarks an existing person's attendance in Rollcall in an existing class on a particular day.
 
 Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 
-* The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
+* The `STUDENT_ID` and `CLASS_NAME` must exist in Rollcall.
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
 * `DATE` format must be `yyyy-MM-dd`.
 * If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
@@ -282,7 +282,7 @@ Example: `findc d/monday` Finds classes on Monday.
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from Rollcall.
 
 You may find this useful for students who have graduated, or tutors who have left the centre.
 
@@ -298,7 +298,7 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
-* `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` then `Y` deletes the 2nd person in Rollcall.
 * `list` followed by `delete 2` then `N` cancels the command and does not delete anything.
 * `find Betsy` followed by `delete 1` then `Y` deletes the 1st person in the results of the `find` command.
 * `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
@@ -306,7 +306,7 @@ Examples:
 
 ### Deleting a class : `deletec`
 
-Deletes a class from the address book, but does not delete the people in the class.
+Deletes a class from Rollcall, but does not delete the people in the class.
 
 You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
 
@@ -317,14 +317,14 @@ Format: `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
-* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
+* `listc` followed by `deletec 3` then `Y` deletes the 3rd class in Rollcall.
 * `deletec c/M2a` followed by `Y` deletes the class "M2a".
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 * `deletec -f c/S3b` deletes the class "S3b" without confirmation.
 
 ### Clearing all entries : `clear`
 
-Clears all entries (people and classes) from the address book.
+Clears all entries (people and classes) from Rollcall.
 
 Format: `clear [-f]`
 
@@ -339,7 +339,7 @@ Format: `undo`
 
 * `undo` only executes if an undoable command has been executed before.
 * Chaining undos executes undo on the next most recent undoable command.
-* Undoable commands are those that alter the state of the address book.
+* Undoable commands are those that alter the state of Rollcall.
 * List of undoable commands:
   * `add`
   * `addc`
@@ -358,7 +358,7 @@ Format: `undo`
 Examples:
 
 * User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
-* `undo` undoes `clear`, restoring the address book before it was cleared.
+* `undo` undoes `clear`, restoring the state of Rollcall before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
 * Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
 
@@ -385,9 +385,9 @@ Imports existing person and class lists from a JSON file.
 Format `import FILE_PATH`
 
 * The user can also click the File button on the GUI, then click Import to execute this command.
-* This command overwrites whatever data is currently in the address book with the JSON data.
+* This command overwrites whatever data is currently in Rollcall with the JSON data.
 * FILE_PATH must exist.
-* The JSON file must be in the appropriate format for the address book.
+* The JSON file must be in the appropriate format for Rollcall.
   * All people and classes must have their compulsory attributes.
   * Example: 
   ```
@@ -436,17 +436,17 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Rollcall data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Rollcall data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, Rollcall will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the Rollcall to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -460,7 +460,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 **A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. The data file can be found at `data/addressbook.json`.<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/addressbook.json`.<br>
 Alternatively, use `import` and `export` commands to transfer your data.
 
 **Q**: Can there be multiple persons with the same name?<br>
