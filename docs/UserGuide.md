@@ -502,3 +502,4 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **List**              | `list`                                                                                                                                                                           |
 | **List classes**      | `listc`                                                                                                                                                                          |
 | **Help**              | `help`                                                                                                                                                                           |
+| **Exit**              | `exit`                                                                                                                                                                           |
