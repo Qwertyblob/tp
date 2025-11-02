@@ -293,6 +293,7 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * The `NAME` must be the full name of the person.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
+* If there are duplicate names, Rollcall will prevent stop the command from executing and prompt the user to delete using index instead.
 * To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
