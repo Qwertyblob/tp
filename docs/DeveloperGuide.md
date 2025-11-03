@@ -831,3 +831,11 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `redo`<br>
        Expected: The address book reverts back to the state before the most recent `undo` command was executed, with the result message showing the command that was redone.
+
+## Appendix: Planned Enhancements
+Team size: 5
+
+1. Users which forget to mark attendance for certain classes cannot do so retroactively. We plan to make `mark` more robust by allowing marking of attendance at specified dates. 
+2. Users can mark attendance for classes that are not happening today. After implementation of 1., we plan to prevent marking for classes where their day does not match the specified date by throwing an error.
+3. Users cannot currently see the classes a tutor are assigned to in the person list. We plan to improve the UI to show the assigned classes in a similar way we did for the students, except attendance will not affect the colour of the bubble.
+4. `TAG` currently only accepts single word alphanumeric characters. We plan to make `TAG` more flexible by allowing more than one word per tag as well as certain special characters.
