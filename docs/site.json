@@ -2,7 +2,7 @@
   "baseUrl": "",
   "titlePrefix": "",
   "titleSuffix": "Rollcall",
-  "faviconPath": "images/SeEduLogo.png",
+  "faviconPath": "images/rollcall.png",
   "style": {
     "codeTheme": "light"
   },

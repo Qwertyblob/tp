@@ -244,7 +244,7 @@ Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
 
-### Searching of Contacts: `find`
+### Searching of contacts: `find`
 
 Finds persons matching the given criteria.
 
@@ -273,7 +273,7 @@ Example: `find c/M2a` Finds students in class M2a.
 **Tip:** Use `find c/CLASS_NAME` to view the attendance for a class for the week. Students with a green bubble are those who were present, while a red bubble means they were absent.
 </box>
 
-### Searching of Classes: `findc`
+### Searching of classes: `findc`
 
 Finds classes matching the given criteria.
 
@@ -295,7 +295,7 @@ Format: `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 Example: `findc d/monday` Finds classes on Monday.
 ![result for 'findc d/monday'](images/findcDayMonday.png)
 
-### Deleting a person : `delete`
+### Deleting a person: `delete`
 
 Deletes the specified person from the address book.
 
@@ -319,7 +319,7 @@ Examples:
 * `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
 * `delete -f n/Alice Yeo` deletes the person with the name `Alice Yeo` in the current displayed list without confirmation.
 
-### Deleting a class : `deletec`
+### Deleting a class: `deletec`
 
 Deletes a class from the address book, but does not delete the people in the class.
 
@@ -337,7 +337,7 @@ Examples:
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 * `deletec -f c/S3b` deletes the class "S3b" without confirmation.
 
-### Clearing all entries : `clear`
+### Clearing all entries: `clear`
 
 Clears all entries (people and classes) from the address book.
 
@@ -346,7 +346,7 @@ Format: `clear [-f]`
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
-### Undoing a command : `undo`
+### Undoing a command: `undo`
 
 Undoes the most recent command that is undoable.
 
