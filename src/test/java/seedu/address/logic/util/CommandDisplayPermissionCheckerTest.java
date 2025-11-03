@@ -15,7 +15,7 @@ public class CommandDisplayPermissionCheckerTest {
     // Neutral commands are always allowed in any display
     public void isNotAllowed_neutralCommands_allowedEverywhere() {
         String[] neutralCommands = {"help", "exit", "clear", "enrol", "mark", "unmark", "list", "listc", "add", "addc",
-                "find", "findc"};
+            "find", "findc"};
         for (String cmd : neutralCommands) {
             assertFalse(CommandDisplayPermissionChecker.isNotAllowed(cmd, DisplayType.DEFAULT),
                     cmd + " should be allowed in person view");
