@@ -177,7 +177,7 @@ Step 2. `AddCommandParser` parses the command:
 * Tokenizes input using the `PREFIX_*` constants (e.g. `n/`, `r/`, `p/`).
 * Ensures all required prefixes are present and no duplicates exist.
 * Parses each field (`Name`, `Role`, `Phone`, etc.).
-* Assigns a unique ID (e.g. S0000001 for students). 
+* Assigns a unique ID (e.g. S0000001 for students).
 * Creates a new `Person` object.
 
 Step 3. The `AddCommand` object is created with the parsed `Person`.
@@ -612,7 +612,7 @@ testers are expected to do more *exploratory* testing.
 
    a. Type exit into the command bar and hit enter.<br>
       Expected: Program should exit
-      
+
 ### Adding a person
 
 1. Adding a person into the address book.
@@ -870,3 +870,11 @@ testers are expected to do more *exploratory* testing.
 
    b. Test case: `export [FILE_PATH]`<br>
    Expected: An error message will be displayed.
+
+## Appendix: Planned Enhancements
+Team size: 5
+
+1. Users which forget to mark attendance for certain classes cannot do so retroactively. We plan to make `mark` more robust by allowing marking of attendance at specified dates.
+2. Users can mark attendance for classes that are not happening today. After implementation of 1., we plan to prevent marking for classes where their day does not match the specified date by throwing an error.
+3. Users cannot currently see the classes a tutor are assigned to in the person list. We plan to improve the UI to show the assigned classes in a similar way we did for the students, except attendance will not affect the colour of the bubble.
+4. `TAG` currently only accepts single word alphanumeric characters. We plan to make `TAG` more flexible by allowing more than one word per tag as well as certain special characters.

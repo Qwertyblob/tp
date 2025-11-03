@@ -17,7 +17,7 @@ public class Time {
     public static final String MESSAGE_CONSTRAINTS =
             "Time should only contain numerical characters in 24 hour time format, "
                     + "with start and end times separated by a '-'";
-    public static final String TIME_CONSTRAINTS = "Start time cannot be later than end time.";
+    public static final String TIME_CONSTRAINTS = "Start time cannot be later than or equal to end time.";
 
     /*
      * The first character of the address must not be a whitespace,

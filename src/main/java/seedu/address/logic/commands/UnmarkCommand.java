@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
             + ": Unmarks a student's attendance for a class on the current day.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
-            + PREFIX_CLASS + "CLASS "
+            + PREFIX_CLASS + "CLASS_NAME "
             + "[" + PREFIX_DATE + "DATE]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "S0000001 "

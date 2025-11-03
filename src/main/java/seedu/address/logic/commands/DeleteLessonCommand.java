@@ -25,7 +25,7 @@ public class DeleteLessonCommand extends ConfirmableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the class identified by the index number or class name used in the displayed class list.\n"
             + "The optional -f flag forces execution, skipping the confirmation step.\n"
-            + "Parameters: [-f] INDEX (must be a positive integer) or [-f] c/CLASSNAME\n"
+            + "Parameters: [-f] INDEX (must be a positive integer) or [-f] c/CLASS_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " -f c/M2a";
 
     public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Deleted Class: %1$s";
