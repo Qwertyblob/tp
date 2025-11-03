@@ -41,7 +41,7 @@ XYZCommand -up-|> Command
 XYZCommand -right[hidden]- ConfirmableCommand
 ConfirmableCommand -up|> Command
 ConfirmableCommand .right.|> Confirmable
-LogicManager ..> Command : > call
+LogicManager ..> Command : > calls
 
 ConfirmationManager -up-> Model
 LogicManager -up-> Model
@@ -55,6 +55,6 @@ LogicManager ..> CommandResult
 ConfirmationManager ..> CommandResult
 Command .up.> CommandResult : > creates
 
-ConfirmationManager ..> ConfirmableCommand : > call
+ConfirmationManager ..> ConfirmableCommand : > calls
 
 @enduml
