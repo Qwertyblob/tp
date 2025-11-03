@@ -61,7 +61,7 @@ public class EnrolCommand extends Command {
         requireNonNull(model);
 
         // Find the lesson by ClassName from the full lesson list
-        Optional<Lesson> lessonToEnrolInOptional = model.getFilteredLessonList().stream()
+        Optional<Lesson> lessonToEnrolInOptional = model.getAddressBook().getLessonList().stream()
                 .filter(lesson -> lesson.getClassName().equals(className))
                 .findFirst();
 

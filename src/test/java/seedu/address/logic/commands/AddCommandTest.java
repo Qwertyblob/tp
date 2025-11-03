@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,30 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicatePhone_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withPhone("91234567").withEmail("test@example.com").build();
+        Person newPerson = new PersonBuilder().withName("Different Name").withPhone("91234567")
+                .withEmail("anothertest@example.com").build();
+        ModelStub modelStub = new ModelStubWithPerson(existingPerson);
+
+        AddCommand addCommand = new AddCommand(newPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateEmail_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withPhone("99999999").withEmail("alice@example.com").build();
+        Person newPerson = new PersonBuilder().withName("Different Name").withPhone("88888888")
+                .withEmail("alice@example.com").build();
+        ModelStub modelStub = new ModelStubWithPerson(existingPerson);
+
+        AddCommand addCommand = new AddCommand(newPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EMAIL, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -141,6 +166,11 @@ public class AddCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Lesson> getLessonsAssignedToTutor(Person tutor) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -276,6 +306,13 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.hasSameName(person);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            AddressBook ab = new AddressBook();
+            ab.addPerson(person);
+            return ab;
         }
     }
 

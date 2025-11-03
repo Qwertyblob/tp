@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -163,6 +165,20 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+    }
+
+    @Override
+    public List<Lesson> getLessonsAssignedToTutor(Person tutor) {
+        requireNonNull(tutor);
+
+        if (!tutor.getRole().isTutor()) {
+            return List.of();
+        }
+
+        return versionedAddressBook.getLessonList().stream()
+                .filter(lesson -> lesson.getTutor() != null
+                        && lesson.getTutor().toString().equals(tutor.getId().getValue()))
+                .collect(Collectors.toList());
     }
 
     @Override

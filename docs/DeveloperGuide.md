@@ -316,7 +316,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user with many contacts         | create tags and add tags to contacts                                                    | track important additional info                                                                                                            |
 | `* * *`  | user with many contacts         | filter the contact list view according to tags                                          | get an overview of the relevant contacts for any situation (e.g. students with unpaid fees, struggling students, students on thursday etc) |
 | `* * *`  | user with many contacts         | find a specific contact with powerful search feature                                    | easily find one specific person if i need their contact                                                                                    |
-| `* * *`  | hr admin                        | show class details for the day                                                          | quickly check the schedule                                                                                                                 |
+| `* * *`  | hr admin                        | show class details for the day of the week                                              | quickly check the schedule                                                                                                                 |
 | `* * *`  | hr admin                        | view attendance for each class                                                          | quickly check students attendance                                                                                                          |
 | `* *`    | new user                        | import data from an existing csv / json file                                            | seamlessly transfer data from a previously used software                                                                                   |
 | `* *`    | careless user                   | undo the most recent command                                                            | prevent making a permanent mistake                                                                                                         |
@@ -608,6 +608,11 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
+3. Exiting
+
+   1. Type exit into the command bar and hit enter.<br>
+      Expected: Program should exit
+      
 ### Adding a person
 
 1. Adding a person into the address book.
