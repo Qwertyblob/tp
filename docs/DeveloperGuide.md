@@ -612,7 +612,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Type exit into the command bar and hit enter.<br>
       Expected: Program should exit
-      
+
 ### Adding a person
 
 1. Adding a person into the address book.
@@ -732,7 +732,7 @@ testers are expected to do more *exploratory* testing.
 2. Enrolling a student into a class that does not exist in the address book.
 
     1. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" does not exist in the address book.
- 
+
     2. Test case: `enrol id/s0000001 c/M2a`<br>
        Expected: An error message will be displayed.
 
@@ -835,7 +835,7 @@ testers are expected to do more *exploratory* testing.
 ## Appendix: Planned Enhancements
 Team size: 5
 
-1. Users which forget to mark attendance for certain classes cannot do so retroactively. We plan to make `mark` more robust by allowing marking of attendance at specified dates. 
+1. Users which forget to mark attendance for certain classes cannot do so retroactively. We plan to make `mark` more robust by allowing marking of attendance at specified dates.
 2. Users can mark attendance for classes that are not happening today. After implementation of 1., we plan to prevent marking for classes where their day does not match the specified date by throwing an error.
 3. Users cannot currently see the classes a tutor are assigned to in the person list. We plan to improve the UI to show the assigned classes in a similar way we did for the students, except attendance will not affect the colour of the bubble.
 4. `TAG` currently only accepts single word alphanumeric characters. We plan to make `TAG` more flexible by allowing more than one word per tag as well as certain special characters.
