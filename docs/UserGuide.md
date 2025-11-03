@@ -87,10 +87,14 @@ Adds a person to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-* `NAME` must be alphabetical characters only.
+* `NAME` is only limited to alphabetical characters, apostrophes, hyphens, parentheses, forward slashes and spaces.
 * `ROLE` is only limited to "Student" or "Tutor" (case-insensitive).
-* `PHONE_NUMBER` must only be 8-digit numbers starting with either "8" or "9".
-* `EMAIL` must include a "@" followed by a domain name.
+* `PHONE_NUMBER` must be numbers only, 8-15 digits long.
+* `EMAIL` must follow the format: local-part@domain.
+  * Local-part must only have alphanumeric characters, and the following special characters: "+", "_", ".", "-" . It cannot start or end with any special character
+  * Domain is made up of domain labels, separated by periods.
+  * Ending domain label must be at least 2 characters long.
+  * Each domain label must only have alphanumeric characters or hyphens, and must start and end with an alphanumeric character.
 * When added, each person is assigned a unique ID with the following format:
   * Student: "S", followed by 7 numbers. e.g. S0000001.
   * Tutor: "T", followed by 7 numbers. e.g. T0000001.

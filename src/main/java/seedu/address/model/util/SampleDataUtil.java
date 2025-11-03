@@ -24,34 +24,44 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+    private static final Lesson LESSON_M2A = new Lesson(new ClassName("M2a"), new Day("monday"),
+            new Time("1200-1400"), new Tutor("T0000001"), getTagSet());
+    private static final Lesson LESSON_S2B = new Lesson(new ClassName("S2b"), new Day("tuesday"),
+            new Time("1400-1600"), new Tutor("T0000002"), getTagSet());
+    private static final Lesson LESSON_E2C = new Lesson(new ClassName("E2c"), new Day("thursday"),
+            new Time("1500-1700"), new Tutor("T0000003"), getTagSet("temporary"));
+
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new IdentificationNumber("S0000000"), new Name("Alex Yeoh"),
-                new Role("student"), new Phone("87438807"),
+            new Person(new IdentificationNumber("S0000001"), new Name("Alex Yeoh"),
+                new Role("student"), getLessonSet(LESSON_M2A.getClassName().toString()), new Phone("87438807"),
                 new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet()),
-            new Person(new IdentificationNumber("T0000000"),
+            new Person(new IdentificationNumber("T0000001"),
                 new Name("Bernice Yu"), new Role("tutor"), new Phone("99272758"),
                 new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("newcomer")),
-            new Person(new IdentificationNumber("T0000001"),
+            new Person(new IdentificationNumber("T0000002"),
                 new Name("Charlotte Oliveiro"), new Role("tutor"), new Phone("93210283"),
                 new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("math")),
-            new Person(new IdentificationNumber("S0000001"),
-                new Name("David Li"), new Role("student"), new Phone("91031282"),
+            new Person(new IdentificationNumber("S0000002"),
+                new Name("David Li"), new Role("student"), getLessonSet(LESSON_S2B.getClassName().toString()),
+                new Phone("91031282"),
                 new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("newcomer")),
-            new Person(new IdentificationNumber("S0000002"),
-                new Name("Irfan Ibrahim"), new Role("student"), new Phone("92492021"),
+            new Person(new IdentificationNumber("S0000003"),
+                new Name("Irfan Ibrahim"), new Role("student"), getLessonSet(LESSON_M2A.getClassName().toString(),
+                    LESSON_E2C.getClassName().toString()), new Phone("92492021"),
                 new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet()),
-            new Person(new IdentificationNumber("T0000002"),
+            new Person(new IdentificationNumber("T0000003"),
                 new Name("Roy Balakrishnan"), new Role("tutor"), new Phone("92624417"),
                 new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
@@ -61,12 +71,9 @@ public class SampleDataUtil {
 
     public static Lesson[] getSampleLessons() {
         return new Lesson[] {
-            new Lesson(new ClassName("M2a"), new Day("monday"), new Time("1200-1400"), new Tutor("T0000001"),
-                    getTagSet()),
-            new Lesson(new ClassName("S2b"), new Day("tuesday"), new Time("1400-1600"), new Tutor("T0000002"),
-                    getTagSet()),
-            new Lesson(new ClassName("E2c"), new Day("thursday"), new Time("1500-1700"), new Tutor("T0000000"),
-                    getTagSet("temporary")),
+            LESSON_M2A,
+            LESSON_S2B,
+            LESSON_E2C
         };
     }
 
