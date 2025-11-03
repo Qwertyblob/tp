@@ -59,7 +59,7 @@ public class UnenrolCommand extends Command {
         requireNonNull(model);
 
         // Find the lesson by ClassName
-        Optional<Lesson> lessonToEditOptional = model.getFilteredLessonList().stream()
+        Optional<Lesson> lessonToEditOptional = model.getAddressBook().getLessonList().stream()
                 .filter(lesson -> lesson.getClassName().equals(className))
                 .findFirst();
 

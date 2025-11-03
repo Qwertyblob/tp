@@ -56,7 +56,7 @@ public class MarkCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Lesson> lessonOptional = model.getFilteredLessonList().stream()
+        Optional<Lesson> lessonOptional = model.getAddressBook().getLessonList().stream()
                 .filter(l -> l.getClassName().toString().equalsIgnoreCase(className.toString()))
                 .findFirst();
 
@@ -66,7 +66,7 @@ public class MarkCommand extends Command {
 
         Lesson lessonToMark = lessonOptional.get();
 
-        Optional<Person> studentToMarkOptional = model.getFilteredPersonList().stream()
+        Optional<Person> studentToMarkOptional = model.getAddressBook().getPersonList().stream()
                 .filter(p -> p.getId().equals(studentId))
                 .findFirst();
 
