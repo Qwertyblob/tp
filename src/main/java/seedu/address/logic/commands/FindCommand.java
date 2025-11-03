@@ -28,7 +28,7 @@ public class FindCommand extends Command {
             + "Parameters: " + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_CLASS + "CLASS] "
+            + "[" + PREFIX_CLASS + "CLASS_NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "

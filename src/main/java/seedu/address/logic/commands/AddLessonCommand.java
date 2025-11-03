@@ -24,7 +24,7 @@ public class AddLessonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a class to the address book. "
             + "Parameters: "
-            + PREFIX_CLASS + "CLASS "
+            + PREFIX_CLASS + "CLASS_NAME "
             + PREFIX_DAY + "DAY "
             + PREFIX_TIME + "TIME "
             + PREFIX_TUTOR + "TUTOR "

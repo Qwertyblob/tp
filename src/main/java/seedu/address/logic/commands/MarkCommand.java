@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
             + ": Marks a student's attendance for a class on the current day.\n"
             + "Parameters: "
             + PREFIX_ID + "STUDENT_ID "
-            + PREFIX_CLASS + "CLASS\n"
+            + PREFIX_CLASS + "CLASS_NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "S0000001 "
             + PREFIX_CLASS + "M2a";

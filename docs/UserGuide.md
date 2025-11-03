@@ -244,12 +244,12 @@ Examples:
 
 Finds persons matching the given criteria.
 
-Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`
+Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
 * The search is case-insensitive. e.g. `hans` will match `Hans`
-* For `NAME`, `CLASS`, `TAG`, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
+* For `NAME`, `CLASS_NAME`, `TAG`, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching all criteria will be returned (i.e. `AND` search).
   e.g. `find n/John r/student` will return `John` with role `student`.
@@ -264,11 +264,16 @@ Examples:
 Example: `find c/M2a` Finds students in class M2a.
 ![result for 'find c/M2a'](images/findClassM2a.png)
 
+<box type="tip" seamless>
+
+**Tip:** Use `find c/CLASS_NAME` to view the attendance for a class for the week. Students with a green bubble are those who were present, while a red bubble means they were absent.
+</box>
+
 ### Searching of Classes: `findc`
 
 Finds classes matching the given criteria.
 
-Format: `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
+Format: `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
@@ -502,8 +507,8 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **Unenrol**           | `unenrol id/STUDENT_ID c/CLASS_NAME` <br> e.g., `unenrol id/S0000001 c/M2a`                                                                                                      |
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                            |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                |
-| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                          |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                              |
+| **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                           |
+| **Find class**        | `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                         |
 | **Undo**              | `undo`                                                                                                                                                                           |
 | **Redo**              | `redo`                                                                                                                                                                           |
 | **Import file**       | `import`                                                                                                                                                                         |

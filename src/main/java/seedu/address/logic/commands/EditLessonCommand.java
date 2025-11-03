@@ -44,7 +44,7 @@ public class EditLessonCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "INDEX (must be a positive integer) "
-            + "[" + PREFIX_CLASS + "CLASS] "
+            + "[" + PREFIX_CLASS + "CLASS_NAME] "
             + "[" + PREFIX_DAY + "DAY] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TUTOR + "TUTOR] "

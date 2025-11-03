@@ -22,7 +22,7 @@ public class FindLessonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all classes matching the given criteria. "
             + "All parameters are case-insensitive and it displays them as a list with index numbers.\n"
-            + "Parameters: " + "[" + PREFIX_CLASS + "CLASS] "
+            + "Parameters: " + "[" + PREFIX_CLASS + "CLASS_NAME] "
             + "[" + PREFIX_DAY + "DAY] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TUTOR + "TUTOR] "
