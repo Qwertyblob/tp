@@ -517,3 +517,9 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **List classes**      | `listc`                                                                                                                                                                          |
 | **Help**              | `help`                                                                                                                                                                           |
 | **Exit**              | `exit`                                                                                                                                                                           |
+
+## Appendix: Planned Enhancements
+
+1. Make `mark` more robust by allowing marking of attendance at specified dates. At the same time, prevent marking for classes where their day does not match the specified date. This allows users which forget to mark attendance for certain classes to do so retroactively.
+2. Show the classes a tutor is assigned to on the person list UI. 
+3. Make `TAG` more flexible by allowing more than one word per tag.
