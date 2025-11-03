@@ -97,11 +97,13 @@ Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
   * Domain is made up of domain labels, separated by periods.
   * Ending domain label must be at least 2 characters long.
   * Each domain label must only have alphanumeric characters or hyphens, and must start and end with an alphanumeric character.
+* There should not be any spaces for `TAG`, e.g. `t/only friday` is not allowed.  
 * When added, each person is assigned a unique ID with the following format:
   * Student: "S", followed by 7 numbers. e.g. S0000001.
   * Tutor: "T", followed by 7 numbers. e.g. T0000001.
 * Duplicate people are identified as those with the same `NAME`, `PHONE_NUMBER` and `EMAIL`.
   * i.e. There can exist multiple people with the same `NAME`, they will be uniquely identified by their ID.
+  * No two people should have the same `PHONE_NUMBER` or `EMAIL`.
 
 <box type="tip" seamless>
 
@@ -459,7 +461,7 @@ Rollcall data are saved in the hard disk automatically after any command that ch
 
 ### Editing the data file
 
-Rollcall data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Rollcall data are saved automatically as a JSON file `[JAR file location]/data/rollcall.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -479,7 +481,7 @@ Furthermore, certain edits can cause Rollcall to behave in unexpected ways (e.g.
 **A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/addressbook.json`.<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/rollcall.json`.<br>
 Alternatively, use `import` and `export` commands to transfer your data.
 
 **Q**: Can there be multiple persons with the same name?<br>
