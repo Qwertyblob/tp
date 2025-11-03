@@ -1,11 +1,8 @@
 package seedu.address.model.util;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,7 +35,7 @@ public class SampleDataUtil {
             new HashMap<LocalDate, Set<IdentificationNumber>>(), getTagSet());
     private static final Lesson LESSON_E2C = new Lesson(new ClassName("E2c"), new Day("thursday"),
             new Time("1500-1700"), new Tutor("T0000003"), getStudentIdSet("S0000003"),
-            new HashMap<LocalDate, Set<IdentificationNumber>>(),getTagSet("temporary"));
+            new HashMap<LocalDate, Set<IdentificationNumber>>(), getTagSet("temporary"));
 
     public static Person[] getSamplePersons() {
         return new Person[] {
