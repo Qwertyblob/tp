@@ -818,7 +818,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Undoing a command.
 
-    a. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide.md/#undoing-a-command--undo)
+    a. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide#undoing-a-command--undo)
 
     b. Test case: `undo`<br>
        Expected: The address book reverts back to the state before the most recent undoable command was executed, with the result message showing the command that was undone.
@@ -845,14 +845,14 @@ testers are expected to do more *exploratory* testing.
 
 1. Importing a JSON file into Rollcall.
 
-    a. Prerequisites: The JSON file to be imported must be in the proper format. [Example](UserGuide.md/#importing-data-import)
+    a. Prerequisites: The JSON file to be imported must be in the proper format. [Example](UserGuide#importing-data-import)
 
     b. Test case: `import [FILE_PATH]`<br>
        Expected: All contacts and classes in the imported JSON file are added into the lists in Rollcall.
 
 2. Importing an improperly formatted JSON file into Rollcall.
 
-    a. Prerequisites: The JSON file to be imported must not be in the proper format. [Example](UserGuide.md/#importing-data-import)
+    a. Prerequisites: The JSON file to be imported must not be in the proper format. [Example](UserGuide#importing-data-import)
 
     b. Test case: `import [FILE_PATH]`<br>
        Expected: An error message will be displayed.
