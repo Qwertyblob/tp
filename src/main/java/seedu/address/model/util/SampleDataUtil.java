@@ -1,6 +1,8 @@
 package seedu.address.model.util;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,11 +28,14 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
 
     private static final Lesson LESSON_M2A = new Lesson(new ClassName("M2a"), new Day("monday"),
-            new Time("1200-1400"), new Tutor("T0000001"), getTagSet());
+            new Time("1200-1400"), new Tutor("T0000001"), getStudentIdSet("S0000001", "S0000003"),
+            new HashMap<LocalDate, Set<IdentificationNumber>>(), getTagSet());
     private static final Lesson LESSON_S2B = new Lesson(new ClassName("S2b"), new Day("tuesday"),
-            new Time("1400-1600"), new Tutor("T0000002"), getTagSet());
+            new Time("1400-1600"), new Tutor("T0000002"), getStudentIdSet("S0000002"),
+            new HashMap<LocalDate, Set<IdentificationNumber>>(), getTagSet());
     private static final Lesson LESSON_E2C = new Lesson(new ClassName("E2c"), new Day("thursday"),
-            new Time("1500-1700"), new Tutor("T0000003"), getTagSet("temporary"));
+            new Time("1500-1700"), new Tutor("T0000003"), getStudentIdSet("S0000003"),
+            new HashMap<LocalDate, Set<IdentificationNumber>>(), getTagSet("temporary"));
 
     public static Person[] getSamplePersons() {
         return new Person[] {
@@ -103,6 +108,15 @@ public class SampleDataUtil {
     public static Set<Lesson> getLessonSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Lesson::makeLessonTest)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a student ID set containing the list of strings given.
+     */
+    public static Set<IdentificationNumber> getStudentIdSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(IdentificationNumber::new)
                 .collect(Collectors.toSet());
     }
 
