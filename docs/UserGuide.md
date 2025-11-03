@@ -20,9 +20,9 @@
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for Rollcall.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar rollcall.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    ![Ui2](images/Ui2.png)
@@ -32,13 +32,13 @@
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe r/Tutor p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the address book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `listc` : Lists all classes
+   * `listc` : Lists all classes.
 
-   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to the address book
+   * `addc c/M2a d/Monday tm/1200-1400 tt/T1234567` : Adds a class named M2a to the address book.
 
    * `clear` : Deletes all contacts and classes.
 
@@ -112,12 +112,14 @@ Adds a class to the address book.
 
 Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
 
-* `CLASS_NAME` follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
+* `CLASS_NAME` is unique and follows the format: Uppercase alphabet, number, lowercase alphabet. e.g. M2a.
 * `DAY` can only be the days of the week (e.g. Monday, Tuesday, etc.) and is case-insensitive.
 * `TIME` must be 2 4-digit numbers in 24-hour format, separated by a "-". The end time must be later than the start time, and cannot cross over to the next day (e.g. 2100-0200).
 * `TUTOR_ID` must follow the ID format stated in `add` and exist in the address book.
-* If another class has the same `TUTOR_ID`, the `TIME` cannot overlap.
+* If another class has the same `TUTOR_ID`, the `TIME` cannot overlap (It is ok if the second class starts at the first class' end time).
   * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in the address book, `S3b, Monday, 1300-1500, T0000001` cannot be added.
+* Duplicate classes are classes with the same `CLASS_NAME`.
+  * i.e. There cannot exist duplicate classes.
 
 <box type="tip" seamless>
 
@@ -155,7 +157,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 <box type="warning" seamless>
 
-**Warning:** Roles are not allowed to be edited. If you need to change the role of a person, please use `delete` and `add`.
+**Warning:** Roles and IDs are not allowed to be edited. If you need to change the role of a person, please use `delete` and `add`.
 </box>
 
 Examples:
@@ -183,7 +185,7 @@ Examples:
 
 Enrols an existing person in the address book to an existing class.
 
-Format: `enrol id/STUDENT_ID class/CLASS_NAME`
+Format: `enrol id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot enrol a student who is already enrolled into the specified class.
@@ -197,7 +199,7 @@ Examples:
 
 Removes an existing person in the address book from an existing class.
 
-Format: `unenrol id/STUDENT_ID class/CLASS_NAME`
+Format: `unenrol id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot remove a student who is not enrolled into the specified class.
@@ -209,7 +211,7 @@ Examples:
 
 Marks an existing person's attendance in the address book in an existing class on the current day.
 
-Format: `mark id/STUDENT_ID class/CLASS_NAME`
+Format: `mark id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
@@ -223,7 +225,7 @@ Examples:
 
 Unmarks an existing person's attendance in the address book in an existing class on a particular day.
 
-Format: `unmark id/STUDENT_ID class/CLASS_NAME [dt/DATE]`
+Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * The `STUDENT_ID` must be currently marked present in `CLASS_NAME`.
@@ -293,7 +295,8 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * The `NAME` must be the full name of the person.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* If there are duplicate names, the system will prevent the command from executing and prompt the user to delete using index instead.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
@@ -312,7 +315,7 @@ You may find this useful if a class was created by mistake, or a class has been 
 Format: `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`
 
 * Deletes the class with the specified `INDEX` or `NAME`.
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 Examples:
@@ -327,7 +330,7 @@ Clears all entries (people and classes) from the address book.
 
 Format: `clear [-f]`
 
-* To prevent mistakes, Rollcall will request a response of either `Y` or `N` to confirm if you want to proceed.
+* To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 
 ### Undoing a command : `undo`
@@ -352,11 +355,12 @@ Format: `undo`
   * `deletec`
   * `redo`
   * `clear`
+* On successful execution, a success message stating what the undone action was will be shown to the user.
 
 Examples:
 
 * User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
-* `undo` undoes `clear`, restoring the address book before it was cleared.
+* `undo` undoes `clear`, restoring the state of the address book before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
 * Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
 
@@ -368,6 +372,7 @@ Format: `redo`
 
 * `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
+* On successful execution, a success message stating what the redone action was will be shown to the user.
 
 Examples:
 * User executes commands in this order: `undo`, `list`, `undo`, `undo`
@@ -433,17 +438,17 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Rollcall data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Rollcall data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, Rollcall will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause Rollcall to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -457,7 +462,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 **A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. The data file can be found at `data/addressbook.json`.<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/addressbook.json`.<br>
 Alternatively, use `import` and `export` commands to transfer your data.
 
 **Q**: Can there be multiple persons with the same name?<br>
@@ -494,7 +499,7 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **Mark attendance**   | `mark id/STUDENT_ID c/CLASS_NAME` <br> e.g., `mark id/S0000001 c/M2a`                                                                                                            |
 | **Unmark attendance** | `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]` <br> e.g., `unmark id/S0000001 c/M2a dt/2025-11-11`                                                                                |
 | **Find**              | `find [id/ID] [n/NAME] [r/ROLE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]​`<br> e.g., `find n/James Lee r/student`                                                          |
-| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                                 |
+| **Find class**        | `findc [c/CLASS] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                              |
 | **Undo**              | `undo`                                                                                                                                                                           |
 | **Redo**              | `redo`                                                                                                                                                                           |
 | **Import file**       | `import`                                                                                                                                                                         |
@@ -502,3 +507,4 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **List**              | `list`                                                                                                                                                                           |
 | **List classes**      | `listc`                                                                                                                                                                          |
 | **Help**              | `help`                                                                                                                                                                           |
+| **Exit**              | `exit`                                                                                                                                                                           |
