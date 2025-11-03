@@ -50,21 +50,22 @@ public class CommandDisplayPermissionChecker {
 
     private static boolean isNeutralCommand(String cmd) {
         return switch (cmd) {
-        case "help", "exit", "clear", "enrol", "mark", "unmark", "list", "listc" -> true;
+        case "help", "exit", "clear", "enrol", "mark", "unmark", "list", "listc", "add", "addc",
+             "find", "findc" -> true;
         default -> false;
         };
     }
 
     private static boolean isPersonCommand(String cmd) {
         return switch (cmd) {
-        case "add", "edit", "delete", "find" -> true;
+        case "edit", "delete" -> true;
         default -> false;
         };
     }
 
     private static boolean isClassCommand(String cmd) {
         return switch (cmd) {
-        case "addc", "editc", "deletec", "findc" -> true;
+        case "editc", "deletec" -> true;
         default -> false;
         };
     }
