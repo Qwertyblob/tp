@@ -87,7 +87,7 @@ Adds a person to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-* `NAME` must only have alphabetical characters, apostrophes, hyphens, parentheses, forward slashes and spaces.
+* `NAME` is only limited to alphabetical characters, apostrophes, hyphens, parentheses, forward slashes and spaces.
 * `ROLE` is only limited to "Student" or "Tutor" (case-insensitive).
 * `PHONE_NUMBER` must be numbers only, 8-15 digits long.
 * `EMAIL` must follow the format: local-part@domain.
