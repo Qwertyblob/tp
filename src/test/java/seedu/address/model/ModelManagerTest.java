@@ -5,16 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.ContactMatchesPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -186,6 +191,68 @@ public class ModelManagerTest {
         modelManager.undoAddressBook();
         assertFalse(modelManager.canUndoAddressBook());
         assertTrue(modelManager.canRedoAddressBook());
+    }
+
+    @Test
+    public void getLessonsAssignedToTutor_tutorAssignedToLessons_returnsLessonList() {
+        // Use a typical model that includes tutors and lessons
+        Model model = getTypicalModelManager();
+
+        // Get a tutor known to be assigned to a lesson (based on your TypicalLessons setup)
+        Person tutor = model.getFilteredPersonList().stream()
+                .filter(p -> p.getRole().isTutor())
+                .findFirst()
+                .orElseThrow();
+
+        // Should return at least one lesson assigned to this tutor
+        List<Lesson> lessons = model.getLessonsAssignedToTutor(tutor);
+
+        assertFalse(lessons.isEmpty());
+        for (Lesson lesson : lessons) {
+            assertEquals(tutor.getId().getValue(), lesson.getTutor().toString());
+        }
+    }
+
+    @Test
+    public void getLessonsAssignedToTutor_tutorNotAssignedToAnyLessons_returnsEmptyList() {
+        Model model = getTypicalModelManager();
+
+        // Create a new tutor who is not assigned to any lessons
+        Person unassignedTutor = new Person(
+                new seedu.address.model.person.IdentificationNumber("T0009999"),
+                new seedu.address.model.person.Name("Unassigned Tutor"),
+                new seedu.address.model.person.Role("Tutor"),
+                new seedu.address.model.person.Phone("99999999"),
+                new seedu.address.model.person.Email("unassigned@tutor.com"),
+                new seedu.address.model.person.Address("No lessons street"),
+                Set.of()
+        );
+
+        model.addPerson(unassignedTutor);
+        List<Lesson> lessons = model.getLessonsAssignedToTutor(unassignedTutor);
+
+        assertTrue(lessons.isEmpty());
+    }
+
+    @Test
+    public void getLessonsAssignedToTutor_nonTutor_returnsEmptyList() {
+        Model model = getTypicalModelManager();
+
+        // Pick a student (non-tutor)
+        Person student = model.getFilteredPersonList().stream()
+                .filter(p -> !p.getRole().isTutor())
+                .findFirst()
+                .orElseThrow();
+
+        List<Lesson> lessons = model.getLessonsAssignedToTutor(student);
+
+        assertTrue(lessons.isEmpty());
+    }
+
+    @Test
+    public void getLessonsAssignedToTutor_nullTutor_throwsNullPointerException() {
+        Model model = getTypicalModelManager();
+        assertThrows(NullPointerException.class, () -> model.getLessonsAssignedToTutor(null));
     }
 
 }
