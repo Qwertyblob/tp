@@ -318,7 +318,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user with many contacts         | create tags and add tags to contacts                                                    | track important additional info                                                                                                            |
 | `* * *`  | user with many contacts         | filter the contact list view according to tags                                          | get an overview of the relevant contacts for any situation (e.g. students with unpaid fees, struggling students, students on thursday etc) |
 | `* * *`  | user with many contacts         | find a specific contact with powerful search feature                                    | easily find one specific person if i need their contact                                                                                    |
-| `* * *`  | hr admin                        | show class details for the day                                                          | quickly check the schedule                                                                                                                 |
+| `* * *`  | hr admin                        | show class details for the day of the week                                              | quickly check the schedule                                                                                                                 |
 | `* * *`  | hr admin                        | view attendance for each class                                                          | quickly check students attendance                                                                                                          |
 | `* *`    | new user                        | import data from an existing csv / json file                                            | seamlessly transfer data from a previously used software                                                                                   |
 | `* *`    | careless user                   | undo the most recent command                                                            | prevent making a permanent mistake                                                                                                         |
@@ -611,7 +611,10 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. Exiting
+
+   1. Type exit into the command bar and hit enter.<br>
+      Expected: Program should exit
 
 ### Deleting a person
 
@@ -620,7 +623,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: Confirmation shows up and if user is to type in 'Y', first contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
@@ -628,12 +631,44 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+1. Deleting a person while using find
+    1. Prerequisites: Using `find n/yeoh` to list 1 person.
 
-### Saving data
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-1. Dealing with missing/corrupted data files
+### Deleting a class
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. Delete a class while all classes are shown
 
-1. _{ more test cases …​ }_
+   1. Prerequisites: List all classes using the `listc` command. Multiple classes in the list.
+
+   1. Test case: `delete 1`<br>
+       Expected: Confirmation shows up and if user is to type in 'Y', first class is deleted from the list.
+           Details of the deleted class shown in the status message. Timestamp in the status bar is updated.
+
+### Undoing a Command
+
+1. Undoing a delete
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. Type `delete 1` and then type `Y` to confirm.
+
+    1. Test case: `undo`<br>
+         Expected: Undo is successful and person is no longer deleted and should be on the list.
+
+    1. Other commmands to try undoing: `editc`, `edit`, `deletec` - Refer to Usage upon typing for command format
+
+### Editing a Person
+
+1. Editing a person while all persons are shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `edit 1 p/91234567 e/johndoe@example.com`<br>
+       Expected: Edit is successful and person 1 should have a new phone number and email.
+
+    1. Test case: `edit 0 n/bob bobson`
+        Expected: Edit is unsuccessful and error message is shown
+
+    1. Other incorrect delete commands to try: `edit`, `edit x n/test`, `edit 1 /test`, `edit 1 p/1`  (where x is larger than the list size)<br>
+       Expected: Similar to previous.
