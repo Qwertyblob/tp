@@ -94,7 +94,7 @@ public class EditLessonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
         }
 
-        boolean tutorHasClash = model.getFilteredLessonList().stream()
+        boolean tutorHasClash = model.getAddressBook().getLessonList().stream()
                 .filter(existing -> !existing.equals(lessonToEdit)) // exclude current lesson being edited
                 .filter(existing -> existing.getTutor().equals(editedLesson.getTutor()))
                 .anyMatch(existing -> existing.hasOverlapsWith(editedLesson));
@@ -104,7 +104,7 @@ public class EditLessonCommand extends Command {
         }
 
         Set<String> clashingIds = new HashSet<>();
-        for (Lesson existing : model.getFilteredLessonList()) {
+        for (Lesson existing : model.getAddressBook().getLessonList()) {
             if (!existing.equals(lessonToEdit) && existing.hasOverlapsWith(editedLesson)) {
                 for (IdentificationNumber id : existing.getStudents()) {
                     if (editedLesson.getStudents().contains(id)) {
