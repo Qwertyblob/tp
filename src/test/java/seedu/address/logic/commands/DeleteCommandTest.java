@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.ConfirmationManager.MESSAGE_ACTION_CANCELLED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -12,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_MULTIPLE_MATCHING_NAMES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalLessons.getTypicalModelManager;
 
@@ -256,6 +259,38 @@ public class DeleteCommandTest {
         assertConfirmableCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage,
                 CommandResult.DisplayType.DEFAULT), expectedModel, confirmationManager);
 
+    }
+
+    @Test
+    public void validate_personNotAssignedToAnyLessons_doesNotThrow() {
+        // Pick a person who isn't a tutor in any class
+        Person person = model.getFilteredPersonList().get(INDEX_FOURTH_PERSON.getOneBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FOURTH_PERSON);
+
+        assertDoesNotThrow(() -> deleteCommand.validate(model));
+    }
+
+    @Test
+    public void validate_tutorAssignedToLessons_throwsCommandException() {
+        // Pick a tutor who is assigned to at least one class
+        Person tutor = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+
+        CommandException thrown = assertThrows(CommandException.class, () -> deleteCommand.validate(model));
+
+        // Check the message contains tutor name and at least one class name
+        String expectedName = tutor.getName().toString();
+        assertTrue(thrown.getMessage().contains(expectedName));
+        assertTrue(thrown.getMessage().contains("class")); // rough check
+    }
+
+    @Test
+    public void validate_personNotFound_throwsCommandException() {
+        // Name that does not exist in model
+        Name nonexistent = new Name("Ghost Person");
+        DeleteCommand deleteCommand = new DeleteCommand(nonexistent);
+
+        assertThrows(CommandException.class, () -> deleteCommand.validate(model));
     }
 
     @Test

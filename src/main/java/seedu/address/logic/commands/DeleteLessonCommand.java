@@ -151,7 +151,7 @@ public class DeleteLessonCommand extends ConfirmableCommand {
 
     private void handleAffectedPersons(Lesson lessonToDelete, Model model) {
         // Create a copy of the person list to iterate over, to avoid modification issues.
-        List<Person> personsToUpdate = new java.util.ArrayList<>(model.getFilteredPersonList());
+        List<Person> personsToUpdate = new java.util.ArrayList<>(model.getAddressBook().getPersonList());
 
         for (Person person : personsToUpdate) {
             // Check if the person is enrolled in the lesson to be deleted.
