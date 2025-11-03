@@ -446,7 +446,7 @@ Rollcall data are saved in the hard disk automatically after any command that ch
 
 ### Editing the data file
 
-Rollcall data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Rollcall data are saved automatically as a JSON file `[JAR file location]/data/rollcall.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -466,7 +466,7 @@ Furthermore, certain edits can cause Rollcall to behave in unexpected ways (e.g.
 **A**: Yes, every change (adding, editing, marking attendance) is automatically saved to the local data file.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/addressbook.json`.<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Rollcall home folder. The data file can be found at `data/rollcall.json`.<br>
 Alternatively, use `import` and `export` commands to transfer your data.
 
 **Q**: Can there be multiple persons with the same name?<br>
