@@ -367,7 +367,7 @@ Format: `undo`
   * `redo`
   * `clear`
 * On successful execution, a success message stating what the undone action was will be shown to the user.
-  * e.g. Undoing an `add` command: <br> 
+  * e.g. Undoing an `add` command: <br>
   "Undo successful! <br>
   (Undo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
 
@@ -408,7 +408,7 @@ Format `import FILE_PATH`
 * FILE_PATH must exist.
 * The JSON file must be in the appropriate format for the address book.
   * All people and classes must have their compulsory attributes.
-  * Example: 
+  * Example:
   ```
   {
   "persons" : [ {
@@ -529,5 +529,5 @@ Alternatively, use `import` and `export` commands to transfer your data.
 ## Appendix: Planned Enhancements
 
 1. Make `mark` more robust by allowing marking of attendance at specified dates. At the same time, prevent marking for classes where their day does not match the specified date. This allows users which forget to mark attendance for certain classes to do so retroactively.
-2. Show the classes a tutor is assigned to on the person list UI. 
+2. Show the classes a tutor is assigned to on the person list UI.
 3. Make `TAG` more flexible by allowing more than one word per tag.

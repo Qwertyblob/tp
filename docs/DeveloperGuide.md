@@ -177,7 +177,7 @@ Step 2. `AddCommandParser` parses the command:
 * Tokenizes input using the `PREFIX_*` constants (e.g. `n/`, `r/`, `p/`).
 * Ensures all required prefixes are present and no duplicates exist.
 * Parses each field (`Name`, `Role`, `Phone`, etc.).
-* Assigns a unique ID (e.g. S0000001 for students). 
+* Assigns a unique ID (e.g. S0000001 for students).
 * Creates a new `Person` object.
 
 Step 3. The `AddCommand` object is created with the parsed `Person`.
