@@ -816,7 +816,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Undo a command
 
-1. Undo a command.
+1. Undoing a command.
 
     a. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide.md/#undoing-a-command--undo)
 
@@ -825,9 +825,48 @@ testers are expected to do more *exploratory* testing.
 
 ### Redo a command
 
-1. Redo a command.
+1. Redoing a command.
 
     a. Prerequisites: An undo command has been executed.
 
     b. Test case: `redo`<br>
        Expected: The address book reverts back to the state before the most recent `undo` command was executed, with the result message showing the command that was redone.
+
+### Clear address book
+
+1. Clear all people and classes from the address book.
+
+    a. Prerequisites: Have at least one contact and/or class in the address book.
+
+    b. Test case: `clear`<br>
+       Expected: The address book is cleared of all people and classes.
+
+### Importing and Exporting
+
+1. Importing a JSON file into Rollcall.
+
+    a. Prerequisites: The JSON file to be imported must be in the proper format. [Example](UserGuide.md/#importing-data-import)
+
+    b. Test case: `import [FILE_PATH]`<br>
+       Expected: All contacts and classes in the imported JSON file are added into the lists in Rollcall.
+
+2. Importing an improperly formatted JSON file into Rollcall.
+
+    a. Prerequisites: The JSON file to be imported must not be in the proper format. [Example](UserGuide.md/#importing-data-import)
+
+    b. Test case: `import [FILE_PATH]`<br>
+       Expected: An error message will be displayed.
+
+3. Exporting data from Rollcall into the user's local computer.
+
+    a. Prerequisites: The user cannot have a JSON file with a duplicate name in the target location as the intended file name of the exported JSON file.
+
+    b. Test case: `export [FILE_PATH]`<br>
+       Expected: A JSON file consisting of all the data in the address book of Rollcall is exported to the user's local computer.
+
+4. Exporting data from Rollcall using a file name that already exists in the intended file path of the user's computer.
+
+   a. Prerequisites: A file that has the file path [FILE_PATH] already exists in the user's computer.
+
+   b. Test case: `export [FILE_PATH]`<br>
+   Expected: An error message will be displayed.
