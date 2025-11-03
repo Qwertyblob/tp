@@ -367,6 +367,9 @@ Format: `undo`
   * `redo`
   * `clear`
 * On successful execution, a success message stating what the undone action was will be shown to the user.
+  * e.g. Undoing an `add` command: <br> 
+  "Undo successful! <br>
+  (Undo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
 
 Examples:
 
@@ -384,6 +387,9 @@ Format: `redo`
 * `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
 * On successful execution, a success message stating what the redone action was will be shown to the user.
+* * e.g. Redoing an undone `add` command: <br>
+    "Redo successful! <br>
+    (Redo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
 
 Examples:
 * User executes commands in this order: `undo`, `list`, `undo`, `undo`
