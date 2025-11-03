@@ -818,7 +818,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Undoing a command.
 
-    a. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide#undoing-a-command--undo)
+    a. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide#undoing-a-command-undo)
 
     b. Test case: `undo`<br>
        Expected: The address book reverts back to the state before the most recent undoable command was executed, with the result message showing the command that was undone.
