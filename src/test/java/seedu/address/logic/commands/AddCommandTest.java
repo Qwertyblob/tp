@@ -55,6 +55,30 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicatePhone_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withPhone("91234567").withEmail("test@example.com").build();
+        Person newPerson = new PersonBuilder().withName("Different Name").withPhone("91234567")
+                .withEmail("anothertest@example.com").build();
+        ModelStub modelStub = new ModelStubWithPerson(existingPerson);
+
+        AddCommand addCommand = new AddCommand(newPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateEmail_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withPhone("99999999").withEmail("alice@example.com").build();
+        Person newPerson = new PersonBuilder().withName("Different Name").withPhone("88888888")
+                .withEmail("alice@example.com").build();
+        ModelStub modelStub = new ModelStubWithPerson(existingPerson);
+
+        AddCommand addCommand = new AddCommand(newPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EMAIL, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
@@ -276,6 +300,13 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.hasSameName(person);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            AddressBook ab = new AddressBook();
+            ab.addPerson(person);
+            return ab;
         }
     }
 

@@ -68,7 +68,7 @@ public class AddLessonCommand extends Command {
             throw new CommandException(MESSAGE_TUTOR_NOT_FOUND);
         }
 
-        boolean hasClash = model.getFilteredLessonList().stream()
+        boolean hasClash = model.getAddressBook().getLessonList().stream()
                 .filter(existingLesson -> existingLesson.getTutor().equals(toAdd.getTutor()))
                 .anyMatch(existingLesson -> existingLesson.hasOverlapsWith(toAdd));
 
