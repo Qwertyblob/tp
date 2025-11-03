@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -67,6 +68,11 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    /**
+     * Returns a Lids of Lessons assigned to a Tutor
+     */
+    List<Lesson> getLessonsAssignedToTutor(Person tutor);
 
     /**
      * Adds the given person.

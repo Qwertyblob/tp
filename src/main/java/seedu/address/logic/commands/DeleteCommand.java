@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -35,6 +36,8 @@ public class DeleteCommand extends ConfirmableCommand {
     public static final String MESSAGE_MULTIPLE_MATCHING_NAMES =
             "As there are multiple matching names in the address book, please delete using index instead.";
     private static final String MESSAGE_PERSON_NOT_FOUND = "No person found with the given name.";
+    private static final String MESSAGE_TUTOR_ASSIGNED =
+            "%s is assigned to the following class(es):\n%s.\nPlease reassign tutor(s) or delete the class(es) first.";
 
     private final Index targetIndex;
     private final Name targetName;
@@ -75,7 +78,13 @@ public class DeleteCommand extends ConfirmableCommand {
     @Override
     public void validate(Model model) throws CommandException {
         // If the person to delete cannot be found, the command is invalid and will throw
-        getPersonToDelete(model);
+        Person personToDelete = getPersonToDelete(model);
+        List<Lesson> lessonsWithTutor = model.getLessonsAssignedToTutor(personToDelete);
+        if (!lessonsWithTutor.isEmpty()) {
+            String classNames = lessonsWithTutor.stream().map(lesson -> lesson.getClassName().toString())
+                    .collect(Collectors.joining(", "));
+            throw new CommandException(String.format(MESSAGE_TUTOR_ASSIGNED, personToDelete.getName(), classNames));
+        }
     }
 
     @Override
@@ -162,7 +171,7 @@ public class DeleteCommand extends ConfirmableCommand {
 
     private void handleAffectedLessons(IdentificationNumber personIdToDelete, Model model) {
         // Create a copy of the lesson list to iterate over, to avoid modification issues.
-        List<Lesson> lessonsToUpdate = new java.util.ArrayList<>(model.getFilteredLessonList());
+        List<Lesson> lessonsToUpdate = new java.util.ArrayList<>(model.getAddressBook().getLessonList());
 
         for (Lesson lesson : lessonsToUpdate) {
             // Check if the person to be deleted is enrolled in this lesson.
