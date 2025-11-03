@@ -164,7 +164,7 @@ This section describes some noteworthy details on how certain features are imple
 ### Add Feature
 
 The `AddCommand` allows users to create and add a new Person entry into the address book.
-Each person must have a **name**, **role**, **phone number**, **email**, and **address**. Optional **tags** may be included. During execution, the command validates input fields, automatically generates an `IdentificationNumber` based on the user’s role, and prevents duplicates entries.
+Each person must have a **name**, **role**, **phone number**, **email**, and **address**. Optional **tags** may be included. During execution, the command validates input fields, automatically generates an `IdentificationNumber` based on the user’s role, and prevents duplicate entries.
 
 Below is an example execution flow:
 
@@ -505,7 +505,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ##### Performance
 
-* The system should be able to hold up to 1000 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
+* The system should be able to hold up to 200 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
+* The system should remain functional and responsive with up to 1000 persons.
 * The application should have a startup time of under 5 seconds.
 
 ##### Usability
