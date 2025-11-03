@@ -69,7 +69,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
@@ -82,11 +82,11 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Lesson` objects residing in the `Model`.
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -106,9 +106,9 @@ How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is returned to the `LogicManager`.
 3. If the command requires confirmation, the `ConfirmationManager` handles the user's Y/N response to either continue to execution or cancel the command.
-3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+4. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+5. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -119,21 +119,21 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="800" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` and `Lesson` objects (which are contained in a `UniquePersonList` object and `UniqueLessonList` object respectively).
+* stores the currently 'selected' `Person` and `Lesson` objects (e.g., results of a search query) as separate _filtered_ lists which are exposed to outsiders as an unmodifiable `ObservableList<Person>` and an unmodifiable `ObservableList<Lesson>` respectively that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` and `Lesson` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` and `Lesson` needing their own `Tag` objects.<br>
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="800" />
 
@@ -142,7 +142,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-F14a-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -291,13 +291,12 @@ The following activity diagram summarizes what happens when a user executes a ne
 ### Product scope
 
 **Target user profile**:
-
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-* tuition centre HR admin
+* Has a need to manage a significant number of contacts
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
+* Tuition centre HR admin
 
 **Value proposition**:
 * General HR management of the students and staff in the centre
@@ -305,7 +304,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 * Students and tutors can be filtered by subject/class
 * More intuitive and easier to use than software like excel
 * Lightweight, offline address book which provide the essential HR features without the overhead of fullblown HR software
-
 
 ### User stories
 
@@ -344,7 +342,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | owner                           | generate statistics with a breakdown of salaries and payments                           | view and plan my finances at a glance                                                                                                      |
 | `*`      | forgetful user                  | view my recent commands                                                                 | remember what I typed or changes i made previously                                                                                         |
 | `*`      | more advanced user              | schedule frequently used commands                                                       | save on repetitive work                                                                                                                    |
-
 
 *{More to be added}*
 
@@ -496,7 +493,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 2.
 
-* 2b. Enrollment is not possible (clashes with existing class/ class is fully enrolled/ student is already enrolled).
+* 2b. Enrollment is not possible (clashes with existing class / student is already enrolled).
   * 2b1. Rollcall shows an error message.
 
     Use case resumes at step 2.
@@ -565,12 +562,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System Features / Functions**
 * **Import**: Bringing in data from external sources (CSV, JSON).
-* **Export**: Sending system data to an external format (e.g., for reports).
+* **Export**: Sending system data to an external format (e.g. for reports).
 * **Archive**: Moving inactive data (students, staff, or contacts) out of active use without deleting it.
 * **Purge**: Completely removing all data from the system.
 * **Backup**: Creating a copy of the database for recovery or preservation.
 * **Statistics**: Summarized financial or operational reports generated by the system.
-* **Overview**: A summarized view of important system information (e.g., contacts, classes, schedule).
+* **Overview**: A summarized view of important system information (e.g. contacts, classes, schedule).
 * **Undo / Redo**: Reverting or reapplying the most recent action.
 * **Schedule (Commands)**: Setting commands to run automatically at specified times.
 
@@ -602,73 +599,235 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. Exiting
+3. Exiting
 
    1. Type exit into the command bar and hit enter.<br>
       Expected: Program should exit
+      
+### Adding a person
+
+1. Adding a person into the address book.
+
+   1. Prerequisites: Application must be opened.
+
+   2. Test case: `add n/John r/tutor p/98765432 e/john@email.com a/123 rd`<br>
+      Expected: A contact is added to the address book. Details of the added contact are shown in the result message.
+
+   3. Incorrect add commands to try: `add`, `add n/John`, `add n/John r/teacher p/98765432 e/john@email.com a/123 rd`<br>
+      Expected: No contact is added to the list. Error details are shown in the result message.
+
+2. Adding a person with the same phone number as a person in the address book.
+
+   1. Prerequisites: A contact with the phone number `98765432` is in the address book.
+
+   2. Test case: `add n/Jane r/student p/98765432 e/jane@email.com a/456 rd`<br>
+      Expected: No contact is added to the list. Error details are shown in the result message.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while all persons are being shown.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: Have one person in the address book with the name "John" and is not at the first index. List all persons using the `list` command.
 
-   1. Test case: `delete 1`<br>
-      Expected: Confirmation shows up and if user is to type in 'Y', first contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    2. Test case: `delete n/John`<br>
+       Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the contact with the name "John" to be deleted from the list. Details of the deleted contact are shown in the result message.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    3. Test case: `delete 1`<br>
+       Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the contact at the first index to be deleted. Details of the deleted contact are shown in the result message.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    4. Test case: `delete 0`<br>
+       Expected: No contact is deleted. Error details are shown in the result message.
 
-1. Deleting a person while using find
-    1. Prerequisites: Using `find n/yeoh` to list 1 person.
+    5. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size).<br>
+       Expected: Similar to previous.
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+### Editing a person
+
+1. Editing a person while all persons are being shown.
+
+    1. Prerequisites: Have one person in the address book with the name "John" and is at the first index. List all persons using the `list` command.
+
+    2. Test case: `edit 1 n/Jack`<br>
+       Expected: Contact with the name "John" has name edited to "Jack". Details of the edited contact are shown in the result message.
+
+    3. Test case: `edit 0`<br>
+       Expected: No contact is edited. Error details are shown in the result message.
+
+    4. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size).<br>
+       Expected: Similar to previous.
+
+### Adding a class
+
+1. Adding a class into the address book.
+
+    1. Prerequisites: A tutor of `ID` "T0000001" must be in the address book.
+
+    2. Test case: `addc c/M2a d/Monday tm/1200-1400 tt/T0000001`<br>
+       Expected: A class is added to the address book. Details of the added class are shown in the result message.
+
+    3. Test case: `addc c/Math d/Monday tm/1200-1400 tt/T0000001`<br>
+       Expected: No class is added to the list. Error details are shown in the result message.
+
+    4. Other incorrect add commands to try: `add c/M2a d/Monday tm/1200-1400 tt/T0000001`, `addc c/M2a d/Monday tm/1200-1400 tt/T0000000`<br>
+       Expected: Similar to previous.
+
+2. Adding a class without having the specified tutor ID in the address book.
+
+    1. Prerequisites: A tutor of `ID` "T9999999" must not be in the address book.
+
+    2. Test case: `addc c/M2a d/Monday tm/1200-1400 tt/T9999999`<br>
+       Expected: No class is added to the list. Error details are shown in the result message.
 
 ### Deleting a class
 
-1. Delete a class while all classes are shown
+1. Deleting a class while all classes are being shown.
 
-   1. Prerequisites: List all classes using the `listc` command. Multiple classes in the list.
+    1. Prerequisites: Have one class in the address book with the class name "M2a" and is not at the first index. List all classes using the `listc` command.
 
-   1. Test case: `delete 1`<br>
-       Expected: Confirmation shows up and if user is to type in 'Y', first class is deleted from the list.
-           Details of the deleted class shown in the status message. Timestamp in the status bar is updated.
+    2. Test case: `deletec c/M2a`<br>
+       Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the class with the class name "M2a" to be deleted from the list. Details of the deleted class are shown in the result message.
 
-### Undoing a Command
+    3. Test case: `delete 1`<br>
+       Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the class at the first index to be deleted. Details of the deleted class are shown in the result message.
 
-1. Undoing a delete
+    4. Test case: `delete 0`<br>
+       Expected: No class is deleted. Error details are shown in the result message.
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. Type `delete 1` and then type `Y` to confirm.
-
-    1. Test case: `undo`<br>
-         Expected: Undo is successful and person is no longer deleted and should be on the list.
-
-    1. Other commmands to try undoing: `editc`, `edit`, `deletec` - Refer to Usage upon typing for command format
-
-### Editing a Person
-
-1. Editing a person while all persons are shown
-
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-    1. Test case: `edit 1 p/91234567 e/johndoe@example.com`<br>
-       Expected: Edit is successful and person 1 should have a new phone number and email.
-
-    1. Test case: `edit 0 n/bob bobson`
-        Expected: Edit is unsuccessful and error message is shown
-
-    1. Other incorrect delete commands to try: `edit`, `edit x n/test`, `edit 1 /test`, `edit 1 p/1`  (where x is larger than the list size)<br>
+    5. Other incorrect delete commands to try: `deletec`, `deletec x` (where x is larger than the list size).<br>
        Expected: Similar to previous.
+
+### Editing a class
+
+1. Editing a class while all classes are being shown.
+
+    1. Prerequisites: Have one class in the address book with the class name "M2a" and is at the first index. List all classes using the `listc` command.
+
+    2. Test case: `editc 1 c/S3b`<br>
+       Expected: Class with the class name "M2a" has class name edited to "S3b". Details of the edited class are shown in the result message.
+
+    3. Test case: `editc 0`<br>
+       Expected: No class is edited. Error details are shown in the result message.
+
+    4. Other incorrect edit commands to try: `editc`, `editc x` (where x is larger than the list size).<br>
+       Expected: Similar to previous.
+
+### Enrolling a person
+
+1. Enrolling a student into a class.
+
+    1. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" exist in the address book.
+
+    2. Test case: `enrol id/s0000001 c/M2a`<br>
+       Expected: Student with `ID` "S0000001" is enrolled into the class "M2a".
+
+2. Enrolling a student into a class that does not exist in the address book.
+
+    1. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" does not exist in the address book.
+ 
+    2. Test case: `enrol id/s0000001 c/M2a`<br>
+       Expected: An error message will be displayed.
+
+### Removing a student from a class
+
+1. Removing a student from a class.
+
+    1. Prerequisites: Student with `ID` "S0000001" is enrolled in a class with the class name "M2a".
+
+    2. Test case: `unenrol id/s0000001 c/M2a`<br>
+       Expected: Student with `ID` "S0000001" is removed from the class "M2a".
+
+2. Removing a student from a class that is not enrolled in a class.
+
+    1. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" exist in the address book. The student is not enrolled in the class.
+
+    2. Test case: `unenrol id/s0000001 c/M2a`<br>
+       Expected: An error message will be displayed.
+
+### Finding a person
+
+1. Finding a person in the address book.
+
+    1. Prerequisites: Have a person with the name "John" and an enrolled class "M2a".
+
+    2. Test case: `find n/John`<br>
+       Expected: Contacts that include the name "John" are listed.
+
+    3. Test case: `find c/M2a`<br>
+       Expected: Contacts that are enrolled in the class "M2a" are listed.
+
+    4. Incorrect find command to try: `find`.<br>
+       Expected: Error message is displayed.
+
+### Finding a class
+
+1. Finding a class in the address book.
+
+    1. Prerequisites: Have a person with the class name "M2a" on "Monday".
+
+    2. Test case: `findc c/M2a`<br>
+       Expected: Class with the class name "M2a" is listed.
+
+    3. Test case: `findc d/Monday`<br>
+       Expected: Classes that are held on "Monday" are listed.
+
+    4. Incorrect find command to try: `findc`.<br>
+       Expected: Error message is displayed.
+
+### Marking a student's attendance
+
+1. Marking a student's attendance.
+
+    1. Prerequisites: Student with `ID` "S0000001" is enrolled in a class with the class name "M2a".
+
+    2. Test case: `mark id/s0000001 c/M2a`<br>
+       Expected: Student with `ID` "S0000001" is marked present in the class "M2a" on the day the user executes the command.
+
+2. Marking a student's attendance from a class that they are not enrolled in.
+
+    1. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" exist in the address book. The student is not enrolled in the class.
+
+    2. Test case: `mark id/s0000001 c/M2a`<br>
+       Expected: An error message will be displayed.
+
+### Unmarking a student's attendance
+
+1. Unmarking a student's attendance.
+
+    1. Prerequisites: Student with `ID` "S0000001" is enrolled in a class with the class name "M2a" and marked present on the day the user wants to execute the `unmark` command.
+
+    2. Test case: `unmark id/s0000001 c/M2a`<br>
+       Expected: Student with `ID` "S0000001" is marked not present in the class "M2a".
+
+2. Unmarking a student's attendance from a class that they are not marked present in.
+
+    1. Prerequisites: Student with `ID` "S0000001" is enrolled in a class with the class name "M2a" and marked not present on the day the user wants to execute the `unmark` command.
+
+    2. Test case: `unmark id/s0000001 c/M2a`<br>
+       Expected: An error message will be displayed.
+
+### Undo a command
+
+1. Undo a command.
+
+    1. Prerequisites: An undoable command has been executed. [Undoable commands](UserGuide.md/#undoing-a-command--undo)
+
+    2. Test case: `undo`<br>
+       Expected: The address book reverts back to the state before the most recent undoable command was executed, with the result message showing the command that was undone.
+
+### Redo a command
+
+1. Redo a command.
+
+    1. Prerequisites: An undo command has been executed.
+
+    2. Test case: `redo`<br>
+       Expected: The address book reverts back to the state before the most recent `undo` command was executed, with the result message showing the command that was redone.
