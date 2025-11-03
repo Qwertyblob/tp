@@ -644,7 +644,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all classes using the `listc` command. Multiple classes in the list.
 
    1. Test case: `delete 1`<br>
-       Expected: Confirmation shows up and if user is to type in 'Y', first class is deleted from the list. 
+       Expected: Confirmation shows up and if user is to type in 'Y', first class is deleted from the list.
            Details of the deleted class shown in the status message. Timestamp in the status bar is updated.
 
 ### Undoing a Command
@@ -655,7 +655,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `undo`<br>
          Expected: Undo is successful and person is no longer deleted and should be on the list.
-   
+
     1. Other commmands to try undoing: `editc`, `edit`, `deletec` - Refer to Usage upon typing for command format
 
 ### Editing a Person
