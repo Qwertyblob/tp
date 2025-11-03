@@ -657,3 +657,18 @@ testers are expected to do more *exploratory* testing.
          Expected: Undo is successful and person is no longer deleted and should be on the list.
    
     1. Other commmands to try undoing: `editc`, `edit`, `deletec` - Refer to Usage upon typing for command format
+
+### Editing a Person
+
+1. Editing a person while all persons are shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `edit 1 p/91234567 e/johndoe@example.com`<br>
+       Expected: Edit is successful and person 1 should have a new phone number and email.
+
+    1. Test case: `edit 0 n/bob bobson`
+        Expected: Edit is unsuccessful and error message is shown
+
+    1. Other incorrect delete commands to try: `edit`, `edit x n/test`, `edit 1 /test`, `edit 1 p/1`  (where x is larger than the list size)<br>
+       Expected: Similar to previous.
