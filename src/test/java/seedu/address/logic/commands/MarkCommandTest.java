@@ -26,7 +26,6 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.LessonBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class MarkCommandTest {
 
