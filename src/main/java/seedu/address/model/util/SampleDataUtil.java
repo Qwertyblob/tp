@@ -40,7 +40,7 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new IdentificationNumber("S0000001"), new Name("Alex Yeoh"),
-                new Role("student"), getLessonSet(LESSON_M2A.getClassName().toString()), new Phone("87438807"),
+                new Role("student"), getFullLessonSet(LESSON_M2A), new Phone("87438807"),
                 new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet()),
@@ -55,14 +55,14 @@ public class SampleDataUtil {
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("math")),
             new Person(new IdentificationNumber("S0000002"),
-                new Name("David Li"), new Role("student"), getLessonSet(LESSON_S2B.getClassName().toString()),
+                new Name("David Li"), new Role("student"), getFullLessonSet(LESSON_S2B),
                 new Phone("91031282"),
                 new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("newcomer")),
             new Person(new IdentificationNumber("S0000003"),
-                new Name("Irfan Ibrahim"), new Role("student"), getLessonSet(LESSON_M2A.getClassName().toString(),
-                    LESSON_E2C.getClassName().toString()), new Phone("92492021"),
+                new Name("Irfan Ibrahim"), new Role("student"), getFullLessonSet(LESSON_M2A,
+                    LESSON_E2C), new Phone("92492021"),
                 new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet()),
@@ -103,11 +103,19 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a lesson set containing the list of strings given.
      */
     public static Set<Lesson> getLessonSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Lesson::makeLessonTest)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a full lesson set containing the list of lessons given.
+     */
+    public static Set<Lesson> getFullLessonSet(Lesson... lessons) {
+        return Arrays.stream(lessons)
                 .collect(Collectors.toSet());
     }
 

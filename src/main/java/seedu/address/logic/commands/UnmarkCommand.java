@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.LessonCascadeUpdater;
 
 /**
  * Unmarks a student's attendance for a specific class on the current day.
@@ -67,7 +69,6 @@ public class UnmarkCommand extends Command {
         if (lessonOptional.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_LESSON_NOT_FOUND, className));
         }
-
         Lesson lessonToUnmark = lessonOptional.get();
 
         Optional<Person> studentToUnmarkOptional = model.getAddressBook().getPersonList().stream()
@@ -109,6 +110,11 @@ public class UnmarkCommand extends Command {
         );
 
         model.setLesson(lessonToUnmark, updatedLesson);
+
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(model, lessonToUnmark, updatedLesson);
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_SUCCESS,
                 studentToUnmark.getName().fullName, className.fullClassName, attendanceDate);

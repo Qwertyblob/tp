@@ -51,20 +51,42 @@ public class MarkCommandTest {
     @Test
     public void execute_validStudentAndLesson_success() {
         ClassName className = new ClassName(VALID_CLASS_MATH);
-        Person studentToMark = AMY;
-        MarkCommand markAttendanceCommand = new MarkCommand(studentToMark.getId(), className);
+        IdentificationNumber studentId = AMY.getId(); // Use the ID
+        MarkCommand markAttendanceCommand = new MarkCommand(studentId, className);
 
         Lesson lessonToUpdate = expectedModel.getFilteredLessonList().stream()
                 .filter(l -> l.getClassName().equals(className)).findFirst().get();
 
-        Map<LocalDate, Set<IdentificationNumber>> updatedAttendance = new HashMap<>(lessonToUpdate.getAttendance());
-        updatedAttendance.computeIfAbsent(LocalDate.now(), k -> new HashSet<>()).add(studentToMark.getId());
+        Person personToUpdate = expectedModel.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(studentId)).findFirst().get();
 
+        // Create the updated Lesson
+        Map<LocalDate, Set<IdentificationNumber>> updatedAttendance = new HashMap<>(lessonToUpdate.getAttendance());
+        updatedAttendance.computeIfAbsent(LocalDate.now(), k -> new HashSet<>()).add(studentId);
         Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withAttendance(updatedAttendance).build();
+
+        // Create the updated Person
+        Set<Lesson> updatedLessonSet = new HashSet<>(personToUpdate.getLessons());
+        updatedLessonSet.removeIf(l -> l.getClassName().equals(className)); // Remove old
+        updatedLessonSet.add(updatedLesson); // Add new
+
+        Person updatedAmy = new Person(
+                personToUpdate.getId(),
+                personToUpdate.getName(),
+                personToUpdate.getRole(),
+                updatedLessonSet,
+                personToUpdate.getPhone(),
+                personToUpdate.getEmail(),
+                personToUpdate.getAddress(),
+                personToUpdate.getTags()
+        );
+
+        // Set both updated objects in the expected model
         expectedModel.setLesson(lessonToUpdate, updatedLesson);
+        expectedModel.setPerson(personToUpdate, updatedAmy); // Use the person from the model as the target
 
         String expectedMessage = String.format(MarkCommand.MESSAGE_SUCCESS,
-                Messages.shortenedFormatPerson(studentToMark), Messages.shortenedFormatLesson(lessonToUpdate));
+                Messages.shortenedFormatPerson(personToUpdate), Messages.shortenedFormatLesson(lessonToUpdate));
 
         assertCommandSuccess(markAttendanceCommand, model, expectedMessage, expectedModel);
     }
