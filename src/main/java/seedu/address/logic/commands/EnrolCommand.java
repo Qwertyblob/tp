@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.person.IdentificationNumber;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.LessonCascadeUpdater;
 
 /**
  * Enrols a student to a lesson using their ID and the lesson's class name.
@@ -127,6 +129,11 @@ public class EnrolCommand extends Command {
         );
 
         model.setPerson(studentToEnrol, enrolledStudent);
+
+        LessonCascadeUpdater.updateStudentsWithEditedLesson(model, lessonToEnrolIn, newLesson);
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         // Update AddressBook state pointer
         String output = String.format(MESSAGE_ENROL_SUCCESS,
                 Messages.shortenedFormatPerson(studentToEnrol), Messages.shortenedFormatLesson(newLesson));
