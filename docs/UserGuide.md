@@ -8,6 +8,12 @@
 
 **Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff. With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software.
 
+Users of Rollcall should:
+1. Have to manage hundreds of contacts.
+2. Not need to be technologically proficient.
+3. Be comfortable typing commands to execute them.
+4. Know basic HR functions in a tuition centre.
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -16,14 +22,16 @@
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html). Follow the instructions on the page to install the correct Java version.
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for Rollcall.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar rollcall.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, navigate into the folder you put the jar file in with: <br> `cd path_to_home_folder` <br> Replace `path_to_home_folder` with the actual directory path to the folder on your computer.
+1. Run the application with the terminal command: <br>`java -jar rollcall.jar`
+1. You should see a few lines and warnings appear on the terminal. You can ignore them.
+1. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    ![Ui2](images/Ui2.png)
 
