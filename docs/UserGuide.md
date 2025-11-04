@@ -352,6 +352,7 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
 * If there are duplicate names, the system will prevent the command from executing and prompt the user to delete using index instead.
+* Tutors already assigned to a class cannot be deleted. If you want to delete them, edit or delete the assigned class first.
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 * On successful execution, a success message showing the details of the deleted person will be shown. Specific error messages will be shown in the case of invalid inputs.
