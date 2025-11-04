@@ -505,8 +505,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ##### Performance
 
-* The system should be able to hold up to 200 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`).
-* The system should remain functional and responsive with up to 1000 persons.
+* The system should be able to hold up to 1000 persons (students and tutors) **without exceeding 1 second** for any basic command (e.g. `add`, `delete`, `find`), though it is typically expected to manage around 200 persons under normal conditions.
 * The application should have a startup time of under 5 seconds.
 
 ##### Usability
