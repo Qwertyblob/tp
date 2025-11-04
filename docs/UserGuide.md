@@ -260,7 +260,7 @@ Format: `mark id/STUDENT_ID c/CLASS_NAME`
 * The student will be marked present only for the current day.
 * Cannot mark a student who is already marked as present for the specified class on the same day.
 * Attendance for the week is shown as the colour of the class bubble on each person. Red indicates absent, while green indicates present.
-  * Attendance refreshes every week at Monday 0000, though previous weeks attendances will still be stored with the class <br> i.e. The bubble will reset to red every week to show the current week's attendance.
+  * Attendance refreshes every week at Monday 0000 hours, though previous weeks attendances will still be stored with the class <br> i.e. The bubble will reset to red every week to show the current week's attendance.
 * On successful execution, a success message indicating the student and class will be shown. Specific error messages will be shown in the case of invalid inputs. The red bubble indicating the class will turn green.
 
 Examples:
@@ -352,10 +352,14 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * The index **must be a positive integer** 1, 2, 3, …​
 * Alternatively, deletes the person in the displayed list whose name matches the specified `NAME`.
 * If there are duplicate names, the system will prevent the command from executing and prompt the user to delete using index instead.
-* Tutors already assigned to a class cannot be deleted. If you want to delete them, edit or delete the assigned class first.
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
 * On successful execution, a success message showing the details of the deleted person will be shown. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="warning" seamless>
+
+**Warning:** Tutors already assigned to a class cannot be deleted. If you want to delete them, reassign the class' tutor or delete the assigned class with `editc` or `deletec` first.
+</box>
 
 Examples:
 * `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
