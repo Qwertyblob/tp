@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -50,26 +51,48 @@ public class UnmarkCommandTest {
     @Test
     public void execute_validStudentAndLesson_success() throws CommandException {
         ClassName className = new ClassName(VALID_CLASS_MATH);
-        Person studentToUnmark = AMY;
+        IdentificationNumber studentId = AMY.getId();
         LocalDate today = LocalDate.now();
 
-        // Mark attendance first to set up the state for unmarking
-        new MarkCommand(studentToUnmark.getId(), className).execute(model);
-        new MarkCommand(studentToUnmark.getId(), className).execute(expectedModel);
+        // Setup: Mark the student in both models first
+        new MarkCommand(studentId, className).execute(model);
+        new MarkCommand(studentId, className).execute(expectedModel);
 
-        UnmarkCommand unmarkCommand = new UnmarkCommand(studentToUnmark.getId(), className, Optional.of(today));
+        UnmarkCommand unmarkCommand = new UnmarkCommand(studentId, className, Optional.of(today));
 
-        Lesson lessonToUpdate = expectedModel.getFilteredLessonList().stream()
+        Lesson lessonToUnmark = expectedModel.getFilteredLessonList().stream()
                 .filter(l -> l.getClassName().equals(className)).findFirst().get();
+        Person personToUpdate = expectedModel.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(studentId)).findFirst().get();
 
-        Map<LocalDate, Set<IdentificationNumber>> updatedAttendance = new HashMap<>(lessonToUpdate.getAttendance());
-        updatedAttendance.get(today).remove(studentToUnmark.getId());
+        Map<LocalDate, Set<IdentificationNumber>> unmarkedAttendance = new HashMap<>(lessonToUnmark.getAttendance());
+        if (unmarkedAttendance.containsKey(today)) {
+            unmarkedAttendance.get(today).remove(studentId);
+        }
+        
+        Lesson updatedLesson = new LessonBuilder(lessonToUnmark).withAttendance(unmarkedAttendance).build();
 
-        Lesson updatedLesson = new LessonBuilder(lessonToUpdate).withAttendance(updatedAttendance).build();
-        expectedModel.setLesson(lessonToUpdate, updatedLesson);
+        // Create the "updated" Person with the new lesson
+        Set<Lesson> updatedLessonSet = new HashSet<>(personToUpdate.getLessons());
+        updatedLessonSet.removeIf(l -> l.getClassName().equals(className)); // Remove old lesson version
+        updatedLessonSet.add(updatedLesson); // Add new lesson version
+        Person updatedAmy = new Person(
+                personToUpdate.getId(),
+                personToUpdate.getName(),
+                personToUpdate.getRole(),
+                updatedLessonSet,
+                personToUpdate.getPhone(),
+                personToUpdate.getEmail(),
+                personToUpdate.getAddress(),
+                personToUpdate.getTags()
+        );
+
+        // Set both updated objects in the expected model
+        expectedModel.setLesson(lessonToUnmark, updatedLesson);
+        expectedModel.setPerson(personToUpdate, updatedAmy); // This prevents PersonNotFoundException
 
         String expectedMessage = String.format(UnmarkCommand.MESSAGE_SUCCESS,
-                studentToUnmark.getName().fullName, className.fullClassName, today);
+                personToUpdate.getName().fullName, className.fullClassName, today);
 
         assertCommandSuccess(unmarkCommand, model, expectedMessage, expectedModel);
     }
