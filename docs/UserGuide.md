@@ -8,6 +8,12 @@
 
 **Rollcall** is a **lightweight**, **local** address-book tailored to **tuition centres** that lets admin staff **add**, **find**, **schedule,** and **manage** students and staff. With **simple** text commands, it is **faster** and more **intuitive** than other spreadsheet softwares. It includes all the **essential** HR features without the hassle and complexity of fullblown HR software.
 
+Users of Rollcall should:
+1. Have to manage hundreds of contacts.
+2. Not need to be technologically proficient.
+3. Be comfortable typing commands to execute them.
+4. Know basic HR functions in a tuition centre.
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -16,14 +22,16 @@
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html). Follow the instructions on the page to install the correct Java version.
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14a-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for Rollcall.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar rollcall.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, navigate into the folder you put the jar file in with: <br> `cd path_to_home_folder` <br> Replace `path_to_home_folder` with the actual directory path to the folder on your computer.
+1. Run the application with the terminal command: <br>`java -jar rollcall.jar`
+1. You should see a few lines and warnings appear on the terminal. You can ignore them.
+1. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    ![Ui2](images/Ui2.png)
 
@@ -57,10 +65,10 @@
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
+* Parameters in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/new` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+* Parameters with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
@@ -97,13 +105,14 @@ Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
   * Domain is made up of domain labels, separated by periods.
   * Ending domain label must be at least 2 characters long.
   * Each domain label must only have alphanumeric characters or hyphens, and must start and end with an alphanumeric character.
-* There should not be any spaces for `TAG`, e.g. `t/only friday` is not allowed.
+* There should not be any spaces for `TAG`, and only alphanumeric characters are allowed. <br> e.g. `t/only friday` is not allowed.
 * When added, each person is assigned a unique ID with the following format:
   * Student: "S", followed by 7 numbers. e.g. S0000001.
   * Tutor: "T", followed by 7 numbers. e.g. T0000001.
 * Duplicate people are identified as those with the same `NAME`, `PHONE_NUMBER` and `EMAIL`.
   * i.e. There can exist multiple people with the same `NAME`, they will be uniquely identified by their ID.
   * No two people should have the same `PHONE_NUMBER` or `EMAIL`.
+* On successful execution, a success message showing the details of the added person will be shown. Specific error messages will be shown in the case of invalid inputs.
 
 <box type="tip" seamless>
 
@@ -128,6 +137,7 @@ Format: `addc c/CLASS_NAME d/DAY tm/TIME tt/TUTOR_ID [t/TAG]…​`
   * e.g. If `M2a, Monday, 1200-1400, T0000001` already exists in the address book, `S3b, Monday, 1300-1500, T0000001` cannot be added.
 * Duplicate classes are classes with the same `CLASS_NAME`.
   * i.e. There cannot exist duplicate classes.
+* On successful execution, a success message showing the details of the added class will be shown. Specific error messages will be shown in the case of invalid inputs.
 
 <box type="tip" seamless>
 
@@ -157,15 +167,21 @@ Edits an existing person in the address book.
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
+* At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* When editing tags, the existing tags of the person will be removed <br> i.e. adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+* All parameters must follow the valid format stated in `add`.
+* On successful execution, a success message showing the details of the edited person will be shown. Specific error messages will be shown in the case of invalid inputs.
 
 <box type="warning" seamless>
 
 **Warning:** Roles and IDs are not allowed to be edited. If you need to change the role of a person, please use `delete` and `add`.
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** Use `find` then `edit` to filter the list down to fewer people before editing.
 </box>
 
 Examples:
@@ -179,11 +195,17 @@ Edits an existing class in the address book.
 Format: `editc INDEX [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`
 
 * Edits the class at the specified `INDEX`. The index refers to the index number shown in the displayed class list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
+* At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the class will be removed i.e adding of tags is not cumulative.
-* You can remove all the class’ tags by typing `t/` without
-  specifying any tags after it.
+* When editing tags, the existing tags of the class will be removed <br> i.e. adding of tags is not cumulative.
+* You can remove all the class’ tags by typing `t/` without specifying any tags after it.
+* All parameters must follow the valid format stated in `addc`.
+* On successful execution, a success message showing the details of the edited class will be shown. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="tip" seamless>
+
+**Tip:** Use `findc` then `editc` to filter the list down to fewer classes before editing.
+</box>
 
 Examples:
 *  `edit 1 d/Tuesday tm/1500-1600` Edits the day and time of the 1st class to be `Tuesday` and `1500-1600` respectively.
@@ -199,6 +221,12 @@ Format: `enrol id/STUDENT_ID c/CLASS_NAME`
 * Cannot enrol a student who is already enrolled into the specified class.
 * Cannot enrol a student if they are already enrolled in another class that overlaps with the `TIME`.
   * e.g. If a student is already enrolled in `M2a, Monday, 1200-1400`, then they cannot be enrolled into `S3b, Monday, 1300-1500`.
+* On successful execution, a success message indicating the student and class will be shown. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="tip" seamless>
+
+**Tip:** Use `enrol` when a student joins a class.
+</box>
 
 Examples:
 *  `enrol id/S0000001 c/M2a` Enrols the student with the student ID `S0000001` into the class `M2a`.
@@ -211,6 +239,12 @@ Format: `unenrol id/STUDENT_ID c/CLASS_NAME`
 
 * The `STUDENT_ID` and `CLASS_NAME` must exist in the address book.
 * Cannot remove a student who is not enrolled into the specified class.
+* On successful execution, a success message indicating the student and class will be shown. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="tip" seamless>
+
+**Tip:** Use `unenrol` when a student quits a class, but the class still exists. If the class has been removed, it might be more helpful to use `deletec` to delete the entire class. All students in the deleted class will be automatically removed from it.
+</box>
 
 Examples:
 *  `unenrol id/S0000001 c/M2a` Removes the student with the student ID `S0000001` from the class `M2a`.
@@ -225,6 +259,9 @@ Format: `mark id/STUDENT_ID c/CLASS_NAME`
 * The `STUDENT_ID` must be currently enrolled in `CLASS_NAME`.
 * The student will be marked present only for the current day.
 * Cannot mark a student who is already marked as present for the specified class on the same day.
+* Attendance for the week is shown as the colour of the class bubble on each person. Red indicates absent, while green indicates present.
+  * Attendance refreshes every week at Monday 0000 hours, though previous weeks attendances will still be stored with the class <br> i.e. The bubble will reset to red every week to show the current week's attendance.
+* On successful execution, a success message indicating the student and class will be shown. Specific error messages will be shown in the case of invalid inputs. The red bubble indicating the class will turn green.
 
 Examples:
 *  `mark id/S0000001 c/M2a` Marks the student with the student ID `S0000001` present in the class `M2a` on the current day.
@@ -240,6 +277,7 @@ Format: `unmark id/STUDENT_ID c/CLASS_NAME [dt/DATE]`
 * `DATE` format must be `yyyy-MM-dd`.
 * If `DATE` is not specified, the current date will be unmarked if applicable, otherwise, the student will be unmarked only for the specified day.
 * Cannot unmark a student who is not marked as present for the specified class on the specified day.
+* On successful execution, a success message indicating the student and class will be shown. Specific error messages will be shown in the case of invalid inputs. The green bubble indicating the class will turn red.
 
 Examples:
 *  `unmark id/S0000001 c/M2a dt/2025-11-11` Unmarks the student with the student ID `S0000001`'s attendance in the class `M2a` on `2025-11-11`.
@@ -258,6 +296,7 @@ Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS_NAME] [p/PHONE_NUMBER] [e/EMAIL
 * Persons matching all criteria will be returned (i.e. `AND` search).
   e.g. `find n/John r/student` will return `John` with role `student`.
 * Extra/leading/trailing spaces should not affect the search.
+* On successful execution, the number of people found will be shown and the list of matching people will be displayed. Specific error messages will be shown in the case of invalid inputs. 
 
 Examples:
 * `find n/John` finds all names that contains `john`.
@@ -286,6 +325,7 @@ Format: `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 * Classes matching all criteria will be returned (i.e. `AND` search).
   e.g. `findc d/monday tm/1200-1400` will return classes on `Monday` at time `1200-1400`.
 * Extra/leading/trailing spaces should not affect the search.
+* On successful execution, the number of classes found will be shown and the list of matching classes will be displayed. Specific error messages will be shown in the case of invalid inputs.
 
 <box type="warning" seamless>
 
@@ -295,11 +335,14 @@ Format: `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 Example: `findc d/monday` Finds classes on Monday.
 ![result for 'findc d/monday'](images/findcDayMonday.png)
 
+<box type="tip" seamless>
+
+**Tip:** Use `findc d/DAY` to view all classes on that specific day.
+</box>
+
 ### Deleting a person: `delete`
 
 Deletes the specified person from the address book.
-
-You may find this useful for students who have graduated, or tutors who have left the centre.
 
 Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 
@@ -311,6 +354,12 @@ Format: `delete [-f] INDEX` or `delete [-f] n/NAME`
 * If there are duplicate names, the system will prevent the command from executing and prompt the user to delete using index instead.
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
+* On successful execution, a success message showing the details of the deleted person will be shown. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="warning" seamless>
+
+**Warning:** Tutors already assigned to a class cannot be deleted. If you want to delete them, reassign the class' tutor or delete the assigned class with `editc` or `deletec` first.
+</box>
 
 Examples:
 * `list` followed by `delete 2` then `Y` deletes the 2nd person in the address book.
@@ -319,23 +368,35 @@ Examples:
 * `delete n/Alice Yeo` followed by `Y` deletes the person with the name `Alice Yeo` in the current displayed list.
 * `delete -f n/Alice Yeo` deletes the person with the name `Alice Yeo` in the current displayed list without confirmation.
 
+<box type="tip" seamless>
+
+**Tip:** You may find `delete` useful for students who have graduated, or tutors who have left the centre.
+</box>
+
 ### Deleting a class: `deletec`
 
 Deletes a class from the address book, but does not delete the people in the class.
 
-You may find this useful if a class was created by mistake, or a class has been discontinued for any reason.
-
 Format: `deletec [-f] INDEX` or `deletec [-f] c/CLASS_NAME`
 
-* Deletes the class with the specified `INDEX` or `NAME`.
+* Deletes the class with the specified `INDEX` or `CLASS_NAME`.
+* The index refers to the index number shown in the displayed class list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Alternatively, deletes the class in the displayed list whose class name matches the specified `CLASS_NAME`.
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
+* On successful execution, a success message showing the details of the deleted class will be shown. Specific error messages will be shown in the case of invalid inputs.
 
 Examples:
 * `listc` followed by `deletec 3` then `Y` deletes the 3rd class in the address book.
 * `deletec c/M2a` followed by `Y` deletes the class "M2a".
 * `deletec c/S3b` followed by `N` cancels the command and does not delete anything.
 * `deletec -f c/S3b` deletes the class "S3b" without confirmation.
+
+<box type="tip" seamless>
+
+**Tip:** You may find `deletec` useful if a class was created by mistake, or a class has been discontinued for any reason.
+</box>
 
 ### Clearing all entries: `clear`
 
@@ -345,6 +406,12 @@ Format: `clear [-f]`
 
 * To prevent mistakes, the system will request a response of either `Y` or `N` to confirm if you want to proceed.
 * `-f` flag forces the command to execute without confirmation.
+* On successful execution, a success message will be shown. The address book will be empty.
+
+<box type="tip" seamless>
+
+**Tip:** `clear` can be used to purge the sample data before you start adding real people and classes. 
+</box>
 
 ### Undoing a command: `undo`
 
@@ -368,7 +435,7 @@ Format: `undo`
   * `deletec`
   * `redo`
   * `clear`
-* On successful execution, a success message stating what the undone action was will be shown to the user.
+* On successful execution, a success message stating what the undone action was will be shown to the user. An error message will show if there are no actions to undo.
   * e.g. Undoing an `add` command: <br>
   "Undo successful! <br>
   (Undo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
@@ -388,7 +455,7 @@ Format: `redo`
 
 * `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
-* On successful execution, a success message stating what the redone action was will be shown to the user.
+* On successful execution, a success message stating what the redone action was will be shown to the user. An error message will show if there are no actions to redo.
   * e.g. Redoing an undone `add` command: <br>
     "Redo successful! <br>
     (Redo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
@@ -438,6 +505,12 @@ Format `import FILE_PATH`
   }
   ```
 * The JSON file cannot be empty.
+* On successful execution, a success message will be shown specifying the `FILE_PATH`. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="tip" seamless>
+
+**Tip:** `import` can be used when you want to restore a backed up copy of the address book.
+</box>
 
 ### Exporting data: `export`
 
@@ -448,6 +521,12 @@ Format `export FILE_PATH`
 * The user can also click the File button on the GUI, then click Export to execute this command.
 * FILE_PATH must exist.
 * Cannot have a JSON file with a duplicate name in the target location.
+* On successful execution, a success message will be shown specifying the `FILE_PATH`. Specific error messages will be shown in the case of invalid inputs.
+
+<box type="tip" seamless>
+
+**Tip:** `export` can be used when you want to back up a copy of the address book.
+</box>
 
 ### Exiting the program : `exit`
 
