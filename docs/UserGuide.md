@@ -252,9 +252,9 @@ Format: `find [id/ID] [n/NAME] [r/ROLE] [c/CLASS_NAME] [p/PHONE_NUMBER] [e/EMAIL
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
-* The search is case-insensitive. e.g. `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * For `NAME`, `CLASS_NAME`, `TAG`, the order of the keywords does not matter. e.g. `n/Hans Bo` will match `n/Bo Hans`.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Persons matching all criteria will be returned (i.e. `AND` search).
   e.g. `find n/John r/student` will return `John` with role `student`.
 * Extra/leading/trailing spaces should not affect the search.
@@ -281,8 +281,8 @@ Format: `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]​`
 
 * At least one of the optional fields must be provided.
 * Multiple parameters are also allowed to narrow down the search.
-* The search is case-insensitive. e.g `m2a` will match `M2a`
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* The search is case-insensitive. e.g `m2a` will match `M2a`.
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Classes matching all criteria will be returned (i.e. `AND` search).
   e.g. `findc d/monday tm/1200-1400` will return classes on `Monday` at time `1200-1400`.
 * Extra/leading/trailing spaces should not affect the search.
@@ -375,7 +375,7 @@ Format: `undo`
 
 Examples:
 
-* User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`
+* User executes commands in this order: `add`, `list`, `edit`, `find`, `clear`.
 * `undo` undoes `clear`, restoring the state of the address book before it was cleared.
 * Executing another `undo` undoes `edit`, as `find` is not undoable and is skipped.
 * Executing another `undo` undoes `add`, as `list` is not undoable and is skipped.
@@ -389,12 +389,12 @@ Format: `redo`
 * `redo` only executes if an `undo` command has been executed before.
 * Chaining redos executes redo on the next most recent `undo` command.
 * On successful execution, a success message stating what the redone action was will be shown to the user.
-* * e.g. Redoing an undone `add` command: <br>
+  * e.g. Redoing an undone `add` command: <br>
     "Redo successful! <br>
     (Redo: New person added: Name: John Doe; Role: Student; ID: S0000006; Phone: 98765431; Email: johnd@example.com; Address: 123, Clementi Rd, 123465; Tags: )"
 
 Examples:
-* User executes commands in this order: `undo`, `list`, `undo`, `undo`
+* User executes commands in this order: `undo`, `list`, `undo`, `undo`.
 * `redo` redoes the most recent `undo`.
 * Executing another `redo` redoes the next `undo`.
 * Executing another `redo` redoes the next `undo`, as `list` is skipped.
