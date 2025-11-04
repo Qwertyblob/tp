@@ -695,10 +695,10 @@ testers are expected to do more *exploratory* testing.
     b. Test case: `deletec c/M2a`<br>
        Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the class with the class name "M2a" to be deleted from the list. Details of the deleted class are shown in the result message.
 
-    c. Test case: `delete 1`<br>
+    c. Test case: `deletec 1`<br>
        Expected: Output shows result message that requires a Y/N response from the user. Inputting "Y" causes the class at the first index to be deleted. Details of the deleted class are shown in the result message.
 
-    d. Test case: `delete 0`<br>
+    d. Test case: `deletec 0`<br>
        Expected: No class is deleted. Error details are shown in the result message.
 
     e. Other incorrect delete commands to try: `deletec`, `deletec x` (where x is larger than the list size).<br>
@@ -770,7 +770,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Finding a class in the address book.
 
-    a. Prerequisites: Have a person with the class name "M2a" on "Monday".
+    a. Prerequisites: Have a class with the class name "M2a" on "Monday".
 
     b. Test case: `findc c/M2a`<br>
        Expected: Class with the class name "M2a" is listed.
