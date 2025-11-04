@@ -69,7 +69,6 @@ public class UnmarkCommandTest {
         if (unmarkedAttendance.containsKey(today)) {
             unmarkedAttendance.get(today).remove(studentId);
         }
-        
         Lesson updatedLesson = new LessonBuilder(lessonToUnmark).withAttendance(unmarkedAttendance).build();
 
         // Create the "updated" Person with the new lesson
