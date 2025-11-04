@@ -732,7 +732,7 @@ testers are expected to do more *exploratory* testing.
 2. Enrolling a student into a class that does not exist in the address book.
 
     a. Prerequisites: Student with `ID` "S0000001" and a class with the class name "M2a" does not exist in the address book.
- 
+
     b. Test case: `enrol id/s0000001 c/M2a`<br>
        Expected: An error message will be displayed.
 

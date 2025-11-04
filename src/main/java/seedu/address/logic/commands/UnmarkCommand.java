@@ -69,7 +69,7 @@ public class UnmarkCommand extends Command {
         if (lessonOptional.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_LESSON_NOT_FOUND, className));
         }
-
+        
         Lesson lessonToUnmark = lessonOptional.get();
 
         Optional<Person> studentToUnmarkOptional = model.getAddressBook().getPersonList().stream()
