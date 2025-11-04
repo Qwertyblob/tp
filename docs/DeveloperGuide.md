@@ -870,7 +870,7 @@ testers are expected to do more *exploratory* testing.
    b. Test case: `export [FILE_PATH]`<br>
    Expected: An error message will be displayed.
 
-## Appendix: Planned Enhancements
+## **Appendix: Planned Enhancements**
 Team size: 5
 
 1. Users which forget to mark attendance for certain classes cannot do so retroactively. We plan to make `mark` more robust by allowing marking of attendance at specified dates.

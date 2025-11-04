@@ -521,8 +521,8 @@ Alternatively, use `import` and `export` commands to transfer your data.
 | **Find class**        | `findc [c/CLASS_NAME] [d/DAY] [tm/TIME] [tt/TUTOR_ID] [t/TAG]…​`<br> e.g., `findc d/Monday tm/1200-1400`                                                                         |
 | **Undo**              | `undo`                                                                                                                                                                           |
 | **Redo**              | `redo`                                                                                                                                                                           |
-| **Import file**       | `import`                                                                                                                                                                         |
-| **Export file**       | `export`                                                                                                                                                                         |
+| **Import file**       | `import [FILE_PATH]`                                                                                                                                                             |
+| **Export file**       | `export [FILE_PATH]`                                                                                                                                                             |
 | **List**              | `list`                                                                                                                                                                           |
 | **List classes**      | `listc`                                                                                                                                                                          |
 | **Help**              | `help`                                                                                                                                                                           |
